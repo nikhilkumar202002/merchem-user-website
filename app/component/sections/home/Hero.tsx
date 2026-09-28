@@ -8,7 +8,7 @@ import HeroBannerImg from "@/public/banner/hero-banner-1.webp";
 
 const Hero = () => {
   return (
-    <section className="relative w-full min-h-[80vh] lg:min-h-[80vh] flex items-center overflow-hidden bg-white">
+    <section className="relative w-full min-h-[85vh] lg:min-h-[85vh] flex items-center overflow-hidden bg-white">
       {/* Background Industrial Plant Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -45,7 +45,7 @@ const Hero = () => {
         </svg>
 
         {/* Tagline text inside bottom right of maroon curve */}
-        <div className="absolute bottom-8 right-10 text-right text-white space-y-1 font-semibold tracking-wider text-xs sm:text-sm lg:text-base leading-tight uppercase opacity-95">
+        <div className="absolute bottom-8 right-[95px] text-right text-white space-y-1 font-semibold tracking-wider text-xs sm:text-sm lg:text-base leading-tight uppercase opacity-95">
           <p>CHEMISTRY</p>
           <p>THAT SUPPORTS</p>
           <p>TOMORROW</p>
@@ -57,14 +57,14 @@ const Hero = () => {
       <div className="site-container relative z-20 w-full py-16 sm:py-20 lg:py-28">
         <div className="max-w-2xl lg:max-w-3xl space-y-6">
           {/* Hero Main Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-bold text-[#000000] leading-[1.18] tracking-tight font-manrope">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-bold text-[#000000] leading-[1.18] tracking-tight font-manrope">
             When People Create Wonders With{" "}
             <span className="text-[#980E27]">Rubber</span>, Our{" "}
             <span className="text-[#980E27]">Applause</span> For Them Is LOUD
           </h1>
 
           {/* Subtitle Description */}
-          <p className="text-sm sm:text-base md:text-lg text-[#474747] leading-relaxed max-w-xl font-normal">
+          <p className="text-sm sm:text-base md:text-lg text-[#474747] leading-relaxed max-w-2xl font-normal">
             Merchem India develops and supplies specialty chemical solutions
             designed to support performance, consistency and process efficiency
             across latex, tyre & rubber, paints and other industrial applications.
