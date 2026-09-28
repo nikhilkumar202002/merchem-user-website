@@ -27,19 +27,23 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--heading);
 }
 
-@utility container {
+.site-container {
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
   padding-left: 20px;
   padding-right: 20px;
+}
 
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
+  .site-container {
     padding-left: 50px;
     padding-right: 50px;
   }
+}
 
-  @media (min-width: 1024px) {
+@media (min-width: 1024px) {
+  .site-container {
     padding-left: 95px;
     padding-right: 95px;
   }
