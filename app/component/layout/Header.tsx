@@ -33,7 +33,7 @@ const Header = () => {
                 {/* Right: Top Red Contact Bar + Bottom Navigation Menu */}
                 <div className="flex-1 flex flex-col justify-between min-w-0">
                     {/* Top Bar - Primary Red (#980E27) */}
-                    <div className="bg-[#980E27] text-white text-xs sm:text-sm py-2 flex items-center justify-end gap-3 sm:gap-5 font-normal tracking-wide flex-wrap sm:flex-nowrap">
+                    <div className="hidden md:flex bg-[#980E27] text-white text-xs sm:text-sm py-2 items-center justify-end gap-3 sm:gap-5 font-normal tracking-wide">
                         <div className="flex items-center justify-end gap-3 sm:gap-5 font-normal tracking-wide flex-wrap sm:flex-nowrap pr-[20px] md:pr-[50px] lg:pr-[95px]">
                        
                         <a

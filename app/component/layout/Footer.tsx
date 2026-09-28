@@ -185,7 +185,6 @@ const Footer = () => {
               </a>
             </div>
 
-            {/* GSTIN / UIN */}
             <div className="pt-1 space-y-0.5">
               <p className="font-bold text-[#000000]">GSTIN/UIN:</p>
               <p className="tracking-wider text-xs sm:text-sm">32AACCM2015Q1ZL</p>
