@@ -1,6 +1,16 @@
 @import "tailwindcss";
 
+:root {
+  --primary: #980E27;
+  --heading: #000000;
+  --description: #474747;
+}
+
 @theme inline {
+  --color-primary: var(--primary);
+  --color-heading: var(--heading);
+  --color-description: var(--description);
+
   --font-sans: var(--font-manrope), system-ui, sans-serif;
   --font-primary: var(--font-manrope), system-ui, sans-serif;
   --font-secondary: var(--font-inter), system-ui, sans-serif;
@@ -10,6 +20,11 @@
 
 body {
   font-family: var(--font-manrope), system-ui, sans-serif;
+  color: var(--description);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading);
 }
 
 @utility container {
@@ -29,4 +44,3 @@ body {
     padding-right: 95px;
   }
 }
-
