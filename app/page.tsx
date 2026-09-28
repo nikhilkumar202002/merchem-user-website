@@ -1,9 +1,10 @@
 import React from 'react'
+import Hero from './component/sections/home/Hero'
 
-const page = () => {
+export default function Home() {
   return (
-    <div>page</div>
+    <main className="flex-1">
+      <Hero />
+    </main>
   )
 }
-
-export default page

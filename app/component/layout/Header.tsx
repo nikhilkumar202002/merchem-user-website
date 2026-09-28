@@ -14,7 +14,7 @@ const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <header className="w-full bg-white  sticky top-0 z-50">
+        <header className="w-full bg-white ">
             <div className="flex">
                 {/* Left: Logo spanning both top and bottom rows */}
                 <div className="flex items-center justify-center py-2 pr-6 shrink-0 pl-[20px] md:pl-[50px] lg:pl-[95px]">
