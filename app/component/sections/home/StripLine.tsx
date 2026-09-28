@@ -1,9 +1,11 @@
 import React from "react";
-import { TbFlask, TbMicroscope, TbRosetteCheck, TbHandshake } from "react-icons/tb";
+import {  TbMicroscope } from "react-icons/tb";
+import { FaAward, FaHandshake } from "react-icons/fa6";
+import { HiOutlineBeaker } from "react-icons/hi";
 
 const features = [
   {
-    icon: TbFlask,
+    icon: HiOutlineBeaker,
     title: "Specialty Chemicals",
     description: "Performance-focused chemical solutions for industrial applications.",
   },
@@ -13,12 +15,12 @@ const features = [
     description: "Solutions developed around specific material and process requirements.",
   },
   {
-    icon: TbRosetteCheck,
+    icon: FaAward,
     title: "Consistent Quality",
     description: "Focus on product consistency, reliability and process control.",
   },
   {
-    icon: TbHandshake,
+    icon: FaHandshake,
     title: "Customer Partnership",
     description: "Technical understanding and responsive support for industrial customers.",
   },
@@ -38,7 +40,7 @@ const StripLine = () => {
                   index !== 0 ? "lg:pl-7" : ""
                 } ${index !== features.length - 1 ? "lg:pr-6" : ""}`}
               >
-                <IconComponent className="w-10 h-10 text-[#980E27] shrink-0 stroke-[1.4]" />
+                <IconComponent className="w-9 h-9 text-[#980E27] shrink-0 stroke-[1.4]" />
                 <div className="space-y-1">
                   <h3 className="font-bold text-[#000000] text-base lg:text-[17px] leading-tight font-manrope">
                     {item.title}
