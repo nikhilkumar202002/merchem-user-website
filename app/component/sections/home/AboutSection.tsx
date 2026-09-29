@@ -8,23 +8,23 @@ import AboutImg from "@/public/images/About-image-1.webp";
 
 const AboutSection = () => {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
-      <div className="site-container">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-[81px]">
+      <div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[80px] items-center">
           {/* Left Column: Text & Content (6 cols) */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="pl-[95px]">
             {/* Category Subhead */}
-            <span className="font-bold text-[#980E27] text-sm sm:text-base tracking-wide block">
+            <span className="font-semibold text-[#980E27] text-sm sm:text-base tracking-wide block">
               About Merchem
             </span>
 
             {/* Main Heading */}
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#000000] leading-[1.2] tracking-tight font-manrope">
+            <h2 className="text-3xl sm:text-4xl lg:text-[45px] font-bold text-[#000000] leading-[1.17] tracking-[-0.03em] font-manrope max-w-[680px] pb-[20px]">
               Chemistry Designed Around Real Industrial Needs.
             </h2>
 
             {/* Sub-paragraphs */}
-            <div className="space-y-4 text-sm sm:text-base text-[#474747] leading-relaxed font-normal">
+            <div className="space-y-5 text-[17px] text-[#474747] leading-[1.42] font-normal max-w-[680px]">
               <p>
                 Merchem India (P) Limited is a specialty chemical company based in
                 Kalamassery, Ernakulam, Kerala, serving industrial requirements
@@ -40,36 +40,36 @@ const AboutSection = () => {
             </div>
 
             {/* CTA Button */}
-            <div className="pt-2">
+            <div className="pt-[40px]">
               <Link
                 href="/about"
-                className="bg-[#980E27] text-white px-6 py-3.5 hover:bg-[#7d0a1f] transition-all inline-flex items-center gap-2 font-medium text-sm sm:text-base"
+                className="bg-[#980E27] text-white px-4 py-3 hover:bg-[#7d0a1f] transition-all inline-flex items-center gap-3 font-medium text-sm sm:text-base"
               >
                 <span>Discover Merchem</span>
-                <FiArrowRight className="w-4 h-4 stroke-[2]" />
+                <FiArrowRight className="w-4 h-4 stroke-[1.5]" />
               </Link>
             </div>
           </div>
 
           {/* Right Column: Image with Floating Card (6 cols) */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative rounded-md overflow-hidden shadow-xs">
+          <div className="relative">
+            <div className="relative overflow-hidden">
               <Image
                 src={AboutImg}
                 alt="Merchem Laboratory Scientists"
                 width={700}
                 height={480}
-                className="w-full h-auto object-cover rounded-md"
+                className="w-full h-auto object-cover"
                 priority
               />
             </div>
 
             {/* Floating Badge at Bottom Left */}
-            <div className="absolute -bottom-5 left-6 sm:left-8 bg-white shadow-xl py-3 px-5 border-l-4 border-[#980E27] z-10 flex flex-col justify-center">
-              <span className="font-bold text-[#000000] text-xs sm:text-sm tracking-wide uppercase">
+            <div className="absolute -bottom-[30px] left-[35%] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] py-3 px-5 border-l-4 border-[#980E27] z-10 flex flex-col justify-center min-w-[220px]">
+              <span className="font-bold text-[#000000] text-[20] tracking-wide uppercase">
                 MERCHEM INDIA
               </span>
-              <span className="text-xs text-[#474747] font-normal">
+              <span className="text-[17px] text-[#474747] font-normal">
                 Specialty Chemical Solutions
               </span>
             </div>
