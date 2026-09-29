@@ -4,8 +4,10 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
-import AboutImage from "@/public/images/About-image-1.webp";
-import LegacyImage from "@/public/images/company-quote.webp";
+import IndustrialImage from "@/public/images/industrial_application.webp";
+import LatexImage from "@/public/images/latex.webp";
+import PaintCoatingImage from "@/public/images/paint_coating.webp";
+import TyresRubberImage from "@/public/images/tyers_rubber.webp";
 
 type IndustryCard = {
   title: string;
@@ -18,25 +20,25 @@ const industries: IndustryCard[] = [
     title: "Latex",
     description:
       "Chemical solutions supporting the processing and performance requirements of latex-based applications.",
-    image: AboutImage,
+    image: LatexImage,
   },
   {
     title: "Tyres & Rubber",
     description:
       "Performance-oriented chemicals supporting rubber compounding, processing and finished-product performance.",
-    image: LegacyImage,
+    image: TyresRubberImage,
   },
   {
     title: "Paints & Coatings",
     description:
       "Specialty chemical solutions supporting formulation and application requirements across coating systems.",
-    image: AboutImage,
+    image: PaintCoatingImage,
   },
   {
     title: "Industrial Applications",
     description:
       "Specialty chemistry supporting diverse industrial processing and material requirements.",
-    image: LegacyImage,
+    image: IndustrialImage,
   },
 ];
 

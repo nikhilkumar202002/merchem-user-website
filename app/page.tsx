@@ -5,6 +5,7 @@ import AboutSection from './component/sections/home/AboutSection'
 import Legacy from './component/sections/home/Legacy'
 import ProductPortfolio from './component/sections/home/ProductPortfolio'
 import Industry from './component/sections/home/Industry'
+import WhyMerchem from './component/sections/home/WhyMerchem'
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Legacy />
       <ProductPortfolio />
       <Industry />
+      <WhyMerchem />
     </main>
   )
 }
