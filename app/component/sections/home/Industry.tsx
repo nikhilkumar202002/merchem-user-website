@@ -48,12 +48,12 @@ export default function Industry() {
       <div className="absolute inset-0 bg-[url('/banner/industry-banner.webp')] bg-cover bg-center bg-fixed" />
       <div className="absolute inset-0 bg-[#980E27]/75" />
       <div className="site-container relative z-10">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(280px,0.9fr)_minmax(0,3fr)] lg:items-start lg:gap-12">
-          <div className="text-white">
+        <div className="flex flex-col gap-10 lg:gap-12">
+          <div className="text-center text-white">
             <span className="block text-sm font-medium sm:text-base">
               Where our Chemistry Works
             </span>
-            <h2 className="!text-white mt-2 max-w-[380px] text-[38px] font-bold leading-[1.05] tracking-[-0.035em]">
+            <h2 className="!text-white mx-auto mt-2 max-w-[700px] text-[38px] font-bold leading-[1.05] tracking-[-0.035em] sm:text-5xl">
               Solutions Across Materials, Processes &amp; Industries.
             </h2>
           </div>

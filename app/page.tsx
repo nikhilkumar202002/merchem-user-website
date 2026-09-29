@@ -7,6 +7,8 @@ import ProductPortfolio from './component/sections/home/ProductPortfolio'
 import Industry from './component/sections/home/Industry'
 import WhyMerchem from './component/sections/home/WhyMerchem'
 import QualityTechnical from './component/sections/home/QualityTechnical'
+import FeaturedBlog from './component/sections/home/FeaturedBlog'
+import Cta from './component/sections/home/Cta'
 
 export default function Home() {
   return (
@@ -19,6 +21,8 @@ export default function Home() {
       <Industry />
       <WhyMerchem />
       <QualityTechnical />
+      <FeaturedBlog />
+      <Cta />
     </main>
   )
 }

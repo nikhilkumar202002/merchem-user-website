@@ -12,19 +12,19 @@ const AboutSection = () => {
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[80px] items-center">
           {/* Left Column: Text & Content (6 cols) */}
-          <div className="pl-[95px]">
+          <div className="px-5 sm:px-10 lg:pl-[95px] lg:pr-0">
             {/* Category Subhead */}
             <span className="font-semibold text-[#980E27] text-sm sm:text-base tracking-wide block">
               About Merchem
             </span>
 
             {/* Main Heading */}
-            <h2 className="text-3xl sm:text-4xl lg:text-[45px] font-bold text-[#000000] leading-[1.17] tracking-[-0.03em] font-manrope max-w-[680px] pb-[20px]">
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] 2xl:text-[52px] font-bold text-[#000000] leading-[1.12] tracking-[-0.035em] font-manrope max-w-[680px] pb-[20px]">
               Chemistry Designed Around Real Industrial Needs.
             </h2>
 
             {/* Sub-paragraphs */}
-            <div className="space-y-5 text-[17px] text-[#474747] leading-[1.42] font-normal max-w-[680px]">
+            <div className="space-y-5 text-base sm:text-[17px] xl:text-[16px] 2xl:text-[18px] text-[#474747] leading-[1.42] font-normal max-w-[680px]">
               <p>
                 Merchem India (P) Limited is a specialty chemical company based in
                 Kalamassery, Ernakulam, Kerala, serving industrial requirements
@@ -43,7 +43,7 @@ const AboutSection = () => {
             <div className="pt-[40px]">
               <Link
                 href="/about"
-                className="bg-[#980E27] text-white px-4 py-3 hover:bg-[#7d0a1f] transition-all inline-flex items-center gap-3 font-medium text-sm sm:text-base"
+                className="bg-[#980E27] text-white px-4 py-3 hover:bg-[#7d0a1f] transition-all inline-flex items-center gap-3 font-medium text-sm sm:text-base xl:text-base"
               >
                 <span>Discover Merchem</span>
                 <FiArrowRight className="w-4 h-4 stroke-[1.5]" />
@@ -66,10 +66,10 @@ const AboutSection = () => {
 
             {/* Floating Badge at Bottom Left */}
             <div className="absolute -bottom-[30px] left-[35%] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] py-3 px-5 border-l-4 border-[#980E27] z-10 flex flex-col justify-center min-w-[220px]">
-              <span className="font-bold text-[#000000] text-[20] tracking-wide uppercase">
+              <span className="font-bold text-[#000000] text-base xl:text-base 2xl:text-lg tracking-wide uppercase">
                 MERCHEM INDIA
               </span>
-              <span className="text-[17px] text-[#474747] font-normal">
+              <span className="text-sm xl:text-sm 2xl:text-base text-[#474747] font-normal">
                 Specialty Chemical Solutions
               </span>
             </div>

@@ -98,8 +98,8 @@ export default function ProductPortfolio() {
           <div ref={sliderRef} onScroll={handleScroll} className="flex snap-x snap-mandatory gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {products.map((product) => (
               <article key={product.title} className="w-full flex-none snap-start bg-[#f1f1f3] sm:w-[calc((100%-20px)/2)] xl:w-[calc((100%-60px)/4)]">
-                <Image src={product.image} alt={product.title} className="h-[220px] w-full object-cover" />
-                <div className="flex min-h-[185px] flex-col px-6 py-5">
+                <Image src={product.image} alt={product.title} className="h-[260px] w-full object-cover xl:h-[280px]" />
+                <div className="flex min-h-[220px] flex-col px-6 py-6">
                   <h3 className="text-xl font-semibold leading-tight text-black">{product.title}</h3>
                   <p className="mt-2 text-base leading-[1.3] text-[#474747]">{product.description}</p>
                   <Link href="/products" aria-label={`Explore ${product.title}`} className="mt-auto flex h-7 w-7 items-center justify-center bg-[#980E27] text-white transition-colors hover:bg-[#7d0a1f]"><FiArrowRight className="h-4 w-4" /></Link>
