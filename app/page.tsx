@@ -4,6 +4,7 @@ import StripLine from './component/sections/home/StripLine'
 import AboutSection from './component/sections/home/AboutSection'
 import Legacy from './component/sections/home/Legacy'
 import ProductPortfolio from './component/sections/home/ProductPortfolio'
+import Industry from './component/sections/home/Industry'
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <AboutSection />
       <Legacy />
       <ProductPortfolio />
+      <Industry />
     </main>
   )
 }
