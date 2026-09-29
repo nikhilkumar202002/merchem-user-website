@@ -6,6 +6,7 @@ import Legacy from './component/sections/home/Legacy'
 import ProductPortfolio from './component/sections/home/ProductPortfolio'
 import Industry from './component/sections/home/Industry'
 import WhyMerchem from './component/sections/home/WhyMerchem'
+import QualityTechnical from './component/sections/home/QualityTechnical'
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <ProductPortfolio />
       <Industry />
       <WhyMerchem />
+      <QualityTechnical />
     </main>
   )
 }
