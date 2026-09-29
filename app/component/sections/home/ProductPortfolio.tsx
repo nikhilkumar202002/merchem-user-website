@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { FiArrowRight, FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -19,6 +19,46 @@ const products: ProductCard[] = [
 
 export default function ProductPortfolio() {
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [activeDot, setActiveDot] = useState(0);
+  const [slideCount, setSlideCount] = useState(1);
+
+  const updateSlideCount = () => {
+    const slider = sliderRef.current;
+    const firstCard = slider?.querySelector<HTMLElement>("article");
+
+    if (!slider || !firstCard) return;
+
+    const step = firstCard.offsetWidth + 20;
+    const count = Math.max(1, Math.ceil((slider.scrollWidth - slider.clientWidth) / step) + 1);
+    setSlideCount(count);
+    setActiveDot((current) => Math.min(current, count - 1));
+  };
+
+  useEffect(() => {
+    updateSlideCount();
+    window.addEventListener("resize", updateSlideCount);
+    return () => window.removeEventListener("resize", updateSlideCount);
+  }, []);
+
+  const handleScroll = () => {
+    const slider = sliderRef.current;
+    const firstCard = slider?.querySelector<HTMLElement>("article");
+
+    if (!slider || !firstCard) return;
+
+    const step = firstCard.offsetWidth + 20;
+    setActiveDot(Math.min(slideCount - 1, Math.round(slider.scrollLeft / step)));
+  };
+
+  const goToSlide = (index: number) => {
+    const slider = sliderRef.current;
+    const firstCard = slider?.querySelector<HTMLElement>("article");
+
+    if (!slider || !firstCard) return;
+
+    slider.scrollTo({ left: index * (firstCard.offsetWidth + 20), behavior: "smooth" });
+    setActiveDot(index);
+  };
 
   const slideNext = () => {
     const slider = sliderRef.current;
@@ -55,7 +95,7 @@ export default function ProductPortfolio() {
           <Link href="/products" className="inline-flex w-fit items-center gap-3 bg-[#980E27] px-4 py-3 text-sm font-medium text-white sm:text-base"><span>Explore Products</span><FiArrowRight className="h-4 w-4" /></Link>
         </div>
         <div className="relative">
-          <div ref={sliderRef} className="flex snap-x snap-mandatory gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div ref={sliderRef} onScroll={handleScroll} className="flex snap-x snap-mandatory gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {products.map((product) => (
               <article key={product.title} className="w-full flex-none snap-start bg-[#f1f1f3] sm:w-[calc((100%-20px)/2)] xl:w-[calc((100%-60px)/4)]">
                 <Image src={product.image} alt={product.title} className="h-[220px] w-full object-cover" />
@@ -69,6 +109,18 @@ export default function ProductPortfolio() {
           </div>
           <button type="button" onClick={slidePrevious} aria-label="Previous products" className="absolute -left-5 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] xl:flex"><FiChevronLeft className="h-6 w-6" /></button>
           <button type="button" onClick={slideNext} aria-label="Next products" className="absolute -right-5 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] xl:flex"><FiChevronRight className="h-6 w-6" /></button>
+        </div>
+        <div className="mt-7 flex justify-center gap-2" aria-label="Product slides">
+          {Array.from({ length: slideCount }, (_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => goToSlide(index)}
+              aria-label={`Go to product slide ${index + 1}`}
+              aria-current={activeDot === index ? "true" : undefined}
+              className={`h-2.5 w-2.5 rounded-full transition-colors ${activeDot === index ? "bg-[#980E27]" : "bg-[#d6d6d6] hover:bg-[#980E27]/60"}`}
+            />
+          ))}
         </div>
       </div>
     </section>
