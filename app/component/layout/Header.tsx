@@ -136,12 +136,12 @@ const Header = () => {
                                 Blog
                             </Link>
 
-                            <Link
+                            {/* <Link
                                 href="/careers"
                                 className={navClass("/careers")}
                             >
                                 Careers
-                            </Link>
+                            </Link> */}
 
                             {/* Contact Us Button */}
                             <Link

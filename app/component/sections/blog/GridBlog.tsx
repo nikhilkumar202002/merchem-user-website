@@ -35,7 +35,7 @@ const GridBlog = () => {
         <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-wrap gap-2">
             {["All Articles", "Rubber Chemicals", "Industrial Applications", "Technical Insights", "Company News"].map((category, index) => (
-              <button key={category} type="button" className={`px-4 py-2 text-xs font-semibold ${index === 0 ? "bg-[#d3132d] text-white" : "text-[#333333] hover:text-[#980E27]"}`}>
+              <button key={category} type="button" className={`px-4 py-2 text-[17px] font-semibold ${index === 0 ? "bg-[#d3132d] text-white" : "text-[#333333] hover:text-[#980E27]"}`}>
                 {category}
               </button>
             ))}
@@ -51,11 +51,11 @@ const GridBlog = () => {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
             <article key={article.title} className="overflow-hidden rounded-md border border-gray-100 bg-white shadow-[0_3px_12px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_8px_22px_rgba(152,14,39,0.12)]">
-              <Image src={article.image} alt={article.title} width={600} height={320} className="h-44 w-full object-cover" />
+              <Image src={article.image} alt={article.title} width={600} height={320} className="h-64 w-full object-cover" />
               <div className="flex min-h-[220px] flex-col p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#d3132d]">{article.category}</p>
-                <h2 className="mt-2 font-manrope text-base font-bold leading-tight text-[#000000]">{article.title}</h2>
-                <p className="mt-2 text-sm leading-[1.4] text-[#777777]">{article.excerpt}</p>
+                <p className="text-[14px] font-bold  text-[#d3132d]">{article.category}</p>
+                <h2 className="mt-2 font-manrope text-[22px] font-bold leading-tight text-[#000000]">{article.title}</h2>
+                <p className="mt-2 text-[17px] leading-[1.4] text-[#777777]">{article.excerpt}</p>
                 <div className="mt-auto flex items-center justify-between pt-5 text-xs text-gray-400">
                   <span className="inline-flex items-center gap-1"><FiCalendar className="h-3.5 w-3.5" />{article.date}</span>
                   <button type="button" className="inline-flex items-center gap-1 font-semibold text-[#d3132d]">Read More <FiArrowRight className="h-3.5 w-3.5" /></button>
