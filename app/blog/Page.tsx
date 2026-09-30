@@ -1,9 +1,11 @@
-import React from 'react'
+import BlogBanner from "../component/sections/blog/BlogBanner";
 
 const Page = () => {
   return (
-    <div>Page</div>
-  )
-}
+    <main className="flex-1">
+      <BlogBanner />
+    </main>
+  );
+};
 
-export default Page
+export default Page;
