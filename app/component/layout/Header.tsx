@@ -79,7 +79,7 @@ const Header = () => {
                             </Link>
 
                             <Link
-                                href="/about"
+                                href="/about-us"
                                 className="hover:text-[#980E27] transition-colors py-1"
                             >
                                 About
@@ -169,7 +169,7 @@ const Header = () => {
                         Home
                     </Link>
                     <Link
-                        href="/about"
+                        href="/about-us"
                         onClick={() => setMobileMenuOpen(false)}
                         className="block text-gray-800 hover:text-[#980E27] font-medium py-1"
                     >
