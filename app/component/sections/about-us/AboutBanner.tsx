@@ -6,7 +6,7 @@ import AboutBannerImg from "@/public/banner/about-banner.webp";
 
 const AboutBanner = () => {
   return (
-    <section className="relative flex min-h-[85vh] w-full items-center overflow-hidden bg-white">
+    <section className="relative flex min-h-[65vh] w-full items-center overflow-hidden bg-white lg:min-h-[70vh]">
       <div className="absolute inset-0 z-0">
         <Image
           src={AboutBannerImg}
@@ -18,7 +18,7 @@ const AboutBanner = () => {
         <div className="absolute inset-0 w-full bg-gradient-to-r from-white via-white/95 to-transparent sm:via-white/90 md:w-[75%] lg:w-[62%]" />
       </div>
 
-      <div className="site-container relative z-10 w-full py-16 sm:py-20 lg:py-28">
+      <div className="site-container relative z-10 w-full py-12 sm:py-16 lg:py-20">
         <div className="max-w-2xl lg:max-w-3xl">
           <p className="text-[20px] font-semibold text-[#980E27]">
             About Merchem India

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { FiMail, FiPhone, FiChevronDown, FiArrowRight, FiMenu, FiX } from "react-icons/fi";
@@ -12,6 +13,16 @@ import Logo from "../../../public/Main_logo.png";
 
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const pathname = usePathname();
+
+    const isActive = (href: string) =>
+        href === "/" ? pathname === href : pathname.startsWith(href);
+
+    const navClass = (href: string) =>
+        `${isActive(href) ? "text-[#980E27] font-semibold" : "text-[#000000]"} hover:text-[#980E27] transition-colors py-1`;
+
+    const mobileNavClass = (href: string) =>
+        `block ${isActive(href) ? "text-[#980E27] font-semibold" : "text-gray-800 font-medium"} hover:text-[#980E27] py-1`;
 
     return (
         <header className="w-full bg-white ">
@@ -73,14 +84,14 @@ const Header = () => {
                         <nav className="hidden lg:flex items-center gap-7 xl:gap-9 text-[17px] font-medium text-[#000000]">
                             <Link
                                 href="/"
-                                className="hover:text-[#980E27] transition-colors py-1"
+                                className={navClass("/")}
                             >
                                 Home
                             </Link>
 
                             <Link
                                 href="/about-us"
-                                className="hover:text-[#980E27] transition-colors py-1"
+                                className={navClass("/about-us")}
                             >
                                 About
                             </Link>
@@ -89,7 +100,7 @@ const Header = () => {
                             <div className="relative group py-1 cursor-pointer">
                                 <Link
                                     href="/products"
-                                    className="flex items-center gap-1 hover:text-[#980E27] transition-colors"
+                                    className={`flex items-center gap-1 ${isActive("/products") ? "text-[#980E27] font-semibold" : "text-[#000000]"} hover:text-[#980E27] transition-colors`}
                                 >
                                     <span>Products</span>
                                     <FiChevronDown className="w-4 h-4 stroke-[2] transition-transform duration-200 group-hover:rotate-180" />
@@ -120,14 +131,14 @@ const Header = () => {
 
                             <Link
                                 href="/blog"
-                                className="hover:text-[#980E27] transition-colors py-1"
+                                className={navClass("/blog")}
                             >
                                 Blog
                             </Link>
 
                             <Link
                                 href="/careers"
-                                className="hover:text-[#980E27] transition-colors py-1"
+                                className={navClass("/careers")}
                             >
                                 Careers
                             </Link>
@@ -164,35 +175,35 @@ const Header = () => {
                     <Link
                         href="/"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block text-gray-800 hover:text-[#980E27] font-medium py-1"
+                        className={mobileNavClass("/")}
                     >
                         Home
                     </Link>
                     <Link
                         href="/about-us"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block text-gray-800 hover:text-[#980E27] font-medium py-1"
+                        className={mobileNavClass("/about-us")}
                     >
                         About
                     </Link>
                     <Link
                         href="/products"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block text-gray-800 hover:text-[#980E27] font-medium py-1"
+                        className={mobileNavClass("/products")}
                     >
                         Products
                     </Link>
                     <Link
                         href="/blog"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block text-gray-800 hover:text-[#980E27] font-medium py-1"
+                        className={mobileNavClass("/blog")}
                     >
                         Blog
                     </Link>
                     <Link
                         href="/careers"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block text-gray-800 hover:text-[#980E27] font-medium py-1"
+                        className={mobileNavClass("/careers")}
                     >
                         Careers
                     </Link>
