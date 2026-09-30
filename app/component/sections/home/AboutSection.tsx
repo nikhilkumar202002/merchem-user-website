@@ -26,14 +26,13 @@ const AboutSection = () => {
             {/* Sub-paragraphs */}
             <div className="space-y-5 text-base sm:text-[17px] xl:text-[16px] 2xl:text-[18px] text-[#474747] leading-[1.42] font-normal max-w-[680px]">
               <p>
-                Merchem India (P) Limited is a specialty chemical company based in
+                Merchem is a speciality chemical company based in
                 Kalamassery, Ernakulam, Kerala, serving industrial requirements
                 through a focused portfolio of chemical products and
                 application-oriented solutions.
               </p>
               <p>
-                Our expertise spans chemical solutions supporting latex, tyre and
-                rubber, paints and other industrial applications, with a focus on
+                Our expertise spans chemical solutions supporting Tyre, Rubber, Latex and Other Industrial Applications, with a focus on
                 dependable quality, technical understanding and long-term customer
                 relationships.
               </p>

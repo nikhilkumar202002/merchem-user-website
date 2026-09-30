@@ -57,24 +57,24 @@ const Hero = () => {
       <div className="site-container relative z-20 w-full py-16 sm:py-20 lg:py-28">
         <div className="max-w-2xl lg:max-w-3xl space-y-6">
           {/* Hero Main Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-bold text-[#000000] leading-[1.18] tracking-tight font-manrope">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-[46px] font-bold text-[#000000] leading-[1.18] tracking-tight font-manrope">
             When People Create Wonders With{" "}
             <span className="text-[#980E27]">Rubber</span>, Our{" "}
             <span className="text-[#980E27]">Applause</span> For Them Is LOUD
           </h1>
 
           {/* Subtitle Description */}
-          <p className="text-sm sm:text-base md:text-lg text-[#474747] leading-relaxed max-w-2xl font-normal">
-            Merchem India develops and supplies specialty chemical solutions
+          <p className="text-sm sm:text-base md:text-base lg:text-base xl:text-lg text-[#474747] leading-relaxed max-w-2xl font-normal">
+            Merchem develops and supplies specialty chemical solutions
             designed to support performance, consistency and process efficiency
-            across latex, tyre & rubber, paints and other industrial applications.
+            across Tyre, Rubber, Latex and Other Industrial Applications
           </p>
 
           {/* Call-to-Action Buttons */}
           <div className="pt-3 flex flex-wrap items-center gap-4">
             <Link
               href="/products"
-              className="bg-[#980E27] text-white px-6 py-3.5 hover:bg-[#7d0a1f] transition-all inline-flex items-center gap-2 font-medium text-sm md:text-base"
+              className="bg-[#980E27] text-white px-6 py-3.5 hover:bg-[#7d0a1f] transition-all inline-flex items-center gap-2 font-medium text-sm md:text-base lg:text-sm xl:text-base"
             >
               <span>Explore Products</span>
               <FiArrowRight className="w-4 h-4 stroke-[2]" />
@@ -82,7 +82,7 @@ const Hero = () => {
 
             <Link
               href="/contact"
-              className="border border-[#980E27] text-[#980E27] bg-white hover:bg-[#980E27] hover:text-white px-6 py-3.5 transition-all inline-flex items-center gap-2 font-medium text-sm md:text-base"
+              className="border border-[#980E27] text-[#980E27] bg-white hover:bg-[#980E27] hover:text-white px-6 py-3.5 transition-all inline-flex items-center gap-2 font-medium text-sm md:text-base lg:text-sm xl:text-base"
             >
               <span>Talk to Our Experts</span>
               <FiArrowRight className="w-4 h-4 stroke-[2]" />

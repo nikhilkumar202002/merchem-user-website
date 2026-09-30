@@ -8,10 +8,25 @@ import IndustrialImage from "@/public/images/industrial_application.webp";
 import QualityImage from "@/public/images/quality_technical.webp";
 import PaintImage from "@/public/images/paint_coating.webp";
 
-const posts: { category: string; title: string; image: StaticImageData }[] = [
-  { category: "Industry Insights", title: "Understanding changing requirements across chemical and material industries.", image: IndustrialImage },
-  { category: "Technical Knowledge", title: "Practical information around chemical applications and processes.", image: QualityImage },
-  { category: "Company Updates", title: "News, developments and milestones from Merchem.", image: PaintImage },
+const posts: { category: string; title: string; description: string; image: StaticImageData }[] = [
+  {
+    category: "Industry Insights",
+    title: "Understanding changing requirements across chemical and material industries.",
+    description: "Explore industry trends, evolving requirements and the chemistry shaping modern material applications.",
+    image: IndustrialImage,
+  },
+  {
+    category: "Technical Knowledge",
+    title: "Practical information around chemical applications and processes.",
+    description: "Discover useful technical insights into chemical selection, processing methods and application performance.",
+    image: QualityImage,
+  },
+  {
+    category: "Company Updates",
+    title: "News, developments and milestones from Merchem.",
+    description: "Stay updated on Merchem’s latest developments, achievements and progress across our business.",
+    image: PaintImage,
+  },
 ];
 
 export default function FeaturedBlog() {
@@ -32,6 +47,7 @@ export default function FeaturedBlog() {
               <div className="flex flex-1 flex-col px-6 py-4">
                 <span className="text-base font-medium text-[#980E27]">{post.category}</span>
                 <h3 className="mt-1 text-xl font-semibold leading-[1.12] tracking-[-0.025em] text-black">{post.title}</h3>
+                <p className="mt-2 text-base leading-[1.35] text-[#474747]">{post.description}</p>
                 <Link href="/insights" aria-label={`Read ${post.title}`} className="mt-auto flex h-7 w-7 items-center justify-center bg-[#980E27] text-white transition-colors hover:bg-[#7d0a1f]"><FiArrowRight className="h-4 w-4" /></Link>
               </div>
             </article>

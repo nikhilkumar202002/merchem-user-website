@@ -6,7 +6,6 @@ import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import IndustrialImage from "@/public/images/industrial_application.webp";
 import LatexImage from "@/public/images/latex.webp";
-import PaintCoatingImage from "@/public/images/paint_coating.webp";
 import TyresRubberImage from "@/public/images/tyers_rubber.webp";
 
 type IndustryCard = {
@@ -17,27 +16,27 @@ type IndustryCard = {
 
 const industries: IndustryCard[] = [
   {
+    title: "Tyres",
+    description:
+      "Specialty chemical solutions supporting tyre manufacturing, processing and finished-product performance.",
+    image: TyresRubberImage,
+  },
+  {
+    title: "Rubber",
+    description:
+      "Performance-oriented chemicals supporting rubber compounding, processing and finished-product performance.",
+    image: TyresRubberImage,
+  },
+  {
     title: "Latex",
     description:
       "Chemical solutions supporting the processing and performance requirements of latex-based applications.",
     image: LatexImage,
   },
   {
-    title: "Tyres & Rubber",
+    title: "Other Industrial Applications",
     description:
-      "Performance-oriented chemicals supporting rubber compounding, processing and finished-product performance.",
-    image: TyresRubberImage,
-  },
-  {
-    title: "Paints & Coatings",
-    description:
-      "Specialty chemical solutions supporting formulation and application requirements across coating systems.",
-    image: PaintCoatingImage,
-  },
-  {
-    title: "Industrial Applications",
-    description:
-      "Specialty chemistry supporting diverse industrial processing and material requirements.",
+      "Specialty chemistry supporting diverse industrial processes, materials and application requirements.",
     image: IndustrialImage,
   },
 ];

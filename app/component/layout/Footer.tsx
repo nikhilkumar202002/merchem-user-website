@@ -29,10 +29,10 @@ const Footer = () => {
               </div>
               <div className="space-y-1">
                 <h3 className="font-bold text-base tracking-tight text-[#000000] uppercase">
-                  MERCHEM INDIA (P) LIMITED
+                  MERCHEM INDIA PRIVATE LIMITED
                 </h3>
                 <p className="text-xs sm:text-sm text-[#474747] leading-relaxed max-w-xs">
-                  Specialty chemical solutions for latex, tyre & rubber, paints and industrial applications.
+                  Specialty chemical solutions for Tyre, Rubber, Latex and Other Industrial Applications
                 </p>
                 {/* Social Icons */}
                 <div className="flex items-center gap-3 pt-2">
@@ -154,13 +154,19 @@ const Footer = () => {
             {/* Address */}
             <div className="flex items-start gap-2.5">
               <FiMapPin className="w-4 h-4 text-[#980E27] shrink-0 mt-0.5" />
-              <div className="space-y-0.5">
+              <a
+                href="https://maps.app.goo.gl/XL3iRPWm8YS6ufQY6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="space-y-0.5 hover:text-[#980E27] transition-colors"
+                aria-label="View Merchem India Private Limited on Google Maps"
+              >
                 <p className="font-bold text-[#000000] uppercase text-[17px]">
-                  MERCHEM INDIA (P) LIMITED
+                  MERCHEM INDIA PRIVATE LIMITED
                 </p>
                 <p>45A Development Plot, Kalamassery</p>
                 <p>Ernakulam - 683104, Kerala, India</p>
-              </div>
+              </a>
             </div>
 
             {/* Phone */}
