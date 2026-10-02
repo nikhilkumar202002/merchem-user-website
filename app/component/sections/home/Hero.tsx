@@ -81,7 +81,7 @@ const Hero = () => {
             </Link>
 
             <Link
-              href="/contact"
+              href="/contact-us"
               className="border border-[#980E27] text-[#980E27] bg-white hover:bg-[#980E27] hover:text-white px-6 py-3.5 transition-all inline-flex items-center gap-2 font-medium text-sm md:text-base lg:text-sm xl:text-base"
             >
               <span>Talk to Our Experts</span>

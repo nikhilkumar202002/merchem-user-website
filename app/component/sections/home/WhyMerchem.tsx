@@ -12,7 +12,7 @@ const reasons = [
 
 export default function WhyMerchem() {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px]">
+    <section className="w-full bg-white pt-16 sm:pt-20 lg:pt-[120px]">
       <div className="site-container">
         <div className="mx-auto max-w-[620px] text-center">
           <span className="text-sm font-semibold tracking-wide text-[#980E27] sm:text-base">Why Merchem</span>

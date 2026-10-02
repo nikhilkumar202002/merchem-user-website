@@ -12,7 +12,7 @@ const steps = [
 
 export default function QualityTechnical() {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-[58px]">
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-[120px]">
       <div className="grid grid-cols-1 items-center lg:grid-cols-2">
         <div className="relative w-full overflow-hidden">
           <Image src={QualityImage} alt="Quality and technical laboratory testing" width={1100} height={800} className="aspect-[1.23/1] w-full object-cover lg:aspect-auto lg:h-[560px] xl:h-[620px]" priority />

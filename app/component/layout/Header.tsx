@@ -145,7 +145,7 @@ const Header = () => {
 
                             {/* Contact Us Button */}
                             <Link
-                                href="/contact"
+                                href="/contact-us"
                                 className="bg-[#980E27] text-white px-6 py-2.5 hover:bg-[#7d0a1f] transition-colors inline-flex items-center gap-2 font-medium text-sm ml-3"
                             >
                                 <span>Contact Us</span>
@@ -225,7 +225,7 @@ const Header = () => {
                     </div>
 
                     <Link
-                        href="/contact"
+                        href="/contact-us"
                         onClick={() => setMobileMenuOpen(false)}
                         className="inline-flex items-center justify-center gap-2 bg-[#980E27] text-white w-full py-2.5 font-medium text-sm mt-3"
                     >

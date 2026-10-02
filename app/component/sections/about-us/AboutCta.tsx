@@ -22,7 +22,7 @@ const AboutCta = () => {
           </p>
 
           <Link
-            href="/contact"
+            href="/contact-us"
             className="mt-4 inline-flex items-center gap-3 bg-[#980E27] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#7d0a1f] sm:text-base"
           >
             <span>Contact Our Team</span>
