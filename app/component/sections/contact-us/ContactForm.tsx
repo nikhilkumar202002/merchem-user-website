@@ -2,12 +2,18 @@
 
 import React from "react";
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 const ContactForm = () => (
   <section className="w-full bg-white py-14 sm:py-20 lg:py-[81px]">
     <div className="site-container">
       <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        <div>
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        >
           <p className="text-[20px] font-semibold text-[#980E27] sm:text-base">
             Get In Touch
           </p>
@@ -38,9 +44,15 @@ const ContactForm = () => (
               <span>Send us your questions and product requirements.</span>
             </ContactItem>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-[0_5px_24px_rgba(0,0,0,0.07)] sm:p-8">
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+          className="rounded-xl border border-gray-100 bg-white p-6 shadow-[0_5px_24px_rgba(0,0,0,0.07)] sm:p-8"
+        >
           <p className="text-[20px] font-semibold text-[#980E27]">
             Enquiry Form
           </p>
@@ -114,12 +126,12 @@ const ContactForm = () => (
             </p>
             <button
               type="submit"
-              className="inline-flex w-fit items-center gap-2 bg-[#d3132d] px-5 py-3 text-sm font-semibold text-white hover:bg-[#980E27]"
+              className="inline-flex w-fit items-center gap-2 bg-[#d3132d] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#980E27]"
             >
               Submit Enquiry <span aria-hidden="true">→</span>
             </button>
           </form>
-        </div>
+        </motion.div>
       </div>
     </div>
   </section>
@@ -182,3 +194,4 @@ const SelectField = ({ label, required, options }: SelectFieldProps) => (
 );
 
 export default ContactForm;
+

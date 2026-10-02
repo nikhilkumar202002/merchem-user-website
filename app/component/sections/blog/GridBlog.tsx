@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Image, { type StaticImageData } from "next/image";
 import { FiArrowRight, FiCalendar, FiSearch } from "react-icons/fi";
+import { motion } from "framer-motion";
 import RubberImg from "@/public/images/tyers_rubber.webp";
 import LatexImg from "@/public/images/latex.webp";
 import PaintImg from "@/public/images/paint_coating.webp";
@@ -32,10 +35,16 @@ const GridBlog = () => {
   return (
     <section className="w-full bg-white py-12 sm:py-16 lg:py-20">
       <div className="site-container">
-        <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"
+        >
           <div className="flex flex-wrap gap-2">
             {["All Articles", "Rubber Chemicals", "Industrial Applications", "Technical Insights", "Company News"].map((category, index) => (
-              <button key={category} type="button" className={`px-4 py-2 text-[17px] font-semibold ${index === 0 ? "bg-[#d3132d] text-white" : "text-[#333333] hover:text-[#980E27]"}`}>
+              <button key={category} type="button" className={`px-4 py-2 text-[17px] font-semibold transition-colors ${index === 0 ? "bg-[#d3132d] text-white" : "text-[#333333] hover:text-[#980E27]"}`}>
                 {category}
               </button>
             ))}
@@ -46,11 +55,18 @@ const GridBlog = () => {
             <span className="sr-only">Search articles</span>
             <input placeholder="Search articles..." className="min-w-0 flex-1 outline-none placeholder:text-gray-400" />
           </label>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {articles.map((article) => (
-            <article key={article.title} className="overflow-hidden rounded-md border border-gray-100 bg-white shadow-[0_3px_12px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_8px_22px_rgba(152,14,39,0.12)]">
+          {articles.map((article, index) => (
+            <motion.article
+              key={article.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: (index % 3) * 0.15 }}
+              className="overflow-hidden rounded-md border border-gray-100 bg-white shadow-[0_3px_12px_rgba(0,0,0,0.06)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_22px_rgba(152,14,39,0.12)]"
+            >
               <Image src={article.image} alt={article.title} width={600} height={320} className="h-64 w-full object-cover" />
               <div className="flex min-h-[220px] flex-col p-4">
                 <p className="text-[14px] font-bold  text-[#d3132d]">{article.category}</p>
@@ -61,11 +77,17 @@ const GridBlog = () => {
                   <button type="button" className="inline-flex items-center gap-1 font-semibold text-[#d3132d]">Read More <FiArrowRight className="h-3.5 w-3.5" /></button>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
 
-        <div className="mt-10 flex items-center justify-center gap-2 text-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-10 flex items-center justify-center gap-2 text-sm"
+        >
           <button type="button" className="rounded-full border border-gray-200 px-3 py-1 text-gray-400">‹</button>
           <button type="button" className="rounded-md bg-[#d3132d] px-3 py-1 text-white">1</button>
           <button type="button" className="px-2 py-1 text-gray-600">2</button>
@@ -73,10 +95,11 @@ const GridBlog = () => {
           <span className="px-1 text-gray-400">…</span>
           <button type="button" className="px-2 py-1 text-gray-600">8</button>
           <button type="button" className="rounded-full border border-gray-200 px-3 py-1 text-gray-600">›</button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default GridBlog;
+

@@ -1,8 +1,34 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import BlogBannerImg from "@/public/banner/blog-banner.webp";
 
 const BlogBanner = () => {
+  const [startAnimation, setStartAnimation] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window as any).preloaderDone) {
+      setStartAnimation(true);
+      return;
+    }
+
+    const handlePreloaderDone = () => {
+      setStartAnimation(true);
+    };
+
+    window.addEventListener("preloaderFinished", handlePreloaderDone);
+    const fallback = setTimeout(() => {
+      setStartAnimation(true);
+    }, 1400);
+
+    return () => {
+      window.removeEventListener("preloaderFinished", handlePreloaderDone);
+      clearTimeout(fallback);
+    };
+  }, []);
+
   return (
     <section className="relative flex min-h-[55vh] w-full items-center overflow-hidden bg-white lg:min-h-[60vh]">
       <div className="absolute inset-0 z-0">
@@ -18,20 +44,35 @@ const BlogBanner = () => {
 
       <div className="site-container relative z-10 w-full py-14 sm:py-18 lg:py-24">
         <div className="max-w-3xl">
-          <p className="text-[20px] font-semibold uppercase tracking-wide text-[#980E27]">
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+            transition={{ duration: 0.5 }}
+            className="text-[20px] font-semibold uppercase tracking-wide text-[#980E27]"
+          >
             Insights &amp; Updates
-          </p>
+          </motion.p>
 
-          <h1 className="mt-3 max-w-2xl font-manrope text-4xl font-bold leading-[1.12] tracking-tight text-[#000000] sm:text-5xl md:text-6xl lg:text-[56px]">
+          <motion.h1
+            initial={{ opacity: 0, y: 25 }}
+            animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+            className="mt-3 max-w-2xl font-manrope text-4xl font-bold leading-[1.12] tracking-tight text-[#000000] sm:text-5xl md:text-6xl lg:text-[56px]"
+          >
             Insights &amp; Updates From Merchem
-          </h1>
+          </motion.h1>
 
-          <p className="mt-6 max-w-2xl text-sm font-normal leading-relaxed text-[#474747] sm:text-base lg:text-lg">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className="mt-6 max-w-2xl text-sm font-normal leading-relaxed text-[#474747] sm:text-base lg:text-lg"
+          >
             Explore industry insights, technical knowledge, product information
             and company updates from Merchem India. Discover perspectives on
             rubber chemicals, latex processing, specialty chemicals and
             evolving industrial applications.
-          </p>
+          </motion.p>
         </div>
       </div>
     </section>
@@ -39,3 +80,4 @@ const BlogBanner = () => {
 };
 
 export default BlogBanner;
+
