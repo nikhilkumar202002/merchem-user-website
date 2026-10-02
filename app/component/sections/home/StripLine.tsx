@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
-import {  TbMicroscope } from "react-icons/tb";
+import { TbMicroscope } from "react-icons/tb";
 import { FaAward, FaHandshake } from "react-icons/fa6";
 import { HiOutlineBeaker } from "react-icons/hi";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -28,14 +31,18 @@ const features = [
 
 const StripLine = () => {
   return (
-    <section className="w-full bg-white border-y border-gray-100 py-8 lg:py-8">
+    <section className="w-full bg-white border-y border-gray-100 py-8 lg:py-8 overflow-hidden">
       <div className="site-container">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-gray-200">
           {features.map((item, index) => {
             const IconComponent = item.icon;
             return (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`flex items-start gap-4 ${
                   index !== 0 ? "lg:pl-7" : ""
                 } ${index !== features.length - 1 ? "lg:pr-6" : ""}`}
@@ -49,7 +56,7 @@ const StripLine = () => {
                     {item.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   FiLayers,
@@ -7,6 +9,7 @@ import {
   FiTrendingUp,
   FiUsers,
 } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 const advantages = [
   {
@@ -49,32 +52,42 @@ const advantages = [
 
 const Advantages = () => {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-[81px]">
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px] overflow-hidden">
       <div className="site-container">
-        <div className="mb-10 flex items-end justify-between gap-6 lg:mb-12">
+        <div className="mb-10 flex flex-col gap-4 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-[20px] font-semibold text-[#980E27] sm:text-base">
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-[20px] font-semibold text-[#980E27] sm:text-base"
+            >
               The Merchem Advantage
-            </p>
-            <h2 className="font-manrope text-3xl font-bold leading-tight tracking-[-0.035em] text-[#000000] sm:text-4xl lg:text-[46px]">
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="font-manrope text-3xl font-bold leading-tight tracking-[-0.035em] text-[#000000] sm:text-4xl lg:text-[46px]"
+            >
               Our Strengths
-            </h2>
+            </motion.h2>
           </div>
-
-          <p className="max-w-sm text-sm leading-[1.5] text-[#777777] sm:text-base lg:mr-2">
-            Present these six strengths as a clean card grid with subtle red
-            accents and simple line icons.
-          </p>
-
         </div>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {advantages.map((advantage) => {
+          {advantages.map((advantage, index) => {
             const IconComponent = advantage.icon;
 
             return (
-              <article
+              <motion.article
                 key={advantage.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="min-h-[245px] border border-gray-100 bg-white p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_8px_24px_rgba(152,14,39,0.1)] sm:p-7"
               >
                 <IconComponent className="mb-5 h-9 w-9 text-[#980E27] stroke-[1.4]" />
@@ -84,7 +97,7 @@ const Advantages = () => {
                 <p className="mt-3 text-sm leading-[1.45] text-[#777777]">
                   {advantage.description}
                 </p>
-              </article>
+              </motion.article>
             );
           })}
         </div>

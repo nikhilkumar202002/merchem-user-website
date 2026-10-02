@@ -4,27 +4,43 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
+import { motion } from "framer-motion";
 import AboutImg from "@/public/images/who-we-are.webp";
 
 const WhoWeAre = () => {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px]">
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px] overflow-hidden">
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[80px] items-center">
-          {/* Left Column: Text & Content (6 cols) */}
+          {/* Left Column: Text & Content */}
           <div className="px-5 sm:px-10 lg:pl-[95px] lg:pr-0">
-            {/* Category Subhead */}
-            <span className="font-semibold text-[#980E27] text-sm sm:text-base tracking-wide block">
+            <motion.span
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="font-semibold text-[#980E27] text-sm sm:text-base tracking-wide block"
+            >
               Who We Are
-            </span>
+            </motion.span>
 
-            {/* Main Heading */}
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] 2xl:text-[45px] font-bold text-[#000000] leading-[1.12] tracking-[-0.035em] font-manrope max-w-[680px] pb-[20px]">
+            <motion.h2
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] 2xl:text-[45px] font-bold text-[#000000] leading-[1.12] tracking-[-0.035em] font-manrope max-w-[680px] pb-[20px]"
+            >
               Four Decades of Chemical Expertise. A Commitment to Quality.
-            </h2>
+            </motion.h2>
 
-            {/* Sub-paragraphs */}
-            <div className="space-y-5 text-base sm:text-[17px] xl:text-[16px] 2xl:text-[18px] text-[#474747] leading-[1.42] font-normal max-w-[680px]">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-5 text-base sm:text-[17px] xl:text-[16px] 2xl:text-[18px] text-[#474747] leading-[1.42] font-normal max-w-[680px]"
+            >
               <p>
                 Over more than four decades, Merchem has established a strong
                 reputation for quality, innovation, technical expertise and
@@ -47,22 +63,33 @@ const WhoWeAre = () => {
                 technological advancement enables us to respond effectively to
                 evolving market and application requirements.
               </p>
-            </div>
+            </motion.div>
 
-            {/* CTA Button */}
-            <div className="pt-[40px]">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="pt-[40px]"
+            >
               <Link
-                href="/about-us"
+                href="/contact-us"
                 className="bg-[#980E27] text-white px-4 py-3 hover:bg-[#7d0a1f] transition-all inline-flex items-center gap-3 font-medium text-sm sm:text-base xl:text-base"
               >
-                <span>Discover Merchem</span>
+                <span>Connect With Us</span>
                 <FiArrowRight className="w-4 h-4 stroke-[1.5]" />
               </Link>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Right Column: Image with Floating Card (6 cols) */}
-          <div className="relative">
+          {/* Right Column: Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="relative"
+          >
             <div className="relative overflow-hidden">
               <Image
                 src={AboutImg}
@@ -73,9 +100,7 @@ const WhoWeAre = () => {
                 priority
               />
             </div>
-
-      
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,13 +1,22 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import TechnicalFoundationImg from "@/public/images/quality_technical.webp";
 
 const TechnicalFoundation = () => {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px]">
-      <div >
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px] overflow-hidden">
+      <div>
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-[80px]">
-          <div className="relative overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative overflow-hidden"
+          >
             <Image
               src={TechnicalFoundationImg}
               alt="Merchem research and quality control laboratory"
@@ -15,18 +24,36 @@ const TechnicalFoundation = () => {
               height={520}
               className="h-auto w-full object-cover"
             />
-          </div>
+          </motion.div>
 
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-wide text-[#980E27] sm:text-base">
+          <div className="max-w-2xl px-5 sm:px-10 lg:px-0">
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-sm font-semibold uppercase tracking-wide text-[#980E27] sm:text-base"
+            >
               Our Technical Foundation
-            </p>
+            </motion.p>
 
-            <h2 className="pb-5 font-manrope text-3xl font-bold leading-[1.12] tracking-[-0.035em] text-[#000000] sm:text-4xl lg:text-[42px] xl:text-[46px]">
+            <motion.h2
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="pb-5 font-manrope text-3xl font-bold leading-[1.12] tracking-[-0.035em] text-[#000000] sm:text-4xl lg:text-[42px] xl:text-[46px]"
+            >
               R&amp;D and Quality Control — The Key to Our Success
-            </h2>
+            </motion.h2>
 
-            <div className="space-y-5 text-base font-normal leading-[1.5] text-[#474747] sm:text-[17px]">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-5 text-base font-normal leading-[1.5] text-[#474747] sm:text-[17px]"
+            >
               <p>
                 At Merchem, Research &amp; Development and Quality Control are
                 integral to our operations. We continuously invest in advanced
@@ -51,7 +78,7 @@ const TechnicalFoundation = () => {
                 dispatch. This disciplined approach enables us to deliver
                 consistent and dependable products to our customers.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

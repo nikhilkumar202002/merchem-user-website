@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import LegacyImg from "@/public/banner/about-legacy.webp";
 
 const AboutLegacy = () => {
@@ -16,31 +19,67 @@ const AboutLegacy = () => {
 
       <div className="site-container relative z-10 flex min-h-[620px] items-center py-16 sm:min-h-[680px] sm:py-20 lg:min-h-[720px] lg:py-24">
         <div className="max-w-xl text-white">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#e21b35] sm:text-base">
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-sm font-semibold uppercase tracking-[0.18em] text-[#e21b35] sm:text-base"
+          >
             Our Legacy · Since 1981
-          </p>
+          </motion.p>
 
-          <h2 className="!text-white mt-4 font-manrope text-5xl font-bold leading-[0.98] tracking-tight sm:text-6xl lg:text-[55px]">
-            Adding Value to Rubber... 
+          <motion.h2
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="!text-white mt-4 font-manrope text-5xl font-bold leading-[0.98] tracking-tight sm:text-6xl lg:text-[55px]"
+          >
+            Adding Value to Rubber...{" "}
             <span className="text-[#e21b35]">Since 1981.</span>
-          </h2>
+          </motion.h2>
 
-          <div className="my-6 h-[2px] w-36 bg-[#e21b35]" />
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="my-6 h-[2px] w-36 bg-[#e21b35] origin-left"
+          />
 
-          <h3 className="!text-white max-w-md text-xl font-bold uppercase leading-tight tracking-wide sm:text-2xl">
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="!text-white max-w-md text-xl font-bold uppercase leading-tight tracking-wide sm:text-2xl"
+          >
             Nurturing Nature for Future Generations
-          </h3>
+          </motion.h3>
 
-          <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-white/90 sm:text-sm">
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="mt-5 text-xs font-semibold uppercase tracking-wide text-white/90 sm:text-sm"
+          >
             Accelerators <span className="px-2 text-[#e21b35]">·</span>
             Antidegradants <span className="px-2 text-[#e21b35]">·</span>
             Processing Aids
-          </p>
+          </motion.p>
 
-          <p className="mt-8 max-w-md text-base font-medium leading-relaxed text-white sm:text-lg">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-8 max-w-md text-base font-medium leading-relaxed text-white sm:text-lg"
+          >
             “When people create wonders with Rubber, our applause for them is
             LOUD.”
-          </p>
+          </motion.p>
         </div>
       </div>
     </section>
