@@ -48,3 +48,20 @@ h1, h2, h3, h4, h5, h6 {
     padding-right: 95px;
   }
 }
+
+@keyframes loader-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-loader-bar {
+  animation: loader-progress 1.4s ease-in-out infinite;
+}
+
