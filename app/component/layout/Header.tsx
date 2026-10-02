@@ -11,9 +11,137 @@ import { IoMdMail } from "react-icons/io";
 import "../styles/Layout.css";
 import Logo from "../../../public/Main_logo.png";
 
+const PRODUCT_DATA = [
+    {
+        id: "accelerators",
+        label: "Accelerators",
+        href: "/products/accelerators",
+        subcategories: [
+            {
+                name: "Thiazoles",
+                slug: "thiazoles",
+                products: ["VULCURE MBT", "VULCURE MBTS", "VULCURE ZMBT", "VULCURE F"]
+            },
+            {
+                name: "Sulphenamides",
+                slug: "sulphenamides",
+                products: ["VULCURE CBS", "VULCURE MOR", "VULCURE NS", "VULCURE TBBS"]
+            },
+            {
+                name: "Thiurams",
+                slug: "thiurams",
+                products: ["VULCURE TMTM", "VULCURE TMTD", "VULCURE TETD", "VULCURE DPTT"]
+            },
+            {
+                name: "Dithiocarbamates",
+                slug: "dithiocarbamates",
+                products: ["VULCURE ZDEC", "VULCURE ZDBC", "VULCURE ZDMC"]
+            },
+            {
+                name: "Special Purpose",
+                slug: "special-purpose",
+                products: ["VULCURE HMT", "VULCURE HEXA"]
+            }
+        ]
+    },
+    {
+        id: "antioxidants",
+        label: "Antioxidants & Antidegradants",
+        href: "/products/antioxidants-antiozonants",
+        subcategories: [
+            {
+                name: "Amine Based",
+                slug: "amine-based",
+                products: ["MERNOX 6PPD", "MERNOX IPPD", "MERNOX TMQ"]
+            },
+            {
+                name: "Phenolic Based",
+                slug: "phenolic-based",
+                products: ["MERNOX BHT", "MERNOX SP"]
+            },
+            {
+                name: "Phosphite Based",
+                slug: "phosphite-based",
+                products: ["MERNOX TNPP"]
+            }
+        ]
+    },
+    {
+        id: "processing-aids",
+        label: "Processing Aids",
+        href: "/products/processing-aids",
+        subcategories: [
+            {
+                name: "Peptizers",
+                slug: "peptizers",
+                products: ["MERPEPT DBD", "MERPEPT 60"]
+            },
+            {
+                name: "Homogenizers",
+                slug: "homogenizers",
+                products: ["MERHOMO 40", "MERHOMO 60"]
+            },
+            {
+                name: "Dispersing Aids",
+                slug: "dispersing-aids",
+                products: ["MERDISP 100", "MERDISP 200"]
+            },
+            {
+                name: "Tackifiers",
+                slug: "tackifiers",
+                products: ["MERTACK 10", "MERTACK 20"]
+            }
+        ]
+    },
+    {
+        id: "agrochemical-intermediates",
+        label: "Agrochemical Intermediates",
+        href: "/products/agrochemical-intermediates",
+        subcategories: [
+            {
+                name: "Synthesis Intermediates",
+                slug: "synthesis-intermediates",
+                products: ["MERAGRO INT-1", "MERAGRO INT-2"]
+            },
+            {
+                name: "Active Ingredients",
+                slug: "active-ingredients",
+                products: ["MERAGRO AI-1", "MERAGRO AI-2"]
+            }
+        ]
+    },
+    {
+        id: "water-treatment",
+        label: "Water Treatment Chemicals",
+        href: "/products/water-treatment-chemicals",
+        subcategories: [
+            {
+                name: "Coagulants & Flocculants",
+                slug: "coagulants-flocculants",
+                products: ["MERWATER CF-100", "MERWATER CF-200"]
+            },
+            {
+                name: "Biocides",
+                slug: "biocides",
+                products: ["MERWATER BIO-10", "MERWATER BIO-20"]
+            },
+            {
+                name: "Scale Inhibitors",
+                slug: "scale-inhibitors",
+                products: ["MERWATER SCALE-50"]
+            }
+        ]
+    }
+];
+
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+    const [activeSubcategoryIndex, setActiveSubcategoryIndex] = useState(0);
     const pathname = usePathname();
+
+    const currentCategory = PRODUCT_DATA[activeCategoryIndex] || PRODUCT_DATA[0];
+    const currentSubcategory = currentCategory.subcategories[activeSubcategoryIndex] || currentCategory.subcategories[0];
 
     const isActive = (href: string) =>
         href === "/" ? pathname === href : pathname.startsWith(href);
@@ -106,26 +234,82 @@ const Header = () => {
                                     <FiChevronDown className="w-4 h-4 stroke-[2] transition-transform duration-200 group-hover:rotate-180" />
                                 </Link>
 
-                                {/* Dropdown Menu */}
-                                <div className="absolute top-full right-0 mt-1 w-52 bg-white shadow-lg rounded-sm py-2 border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                    <Link
-                                        href="/products/accelerators"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#980E27]"
-                                    >
-                                        Accelerators
-                                    </Link>
-                                    <Link
-                                        href="/products/antidegradants"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#980E27]"
-                                    >
-                                        Antidegradants
-                                    </Link>
-                                    <Link
-                                        href="/products/specialty-chemicals"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#980E27]"
-                                    >
-                                        Specialty Chemicals
-                                    </Link>
+                                {/* Product mega menu */}
+                                <div className="absolute top-full right-0 mt-3 w-[min(920px,calc(100vw-48px))] bg-white border border-gray-100 rounded-lg shadow-[0_18px_45px_rgba(15,23,42,0.14)] opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50 overflow-hidden">
+                                    <div className="grid grid-cols-[1.1fr_1fr_1fr] min-h-[320px]">
+                                        {/* Column 1: Main Category Links */}
+                                        <div className="p-5 bg-white border-r border-gray-100 flex flex-col justify-between">
+                                            <div className="space-y-1">
+                                                {PRODUCT_DATA.map((cat, index) => {
+                                                    const active = activeCategoryIndex === index;
+                                                    return (
+                                                        <Link
+                                                            key={cat.id}
+                                                            href={cat.href}
+                                                            onMouseEnter={() => {
+                                                                setActiveCategoryIndex(index);
+                                                                setActiveSubcategoryIndex(0);
+                                                            }}
+                                                            className={`flex items-center justify-between px-3.5 py-2.5 text-[13.5px] font-medium rounded-md transition-colors ${
+                                                                active
+                                                                    ? "bg-[#fff1f3] text-[#980E27] font-semibold"
+                                                                    : "text-slate-800 hover:bg-gray-50 hover:text-[#980E27]"
+                                                            }`}
+                                                        >
+                                                            <span className="flex-1">{cat.label}</span>
+                                                            <FiChevronDown className="w-3.5 h-3.5 -rotate-90" />
+                                                        </Link>
+                                                    );
+                                                })}
+                                            </div>
+
+                                            <Link
+                                                href="/products"
+                                                className="mt-4 flex items-center justify-center gap-2 border border-[#ed1c2e] rounded-md py-2 text-xs font-semibold text-[#ed1c2e] hover:bg-[#980E27] hover:text-white transition-colors"
+                                            >
+                                                View All Products <FiArrowRight className="w-3.5 h-3.5" />
+                                            </Link>
+                                        </div>
+
+                                        {/* Column 2: Subcategories */}
+                                        <div className="p-5 border-r border-gray-100">
+                                            <div className="divide-y divide-gray-100 border-y border-gray-100">
+                                                {currentCategory.subcategories.map((sub, index) => {
+                                                    const active = activeSubcategoryIndex === index;
+                                                    return (
+                                                        <div
+                                                            key={sub.slug}
+                                                            onMouseEnter={() => setActiveSubcategoryIndex(index)}
+                                                            className={`flex items-center justify-between px-3 py-3 text-sm cursor-pointer transition-colors ${
+                                                                active
+                                                                    ? "bg-[#fff1f3] text-[#ed1c2e] font-semibold border-l-[3px] border-[#ed1c2e]"
+                                                                    : "text-slate-800 hover:text-[#980E27]"
+                                                            }`}
+                                                        >
+                                                            <span>{sub.name}</span>
+                                                            <FiChevronDown className="w-4 h-4 -rotate-90" />
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+
+                                        {/* Column 3: Products */}
+                                        <div className="p-5">
+                                            <div className="divide-y divide-gray-100 border-y border-gray-100">
+                                                {currentSubcategory?.products.map((item) => (
+                                                    <Link
+                                                        key={item}
+                                                        href={`${currentCategory.href}#${item.toLowerCase().replaceAll(" ", "-")}`}
+                                                        className="flex items-center justify-between py-3 px-2 text-sm text-slate-800 hover:text-[#980E27] transition-colors"
+                                                    >
+                                                        <span>{item}</span>
+                                                        <FiChevronDown className="w-4 h-4 -rotate-90 opacity-60" />
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

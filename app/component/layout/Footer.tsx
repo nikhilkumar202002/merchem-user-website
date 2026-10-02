@@ -203,7 +203,7 @@ const Footer = () => {
       {/* Bottom Copyright Strip */}
       <div className="w-full bg-[#980E27] text-white text-xs sm:text-sm py-3">
         <div className="site-container flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left font-normal">
-          <p>© 2026 Merchem India (P) Limited. All Rights Reserved.</p>
+          <p>© 2026 Merchem India Private Limited. All Rights Reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy-policy" className="hover:underline transition-all">
               Privacy Policy
