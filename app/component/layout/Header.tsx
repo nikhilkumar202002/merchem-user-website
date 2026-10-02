@@ -265,9 +265,10 @@ const Header = () => {
 
                                             <Link
                                                 href="/products"
-                                                className="mt-4 flex items-center justify-center gap-2 border border-[#ed1c2e] rounded-md py-2 text-xs font-semibold text-[#ed1c2e] hover:bg-[#980E27] hover:text-white transition-colors"
+                                                className="mt-4 bg-[#980E27] text-white py-2.5 px-4 hover:bg-[#7d0a1f] transition-colors flex items-center justify-center gap-2 font-medium text-sm"
                                             >
-                                                View All Products <FiArrowRight className="w-3.5 h-3.5" />
+                                                <span>View All Products</span>
+                                                <FiArrowRight className="w-4 h-4 stroke-[2]" />
                                             </Link>
                                         </div>
 

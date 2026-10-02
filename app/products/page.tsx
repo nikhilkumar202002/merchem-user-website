@@ -1,9 +1,12 @@
 import React from 'react'
+import ProductBanner from '../component/sections/products/ProductBanner'
 
-const page = () => {
+const Page = () => {
   return (
-    <div>page</div>
+    <main>
+      <ProductBanner />
+    </main>
   )
 }
 
-export default page
+export default Page
