@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import { FiCheckCircle, FiFileText, FiLock, FiSend, FiX } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { submitPublicTdsRequest } from "@/app/utils/Enquiry";
+
 export interface TdsFormProps {
+  /** ID of the product for TDS request */
+  productId?: number | string;
   /** Name of the automatically selected product */
   selectedProduct?: string;
   /** Optional list of products if selectable */
@@ -22,6 +26,7 @@ export interface TdsFormProps {
 }
 
 export default function TdsForm({
+  productId,
   selectedProduct = "Rubber Specialty Chemical",
   productList = [],
   onSuccess,
@@ -55,7 +60,7 @@ export default function TdsForm({
     e.preventDefault();
     setErrorMessage("");
 
-    // Required fields verification (Product auto-selected, Full Name, Company, Email, Phone)
+    // Required fields verification (Full Name, Company, Email, Phone)
     if (!formData.fullName.trim() || !formData.companyName.trim() || !formData.email.trim() || !formData.phone.trim()) {
       setErrorMessage("Please fill in all required fields (Full Name, Company Name, Email, Phone).");
       return;
@@ -64,12 +69,22 @@ export default function TdsForm({
     setIsSubmitting(true);
 
     try {
-      // Simulate API submission or dispatch request
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      await submitPublicTdsRequest({
+        product_id: productId,
+        name: formData.fullName,
+        company_name: formData.companyName,
+        email: formData.email,
+        phone: formData.phone,
+        location: formData.location || undefined,
+        message: formData.message || undefined,
+      });
+
       setIsSuccess(true);
       if (onSuccess) onSuccess();
-    } catch (err) {
-      setErrorMessage("Failed to submit TDS request. Please try again.");
+    } catch (err: any) {
+      setErrorMessage(
+        err?.message || err?.error || "Failed to submit TDS request. Please check your network and try again."
+      );
     } finally {
       setIsSubmitting(false);
     }

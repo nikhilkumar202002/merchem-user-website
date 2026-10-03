@@ -29,7 +29,7 @@ export default function SubcategoryDetailClient({
   const [category, setCategory] = useState<CatalogueCategory | null>(null);
   const [subcategory, setSubcategory] = useState<CatalogueSubcategory | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [selectedTdsProduct, setSelectedTdsProduct] = useState<string | null>(null);
+  const [selectedTdsProduct, setSelectedTdsProduct] = useState<{ id: number; name: string } | null>(null);
 
   useEffect(() => {
     const fetchSubcategoryData = async () => {
@@ -157,7 +157,7 @@ export default function SubcategoryDetailClient({
                   <div className="mt-6 pt-4 border-t border-gray-100 space-y-2">
                     <button
                       type="button"
-                      onClick={() => setSelectedTdsProduct(product.name)}
+                      onClick={() => setSelectedTdsProduct({ id: product.id, name: product.name })}
                       className="flex items-center justify-center gap-2 bg-[#980E27] text-white w-full py-2.5 text-xs sm:text-sm font-semibold hover:bg-[#7d0a1f] transition-colors"
                     >
                       <FiDownload className="h-4 w-4" />
@@ -188,7 +188,8 @@ export default function SubcategoryDetailClient({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
           <div className="w-full max-w-xl max-h-[90vh] overflow-y-auto">
             <TdsForm
-              selectedProduct={selectedTdsProduct}
+              productId={selectedTdsProduct.id}
+              selectedProduct={selectedTdsProduct.name}
               productList={subcategory.products.map((p) => p.name)}
               onClose={() => setSelectedTdsProduct(null)}
             />
