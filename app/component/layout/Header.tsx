@@ -93,15 +93,15 @@ const Header = () => {
                                 <span>0484 3510629</span>
                             </a>
 
-                            <div className="h-3.5 w-[1px] bg-white/30 shrink-0" />
+                            {/* <div className="h-3.5 w-[1px] bg-white/30 shrink-0" /> */}
 
-                            <a
+                            {/* <a
                                 href="tel:+914843510629"
                                 className="flex items-center gap-2 hover:opacity-90 transition-opacity shrink-0"
                             >
                                 <FaPhoneAlt className="w-3.5 h-3.5" />
                                 <span>+91-484-3510629</span>
-                            </a>
+                            </a> */}
                         </div>
                     </div>
 
@@ -139,7 +139,7 @@ const Header = () => {
                                                         return (
                                                             <Link
                                                                 key={cat.id || cat.slug}
-                                                                href={`/products?category=${cat.slug}`}
+                                                                href={`/products/${cat.slug}`}
                                                                 onMouseEnter={() => {
                                                                     setActiveCategoryIndex(index);
                                                                     setActiveSubcategoryIndex(0);

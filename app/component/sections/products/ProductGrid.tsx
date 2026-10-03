@@ -1,0 +1,146 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { FiArrowRight, FiGrid, FiLayers } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { getProductCategories, Category } from "@/app/utils/ProductService";
+import FallbackImage from "@/public/images/About-image-1.webp";
+
+export default function ProductGrid() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const res = await getProductCategories();
+        if (res && res.success && Array.isArray(res.data)) {
+          setCategories(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch product categories:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  return (
+    <section className="w-full bg-[#fcfcfd] py-16 sm:py-20 lg:py-24">
+      <div className="site-container">
+        {/* Section Header */}
+        <div className="mx-auto max-w-3xl text-center mb-12 sm:mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="block text-sm font-semibold tracking-wider text-[#980E27] uppercase sm:text-base"
+          >
+            Our Main Product Categories
+          </motion.span>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mt-2 text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl"
+          >
+            Specialty Chemical Solutions Built for Performance.
+          </motion.h2>
+
+    
+        </div>
+
+        {/* 3-Column Card Grid */}
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((idx) => (
+              <div
+                key={idx}
+                className="animate-pulse bg-white p-4 shadow-xs border border-gray-100"
+              >
+                <div className="h-56 w-full bg-gray-200" />
+                <div className="mt-4 h-6 w-3/4 bg-gray-200" />
+                <div className="mt-2 h-4 w-full bg-gray-200" />
+                <div className="mt-1 h-4 w-5/6 bg-gray-200" />
+                <div className="mt-6 h-10 w-full bg-gray-200" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categories.map((category, index) => (
+              <motion.article
+                key={category.id || category.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group flex flex-col bg-white border border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden transition-all duration-300 hover:shadow-[0_12px_32px_rgba(152,14,39,0.12)] hover:-translate-y-1"
+              >
+                {/* Card Image Header */}
+                <div className="relative w-full overflow-hidden bg-gray-100">
+                  <Image
+                    src={category.image_url || FallbackImage}
+                    alt={category.name}
+                    width={600}
+                    height={400}
+                    unoptimized
+                    className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+
+                {/* Card Body */}
+                <div className="flex flex-1 flex-col p-6 sm:p-7">
+                  <div className="flex items-center gap-4 text-xs font-medium text-[#980E27] mb-2">
+                    {category.subcategories_count !== undefined && (
+                      <span className="flex items-center gap-1 bg-[#fff1f3] px-2.5 py-1 rounded-full">
+                        <FiLayers className="w-3.5 h-3.5" />
+                        {category.subcategories_count} Sub Products
+                      </span>
+                    )}
+                    {category.products_count !== undefined && (
+                      <span className="flex items-center gap-1 bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full">
+                        <FiGrid className="w-3.5 h-3.5" />
+                        {category.products_count} Products
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-black group-hover:text-[#980E27] transition-colors leading-snug">
+                    {category.name}
+                  </h3>
+
+                  <p className="mt-3 text-sm text-[#474747] leading-relaxed line-clamp-3">
+                    {category.short_description || category.description}
+                  </p>
+
+                  {/* Card Action Link */}
+                  <div className="mt-6 pt-4 border-t border-gray-100">
+                    <Link
+                      href={`/products/${category.slug}`}
+                      className="inline-flex w-full items-center justify-between font-semibold text-sm text-[#980E27] group-hover:text-[#7d0a1f] transition-colors"
+                    >
+                      <span>Explore Products</span>
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#fff1f3] text-[#980E27] group-hover:bg-[#980E27] group-hover:text-white transition-all duration-300">
+                        <FiArrowRight className="h-4 w-4" />
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}

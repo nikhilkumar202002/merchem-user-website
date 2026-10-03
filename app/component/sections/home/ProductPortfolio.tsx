@@ -164,7 +164,7 @@ export default function ProductPortfolio() {
                   <div className="flex min-h-[220px] flex-col px-6 py-6">
                     <h3 className="text-xl font-semibold leading-tight text-black">{category.name}</h3>
                     <p className="mt-2 text-base leading-[1.3] text-[#474747] line-clamp-3">{category.short_description}</p>
-                    <Link href={`/products?category=${category.slug}`} aria-label={`Explore ${category.name}`} className="mt-auto flex h-7 w-7 items-center justify-center bg-[#980E27] text-white transition-colors hover:bg-[#7d0a1f]">
+                    <Link href={`/products/${category.slug}`} aria-label={`Explore ${category.name}`} className="mt-auto flex h-7 w-7 items-center justify-center bg-[#980E27] text-white transition-colors hover:bg-[#7d0a1f]">
                       <FiArrowRight className="h-4 w-4" />
                     </Link>
                   </div>

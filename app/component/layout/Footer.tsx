@@ -1,14 +1,34 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaInstagram, FaFacebookF, FaLinkedinIn, FaPhoneAlt } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { FiMapPin, FiArrowRight } from "react-icons/fi";
 import { IoMdMail } from "react-icons/io";
 import { GiRotaryPhone } from "react-icons/gi";
+import { getProductCategories, Category } from "@/app/utils/ProductService";
 import "../styles/Layout.css";
 import Logo from "../../../public/Main_logo.png";
 
 const Footer = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await getProductCategories();
+        if (res && res.success && Array.isArray(res.data)) {
+          setCategories(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch categories for footer:", err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
     <footer className="w-full bg-white text-gray-800 border-t border-gray-100 font-sans">
       {/* Main Footer Section */}
@@ -109,31 +129,43 @@ const Footer = () => {
           <div className="lg:col-span-3 space-y-3">
             <h4 className="font-bold text-[18px] text-[#000000]">Products</h4>
             <ul className="space-y-2 text-[17px] text-[#474747]">
-              <li>
-                <Link href="/products/accelerators" className="hover:text-[#980E27] transition-colors">
-                  Accelerators
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/antioxidants-antiozonants" className="hover:text-[#980E27] transition-colors">
-                  Antioxidants & Antiozonants
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/processing-aids" className="hover:text-[#980E27] transition-colors">
-                  Processing Aids
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/agrochemical-intermediates" className="hover:text-[#980E27] transition-colors">
-                  Agrochemical Intermediates
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/water-treatment-chemicals" className="hover:text-[#980E27] transition-colors">
-                  Water Treatment Chemicals
-                </Link>
-              </li>
+              {categories.length > 0 ? (
+                categories.map((cat) => (
+                  <li key={cat.id || cat.slug}>
+                    <Link href={`/products/${cat.slug}`} className="hover:text-[#980E27] transition-colors">
+                      {cat.name}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <>
+                  <li>
+                    <Link href="/products/rubber-accelerators" className="hover:text-[#980E27] transition-colors">
+                      Accelerators
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/products/rubber-antioxidants-antiozonants" className="hover:text-[#980E27] transition-colors">
+                      Antioxidants & Antiozonants
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/products/rubber-processing-aids" className="hover:text-[#980E27] transition-colors">
+                      Processing Aids
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/products/agrochemicals" className="hover:text-[#980E27] transition-colors">
+                      Agrochemical Intermediates
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/products/water-treatment-chemicals" className="hover:text-[#980E27] transition-colors">
+                      Water Treatment Chemicals
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
 
             <div className="pt-2">
