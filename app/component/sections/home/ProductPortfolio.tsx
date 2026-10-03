@@ -1,27 +1,37 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { getProductCategories, Category } from "@/app/utils/ProductService";
 import AboutImage from "@/public/images/About-image-1.webp";
-import LegacyImage from "@/public/images/company-quote.webp";
-
-type ProductCard = { title: string; description: string; image: StaticImageData };
-
-const products: ProductCard[] = [
-  { title: "Accelerators", description: "Supporting controlled and efficient vulcanization across rubber applications.", image: LegacyImage },
-  { title: "Antioxidants & Antiozonants", description: "Helping protect rubber materials against degradation and environmental effects.", image: LegacyImage },
-  { title: "Processing Aids", description: "Supporting improved processing, stability and material handling.", image: AboutImage },
-  { title: "Agrochemical Intermediates", description: "Specialty chemical intermediates serving agricultural chemical applications.", image: AboutImage },
-  { title: "Water Treatment Chemicals", description: "Chemical solutions supporting industrial water-treatment requirements.", image: AboutImage },
-];
 
 export default function ProductPortfolio() {
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [activeDot, setActiveDot] = useState(0);
   const [slideCount, setSlideCount] = useState(1);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const res = await getProductCategories();
+        if (res && res.success && Array.isArray(res.data)) {
+          setCategories(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch product categories:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const updateSlideCount = () => {
     const slider = sliderRef.current;
@@ -36,10 +46,12 @@ export default function ProductPortfolio() {
   };
 
   useEffect(() => {
-    updateSlideCount();
+    if (categories.length > 0) {
+      updateSlideCount();
+    }
     window.addEventListener("resize", updateSlideCount);
     return () => window.removeEventListener("resize", updateSlideCount);
-  }, []);
+  }, [categories]);
 
   const handleScroll = () => {
     const slider = sliderRef.current;
@@ -124,50 +136,67 @@ export default function ProductPortfolio() {
           </motion.div>
         </div>
 
-        <div className="relative">
-          <div ref={sliderRef} onScroll={handleScroll} className="flex snap-x snap-mandatory gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {products.map((product, index) => (
-              <motion.article
-                key={product.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="w-full flex-none snap-start bg-[#f1f1f3] sm:w-[calc((100%-20px)/2)] xl:w-[calc((100%-60px)/4)]"
-              >
-                <Image src={product.image} alt={product.title} className="h-[260px] w-full object-cover xl:h-[280px]" />
-                <div className="flex min-h-[220px] flex-col px-6 py-6">
-                  <h3 className="text-xl font-semibold leading-tight text-black">{product.title}</h3>
-                  <p className="mt-2 text-base leading-[1.3] text-[#474747]">{product.description}</p>
-                  <Link href="/products" aria-label={`Explore ${product.title}`} className="mt-auto flex h-7 w-7 items-center justify-center bg-[#980E27] text-white transition-colors hover:bg-[#7d0a1f]">
-                    <FiArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </motion.article>
+        {loading ? (
+          <div className="flex h-64 items-center justify-center">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#980E27] border-t-transparent"></div>
+          </div>
+        ) : (
+          <div className="relative">
+            <div ref={sliderRef} onScroll={handleScroll} className="flex snap-x snap-mandatory gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {categories.map((category, index) => (
+                <motion.article
+                  key={category.id || category.slug}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="w-full flex-none snap-start bg-[#f1f1f3] sm:w-[calc((100%-20px)/2)] xl:w-[calc((100%-60px)/4)]"
+                >
+                  <div className="relative h-[260px] w-full xl:h-[280px]">
+                    <Image
+                      src={category.image_url || AboutImage}
+                      alt={category.name}
+                      fill
+                      unoptimized
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex min-h-[220px] flex-col px-6 py-6">
+                    <h3 className="text-xl font-semibold leading-tight text-black">{category.name}</h3>
+                    <p className="mt-2 text-base leading-[1.3] text-[#474747] line-clamp-3">{category.short_description}</p>
+                    <Link href={`/products?category=${category.slug}`} aria-label={`Explore ${category.name}`} className="mt-auto flex h-7 w-7 items-center justify-center bg-[#980E27] text-white transition-colors hover:bg-[#7d0a1f]">
+                      <FiArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+
+            <button type="button" onClick={slidePrevious} aria-label="Previous products" className="absolute -left-5 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] xl:flex">
+              <FiChevronLeft className="h-6 w-6" />
+            </button>
+            <button type="button" onClick={slideNext} aria-label="Next products" className="absolute -right-5 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] xl:flex">
+              <FiChevronRight className="h-6 w-6" />
+            </button>
+          </div>
+        )}
+
+        {!loading && slideCount > 1 && (
+          <div className="mt-7 flex justify-center gap-2" aria-label="Product slides">
+            {Array.from({ length: slideCount }, (_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => goToSlide(index)}
+                aria-label={`Go to product slide ${index + 1}`}
+                aria-current={activeDot === index ? "true" : undefined}
+                className={`h-2.5 w-2.5 rounded-full transition-colors ${activeDot === index ? "bg-[#980E27]" : "bg-[#d6d6d6] hover:bg-[#980E27]/60"}`}
+              />
             ))}
           </div>
-
-          <button type="button" onClick={slidePrevious} aria-label="Previous products" className="absolute -left-5 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] xl:flex">
-            <FiChevronLeft className="h-6 w-6" />
-          </button>
-          <button type="button" onClick={slideNext} aria-label="Next products" className="absolute -right-5 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] xl:flex">
-            <FiChevronRight className="h-6 w-6" />
-          </button>
-        </div>
-
-        <div className="mt-7 flex justify-center gap-2" aria-label="Product slides">
-          {Array.from({ length: slideCount }, (_, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => goToSlide(index)}
-              aria-label={`Go to product slide ${index + 1}`}
-              aria-current={activeDot === index ? "true" : undefined}
-              className={`h-2.5 w-2.5 rounded-full transition-colors ${activeDot === index ? "bg-[#980E27]" : "bg-[#d6d6d6] hover:bg-[#980E27]/60"}`}
-            />
-          ))}
-        </div>
+        )}
       </div>
     </section>
   );
 }
+
