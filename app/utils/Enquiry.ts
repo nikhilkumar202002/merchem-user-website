@@ -17,6 +17,9 @@ export interface PublicEnquiryPayload {
   phone?: string;
   subject?: string;
   message: string;
+  category_id?: number | string;
+  category_name?: string;
+  enquiry_type?: string;
 }
 
 export interface ApiResponse<T = any> {

@@ -9,28 +9,29 @@ import LegacyImg from "@/public/images/company-quote.webp";
 
 const Legacy = () => {
   return (
-    <section className="w-full bg-white overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
-        {/* Left Column: Image */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="relative w-full overflow-hidden order-2 lg:order-1"
-        >
-          <Image
-            src={LegacyImg}
-            alt="Rubber products and applications"
-            width={1500}
-            height={1200}
-            className="w-full aspect-[4/3] object-cover"
-            priority
-          />
-        </motion.div>
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-[120px] overflow-hidden">
+      <div className="site-container">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[80px] items-center">
+          {/* Left Column: Image */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative w-full overflow-hidden order-2 lg:order-1"
+          >
+            <Image
+              src={LegacyImg}
+              alt="Rubber products and applications"
+              width={1500}
+              height={1200}
+              className="w-full aspect-[4/3] object-cover"
+              priority
+            />
+          </motion.div>
 
-        {/* Right Column: Text Content */}
-        <div className="px-5 py-10 sm:px-10 lg:py-0 lg:pl-[95px] lg:pr-12 order-1 lg:order-2">
+          {/* Right Column: Text Content */}
+          <div className="order-1 lg:order-2">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +96,8 @@ const Legacy = () => {
           </motion.div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
   );
 };
 

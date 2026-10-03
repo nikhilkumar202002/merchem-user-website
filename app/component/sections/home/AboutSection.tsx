@@ -10,10 +10,10 @@ import AboutImg from "@/public/images/About-image-1.webp";
 const AboutSection = () => {
   return (
     <section className="w-full bg-white py-16 sm:py-20 lg:py-[120px] overflow-hidden">
-      <div>
+      <div className="site-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[80px] items-center">
           {/* Left Column: Text & Content */}
-          <div className="px-5 sm:px-10 lg:pl-[95px] lg:pr-0">
+          <div>
             {/* Category Subhead */}
             <motion.span
               initial={{ opacity: 0, y: 15 }}
