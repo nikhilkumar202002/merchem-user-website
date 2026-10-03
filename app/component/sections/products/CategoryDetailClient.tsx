@@ -148,9 +148,11 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                   <div key={sub.id || sub.slug} className="bg-white border border-gray-200 p-6 sm:p-8 space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-3">
                       <div className="flex items-center gap-3 border-l-4 border-[#980E27] pl-3">
-                        <h3 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-wide">
-                          {sub.name}
-                        </h3>
+                        <Link href={`/products/${category.slug}/${sub.slug}`} className="hover:text-[#980E27] transition-colors">
+                          <h3 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-wide hover:text-[#980E27]">
+                            {sub.name}
+                          </h3>
+                        </Link>
                       </div>
                       <span className="text-xs font-semibold px-2.5 py-1 bg-[#fff1f3] text-[#980E27] flex items-center gap-1">
                         <FiGrid className="h-3.5 w-3.5" />

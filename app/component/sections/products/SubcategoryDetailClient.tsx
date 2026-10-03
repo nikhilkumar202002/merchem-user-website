@@ -1,0 +1,184 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { FiArrowRight, FiFileText, FiGrid, FiDownload } from "react-icons/fi";
+import Breadcrumbs from "@/app/component/common/Breadcrumbs";
+import { getProductCatalogue, CatalogueCategory, CatalogueSubcategory } from "@/app/utils/ProductService";
+
+interface SubcategoryDetailClientProps {
+  slug?: string;
+  subcategorySlug?: string;
+}
+
+export default function SubcategoryDetailClient({
+  slug: propSlug,
+  subcategorySlug: propSubSlug,
+}: SubcategoryDetailClientProps) {
+  const routeParams = useParams();
+
+  const rawSlug = propSlug || routeParams?.slug;
+  const currentSlug = typeof rawSlug === "string" ? rawSlug : Array.isArray(rawSlug) ? rawSlug[0] : "";
+
+  const rawSubSlug = propSubSlug || routeParams?.subcategorySlug;
+  const currentSubSlug = typeof rawSubSlug === "string" ? rawSubSlug : Array.isArray(rawSubSlug) ? rawSubSlug[0] : "";
+
+  const [catalogue, setCatalogue] = useState<CatalogueCategory[]>([]);
+  const [category, setCategory] = useState<CatalogueCategory | null>(null);
+  const [subcategory, setSubcategory] = useState<CatalogueSubcategory | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchSubcategoryData = async () => {
+      try {
+        setLoading(true);
+        const res = await getProductCatalogue();
+        if (res && res.success && Array.isArray(res.data)) {
+          setCatalogue(res.data);
+          const foundCat = res.data.find(
+            (cat) => cat.slug.toLowerCase() === currentSlug.toLowerCase()
+          ) || res.data[0];
+
+          setCategory(foundCat || null);
+
+          if (foundCat && foundCat.subcategories) {
+            const foundSub = foundCat.subcategories.find(
+              (sub) => sub.slug.toLowerCase() === currentSubSlug.toLowerCase()
+            );
+            setSubcategory(foundSub || foundCat.subcategories[0] || null);
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching subcategory details:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSubcategoryData();
+  }, [currentSlug, currentSubSlug]);
+
+  if (loading) {
+    return (
+      <main className="w-full bg-[#fcfcfd] min-h-screen py-12">
+        <div className="site-container">
+          <div className="h-6 w-64 bg-gray-200 animate-pulse mb-6" />
+          <div className="h-10 w-96 bg-gray-200 animate-pulse mb-8" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((idx) => (
+              <div key={idx} className="h-48 bg-gray-200 animate-pulse" />
+            ))}
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (!subcategory || !category) {
+    return (
+      <main className="w-full bg-[#fcfcfd] min-h-screen py-20">
+        <div className="site-container text-center">
+          <h1 className="text-3xl font-bold text-black">Subcategory Not Found</h1>
+          <p className="mt-2 text-slate-600">The requested subcategory could not be found.</p>
+          <Link
+            href="/products"
+            className="mt-6 inline-flex items-center gap-2 bg-[#980E27] text-white px-6 py-2.5 text-sm font-semibold"
+          >
+            <span>Back to All Products</span>
+            <FiArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  const breadcrumbItems = [
+    { label: "Products", href: "/products" },
+    { label: category.name, href: `/products/${category.slug}` },
+    { label: subcategory.name },
+  ];
+
+  return (
+    <main className="w-full bg-[#fcfcfd] min-h-screen py-8 sm:py-12 lg:py-16">
+      <div className="site-container">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs items={breadcrumbItems} />
+
+        {/* Subcategory Header */}
+        <div className="mt-4 mb-10 pb-6 border-b border-gray-200">
+          <span className="block text-xs font-semibold tracking-wider text-[#980E27] uppercase">
+            {category.name} Subcategory
+          </span>
+          <div className="mt-1 flex flex-wrap items-center justify-between gap-4">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black tracking-tight">
+              {subcategory.name}
+            </h1>
+            <span className="text-xs font-semibold px-3 py-1.5 bg-[#fff1f3] text-[#980E27] flex items-center gap-1.5 border border-[#980E27]/20">
+              <FiGrid className="h-4 w-4" />
+              {subcategory.products.length} Products
+            </span>
+          </div>
+        </div>
+
+        {/* Main Product Grid (Full Width, 3-4 Cols) */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold text-black border-l-4 border-[#980E27] pl-3">
+              Product Range ({subcategory.products.length})
+            </h2>
+          </div>
+
+          {subcategory.products.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {subcategory.products.map((product) => (
+                <div
+                  key={product.id || product.slug}
+                  className="group flex flex-col justify-between bg-white border border-gray-200 p-6 transition-all duration-300 hover:border-[#980E27] hover:shadow-lg"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="text-xs font-semibold px-2.5 py-0.5 bg-gray-100 text-slate-700">
+                        {subcategory.name}
+                      </span>
+                      <div className="flex items-center gap-1 text-[11px] font-medium text-slate-500">
+                        <FiFileText className="h-3.5 w-3.5 text-[#980E27]" />
+                        <span>{product.tds_available ? "TDS Ready" : "TDS on Request"}</span>
+                      </div>
+                    </div>
+
+                    <h3 className="text-xl font-bold text-black group-hover:text-[#980E27] transition-colors leading-snug">
+                      {product.name}
+                    </h3>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-gray-100 space-y-2">
+                    <Link
+                      href={`/contact-us?product=${encodeURIComponent(product.name)}&subject=Enquiry+for+${encodeURIComponent(product.name)}+TDS`}
+                      className="flex items-center justify-center gap-2 bg-[#980E27] text-white w-full py-2.5 text-xs sm:text-sm font-semibold hover:bg-[#7d0a1f] transition-colors"
+                    >
+                      <FiDownload className="h-4 w-4" />
+                      <span>Enquire for TDS</span>
+                    </Link>
+
+                    <Link
+                      href={`/contact-us?product=${encodeURIComponent(product.name)}`}
+                      className="flex items-center justify-center gap-1.5 text-xs text-slate-600 hover:text-[#980E27] py-1 transition-colors"
+                    >
+                      <span>Request Product Sample</span>
+                      <FiArrowRight className="h-3 w-3" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white border border-gray-200 p-8 text-center text-slate-500">
+              No products currently listed under this subcategory.
+            </div>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}

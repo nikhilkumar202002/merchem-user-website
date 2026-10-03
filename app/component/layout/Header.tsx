@@ -173,8 +173,9 @@ const Header = () => {
                                                         currentCategory.subcategories.map((sub, index) => {
                                                             const active = activeSubcategoryIndex === index;
                                                             return (
-                                                                <div
+                                                                <Link
                                                                     key={sub.id || sub.slug}
+                                                                    href={`/products/${currentCategory.slug}/${sub.slug}`}
                                                                     onMouseEnter={() => setActiveSubcategoryIndex(index)}
                                                                     className={`flex items-center justify-between px-3 py-3 text-sm cursor-pointer transition-colors ${
                                                                         active
@@ -184,7 +185,7 @@ const Header = () => {
                                                                 >
                                                                     <span>{sub.name}</span>
                                                                     <FiChevronDown className="w-4 h-4 -rotate-90" />
-                                                                </div>
+                                                                </Link>
                                                             );
                                                         })
                                                     ) : (
