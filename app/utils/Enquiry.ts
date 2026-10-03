@@ -11,15 +11,14 @@ export interface PublicTdsRequestPayload {
 }
 
 export interface PublicEnquiryPayload {
-  name: string;
+  full_name: string;
   company_name?: string;
   email: string;
   phone?: string;
+  enquiry_type?: string;
+  product_category_id?: number | string;
   subject?: string;
   message: string;
-  category_id?: number | string;
-  category_name?: string;
-  enquiry_type?: string;
 }
 
 export interface ApiResponse<T = any> {

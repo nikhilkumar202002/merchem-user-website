@@ -67,15 +67,14 @@ const ContactForm = () => {
       );
 
       await submitPublicEnquiry({
-        name: formData.fullName,
+        full_name: formData.fullName,
         company_name: formData.companyName || undefined,
         email: formData.email,
         phone: formData.phone || undefined,
+        enquiry_type: formData.enquiryType || undefined,
+        product_category_id: selectedCategoryObj?.id || undefined,
         subject: formData.subject || undefined,
         message: formData.message,
-        category_id: selectedCategoryObj?.id,
-        category_name: selectedCategoryObj?.name || formData.productCategory || undefined,
-        enquiry_type: formData.enquiryType || undefined,
       });
 
       setIsSuccess(true);
