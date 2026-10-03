@@ -142,7 +142,7 @@ export default function ProductPortfolio() {
           </div>
         ) : (
           <div className="relative">
-            <div ref={sliderRef} onScroll={handleScroll} className="flex snap-x snap-mandatory gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div ref={sliderRef} onScroll={handleScroll} className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {categories.map((category, index) => (
                 <motion.article
                   key={category.id || category.slug}

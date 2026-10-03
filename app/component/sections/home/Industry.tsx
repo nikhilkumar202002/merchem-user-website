@@ -2,8 +2,6 @@
 
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import IndustrialImage from "@/public/images/industrial_application.webp";
 import LatexImage from "@/public/images/latex.webp";
@@ -91,13 +89,6 @@ export default function Industry() {
                   <p className="mt-2 text-[17px] leading-[1.28] text-[#474747]">
                     {industry.description}
                   </p>
-                  <Link
-                    href="/industries"
-                    aria-label={`Explore ${industry.title}`}
-                    className="mt-[30px] flex h-7 w-7 items-center justify-center bg-[#980E27] text-white transition-colors hover:bg-[#7d0a1f]"
-                  >
-                    <FiArrowRight className="h-4 w-4" />
-                  </Link>
                 </div>
               </motion.article>
             ))}

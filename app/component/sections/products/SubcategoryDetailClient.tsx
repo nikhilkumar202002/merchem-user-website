@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { FiArrowRight, FiFileText, FiGrid, FiDownload } from "react-icons/fi";
 import Breadcrumbs from "@/app/component/common/Breadcrumbs";
+import TdsForm from "@/app/component/common/TdsForm";
 import { getProductCatalogue, CatalogueCategory, CatalogueSubcategory } from "@/app/utils/ProductService";
 
 interface SubcategoryDetailClientProps {
@@ -28,6 +29,7 @@ export default function SubcategoryDetailClient({
   const [category, setCategory] = useState<CatalogueCategory | null>(null);
   const [subcategory, setSubcategory] = useState<CatalogueSubcategory | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [selectedTdsProduct, setSelectedTdsProduct] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSubcategoryData = async () => {
@@ -107,9 +109,9 @@ export default function SubcategoryDetailClient({
 
         {/* Subcategory Header */}
         <div className="mt-4 mb-10 pb-6 border-b border-gray-200">
-          <span className="block text-xs font-semibold tracking-wider text-[#980E27] uppercase">
+          {/* <span className="block text-xs font-semibold tracking-wider text-[#980E27] uppercase">
             {category.name} Subcategory
-          </span>
+          </span> */}
           <div className="mt-1 flex flex-wrap items-center justify-between gap-4">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black tracking-tight">
               {subcategory.name}
@@ -153,21 +155,22 @@ export default function SubcategoryDetailClient({
                   </div>
 
                   <div className="mt-6 pt-4 border-t border-gray-100 space-y-2">
-                    <Link
-                      href={`/contact-us?product=${encodeURIComponent(product.name)}&subject=Enquiry+for+${encodeURIComponent(product.name)}+TDS`}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedTdsProduct(product.name)}
                       className="flex items-center justify-center gap-2 bg-[#980E27] text-white w-full py-2.5 text-xs sm:text-sm font-semibold hover:bg-[#7d0a1f] transition-colors"
                     >
                       <FiDownload className="h-4 w-4" />
-                      <span>Enquire for TDS</span>
-                    </Link>
+                      <span>Request TDS</span>
+                    </button>
 
-                    <Link
+                    {/* <Link
                       href={`/contact-us?product=${encodeURIComponent(product.name)}`}
                       className="flex items-center justify-center gap-1.5 text-xs text-slate-600 hover:text-[#980E27] py-1 transition-colors"
                     >
                       <span>Request Product Sample</span>
                       <FiArrowRight className="h-3 w-3" />
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               ))}
@@ -179,6 +182,19 @@ export default function SubcategoryDetailClient({
           )}
         </div>
       </div>
+
+      {/* TDS Request Modal */}
+      {selectedTdsProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-xl max-h-[90vh] overflow-y-auto">
+            <TdsForm
+              selectedProduct={selectedTdsProduct}
+              productList={subcategory.products.map((p) => p.name)}
+              onClose={() => setSelectedTdsProduct(null)}
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
