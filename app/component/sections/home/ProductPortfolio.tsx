@@ -172,10 +172,20 @@ export default function ProductPortfolio() {
               ))}
             </div>
 
-            <button type="button" onClick={slidePrevious} aria-label="Previous products" className="absolute -left-5 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] xl:flex">
+            <button
+              type="button"
+              onClick={slidePrevious}
+              aria-label="Previous products"
+              className="absolute left-1 sm:-left-5 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.12)] text-slate-900 hover:bg-[#980E27] hover:text-white transition-colors"
+            >
               <FiChevronLeft className="h-6 w-6" />
             </button>
-            <button type="button" onClick={slideNext} aria-label="Next products" className="absolute -right-5 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] xl:flex">
+            <button
+              type="button"
+              onClick={slideNext}
+              aria-label="Next products"
+              className="absolute right-1 sm:-right-5 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center bg-white shadow-[0_2px_12px_rgba(0,0,0,0.12)] text-slate-900 hover:bg-[#980E27] hover:text-white transition-colors"
+            >
               <FiChevronRight className="h-6 w-6" />
             </button>
           </div>

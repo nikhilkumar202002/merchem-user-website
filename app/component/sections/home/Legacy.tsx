@@ -17,7 +17,7 @@ const Legacy = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative w-full overflow-hidden"
+          className="relative w-full overflow-hidden order-2 lg:order-1"
         >
           <Image
             src={LegacyImg}
@@ -30,7 +30,7 @@ const Legacy = () => {
         </motion.div>
 
         {/* Right Column: Text Content */}
-        <div className="px-5 py-10 sm:px-10 lg:py-0 lg:pl-[95px] lg:pr-12">
+        <div className="px-5 py-10 sm:px-10 lg:py-0 lg:pl-[95px] lg:pr-12 order-1 lg:order-2">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
