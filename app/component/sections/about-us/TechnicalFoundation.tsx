@@ -8,7 +8,7 @@ import TechnicalFoundationImg from "@/public/images/quality_technical.webp";
 const TechnicalFoundation = () => {
   return (
     <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px] overflow-hidden">
-      <div>
+      <div className="site-container">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-[80px]">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -26,7 +26,7 @@ const TechnicalFoundation = () => {
             />
           </motion.div>
 
-          <div className="max-w-2xl px-5 sm:px-10 lg:px-0">
+          <div>
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}

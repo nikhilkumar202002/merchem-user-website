@@ -10,10 +10,10 @@ import AboutImg from "@/public/images/who-we-are.webp";
 const WhoWeAre = () => {
   return (
     <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px] overflow-hidden">
-      <div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[80px] items-center">
+      <div className="site-container">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[80px] items-stretch">
           {/* Left Column: Text & Content */}
-          <div className="px-5 sm:px-10 lg:pl-[95px] lg:pr-0">
+          <div className="flex flex-col justify-center">
             <motion.span
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -88,15 +88,15 @@ const WhoWeAre = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative"
+            className="relative w-full h-full min-h-[350px] lg:min-h-0"
           >
-            <div className="relative overflow-hidden">
+            <div className="relative w-full h-full min-h-[350px] lg:min-h-0 overflow-hidden">
               <Image
                 src={AboutImg}
                 alt="Merchem chemical manufacturing facility"
-                width={700}
-                height={480}
-                className="w-full h-auto object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
                 priority
               />
             </div>
