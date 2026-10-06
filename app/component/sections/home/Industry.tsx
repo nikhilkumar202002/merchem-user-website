@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import IndustrialImage from "@/public/images/industrial_application.webp";
 import LatexImage from "@/public/images/latex.webp";
 import TyresRubberImage from "@/public/images/tyers_rubber.webp";
+import RubberImage from "@/public/images/rubber.jpg";
 
 type IndustryCard = {
   title: string;
@@ -24,7 +25,7 @@ const industries: IndustryCard[] = [
     title: "Rubber",
     description:
       "Performance-oriented chemicals supporting rubber compounding, processing and finished-product performance.",
-    image: TyresRubberImage,
+    image: RubberImage,
   },
   {
     title: "Latex",
@@ -82,7 +83,7 @@ export default function Industry() {
                   alt={industry.title}
                   className="h-[220px] w-full object-cover"
                 />
-                <div className="flex flex-1 flex-col px-4 py-3">
+                <div className="flex flex-1 flex-col p-5">
                   <h3 className="text-[20px] font-bold leading-[1.05] text-black">
                     {industry.title}
                   </h3>
