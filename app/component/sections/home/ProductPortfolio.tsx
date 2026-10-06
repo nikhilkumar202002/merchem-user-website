@@ -8,6 +8,33 @@ import { motion } from "framer-motion";
 import { getProductCategories, Category } from "@/app/utils/ProductService";
 import AboutImage from "@/public/images/About-image-1.webp";
 
+function CategoryCardImage({
+  src,
+  alt,
+  fallback,
+}: {
+  src?: string | null;
+  alt: string;
+  fallback: any;
+}) {
+  const [imgSrc, setImgSrc] = useState<any>(src || fallback);
+
+  useEffect(() => {
+    setImgSrc(src || fallback);
+  }, [src, fallback]);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      unoptimized
+      onError={() => setImgSrc(fallback)}
+      className="object-cover"
+    />
+  );
+}
+
 export default function ProductPortfolio() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -153,12 +180,10 @@ export default function ProductPortfolio() {
                   className="w-full flex-none snap-start bg-[#f1f1f3] sm:w-[calc((100%-20px)/2)] xl:w-[calc((100%-60px)/4)]"
                 >
                   <div className="relative h-[260px] w-full xl:h-[280px]">
-                    <Image
-                      src={category.image_url || AboutImage}
+                    <CategoryCardImage
+                      src={category.image_url}
                       alt={category.name}
-                      fill
-                      unoptimized
-                      className="object-cover"
+                      fallback={AboutImage}
                     />
                   </div>
                   <div className="flex min-h-[220px] flex-col px-6 py-6">

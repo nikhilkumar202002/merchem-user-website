@@ -8,6 +8,34 @@ import { motion } from "framer-motion";
 import { getProductCategories, Category } from "@/app/utils/ProductService";
 import FallbackImage from "@/public/images/About-image-1.webp";
 
+function CategoryCardImage({
+  src,
+  alt,
+  fallback,
+}: {
+  src?: string | null;
+  alt: string;
+  fallback: any;
+}) {
+  const [imgSrc, setImgSrc] = useState<any>(src || fallback);
+
+  useEffect(() => {
+    setImgSrc(src || fallback);
+  }, [src, fallback]);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      width={600}
+      height={400}
+      unoptimized
+      onError={() => setImgSrc(fallback)}
+      className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  );
+}
+
 export default function ProductGrid() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -87,13 +115,10 @@ export default function ProductGrid() {
               >
                 {/* Card Image Header */}
                 <div className="relative w-full overflow-hidden bg-gray-100">
-                  <Image
-                    src={category.image_url || FallbackImage}
+                  <CategoryCardImage
+                    src={category.image_url}
                     alt={category.name}
-                    width={600}
-                    height={400}
-                    unoptimized
-                    className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                    fallback={FallbackImage}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>

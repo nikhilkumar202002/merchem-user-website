@@ -13,6 +13,35 @@ interface CategoryDetailClientProps {
   slug?: string;
 }
 
+function CategoryBannerImage({
+  src,
+  alt,
+  fallback,
+}: {
+  src?: string | null;
+  alt: string;
+  fallback: any;
+}) {
+  const [imgSrc, setImgSrc] = useState<any>(src || fallback);
+
+  useEffect(() => {
+    setImgSrc(src || fallback);
+  }, [src, fallback]);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      width={900}
+      height={500}
+      unoptimized
+      priority
+      onError={() => setImgSrc(fallback)}
+      className="w-full h-auto object-cover"
+    />
+  );
+}
+
 export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailClientProps) {
   const routeParams = useParams();
   const rawSlug = propSlug || routeParams?.slug;
@@ -74,7 +103,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
           <p className="mt-2 text-slate-600">The requested product category could not be found.</p>
           <Link
             href="/products"
-            className="mt-6 inline-flex items-center gap-2 bg-[#980E27] text-white px-6 py-2.5 text-sm font-semibold"
+            className="mt-6 inline-flex items-center gap-2 bg-[#980E27] text-[#ffffff] px-6 py-2.5 text-sm font-semibold"
           >
             <span>Back to All Products</span>
             <FiArrowRight className="h-4 w-4" />
@@ -118,14 +147,10 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
           <div className="lg:col-span-8 space-y-10">
             {/* Category Banner Image */}
             <div className="relative w-full overflow-hidden bg-gray-100 border border-gray-200">
-              <Image
-                src={category.image_url || FallbackImage}
+              <CategoryBannerImage
+                src={category.image_url}
                 alt={category.name}
-                width={900}
-                height={500}
-                unoptimized
-                priority
-                className="w-full h-auto object-cover"
+                fallback={FallbackImage}
               />
             </div>
 
