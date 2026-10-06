@@ -14,7 +14,6 @@ const GridBlog = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
-  const [activeCategory, setActiveCategory] = useState<string>("All Articles");
 
   const fetchBlogs = useCallback(async (currentPage: number, searchQuery: string) => {
     setLoading(true);
@@ -64,24 +63,9 @@ const GridBlog = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"
+          className="mb-8 flex items-center justify-end"
         >
-          <div className="flex flex-wrap gap-2">
-            {["All Articles", "Rubber Chemicals", "Industrial Applications", "Technical Insights", "Company News"].map((category) => (
-              <button
-                key={category}
-                type="button"
-                onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 text-[17px] font-semibold transition-colors ${
-                  activeCategory === category ? "bg-[#d3132d] text-white" : "text-[#333333] hover:text-[#980E27]"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          <label className="flex w-full items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm text-gray-400 lg:max-w-[260px]">
+          <label className="flex w-full items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm text-gray-400 sm:max-w-[320px]">
             <FiSearch className="h-4 w-4" />
             <span className="sr-only">Search articles</span>
             <input
@@ -100,9 +84,8 @@ const GridBlog = () => {
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3, 4, 5, 6].map((idx) => (
               <div key={idx} className="animate-pulse rounded-md border border-gray-100 bg-white p-4 shadow-[0_3px_12px_rgba(0,0,0,0.06)]">
-                <div className="h-64 w-full rounded bg-gray-200" />
-                <div className="mt-4 h-4 w-1/4 rounded bg-gray-200" />
-                <div className="mt-3 h-6 w-3/4 rounded bg-gray-200" />
+                <div className="h-80 w-full rounded bg-gray-200" />
+                <div className="mt-4 h-6 w-3/4 rounded bg-gray-200" />
                 <div className="mt-2 h-4 w-full rounded bg-gray-200" />
                 <div className="mt-4 h-4 w-1/2 rounded bg-gray-200" />
               </div>
@@ -121,19 +104,18 @@ const GridBlog = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: (index % 3) * 0.15 }}
-                className="overflow-hidden rounded-md border border-gray-100 bg-white shadow-[0_3px_12px_rgba(0,0,0,0.06)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_22px_rgba(152,14,39,0.12)]"
+                className="overflow-hidden rounded-md border border-gray-100 bg-white shadow-[0_3px_12px_rgba(0,0,0,0.06)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_22px_rgba(152,14,39,0.12)] flex flex-col"
               >
-                <Link href={`/blog/${article.slug}`}>
+                <Link href={`/blog/${article.slug}`} className="flex flex-col h-full">
                   <Image
                     src={article.featured_image || RubberImg}
                     alt={article.title}
                     width={600}
-                    height={320}
-                    className="h-64 w-full object-cover"
+                    height={380}
+                    className="h-80 w-full object-cover"
                   />
-                  <div className="flex min-h-[220px] flex-col p-4">
-                    <p className="text-[14px] font-bold text-[#d3132d]">Rubber Chemicals</p>
-                    <h2 className="mt-2 font-manrope text-[22px] font-bold leading-tight text-[#000000]">{article.title}</h2>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h2 className="font-manrope text-[22px] font-bold leading-tight text-[#000000]">{article.title}</h2>
                     <p className="mt-2 text-[17px] leading-[1.4] text-[#777777]">{article.excerpt}</p>
                     <div className="mt-auto flex items-center justify-between pt-5 text-xs text-gray-400">
                       <span className="inline-flex items-center gap-1">
