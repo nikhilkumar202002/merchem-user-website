@@ -4,28 +4,28 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
-import IndustrialImage from "@/public/images/industrial_application.webp";
-import QualityImage from "@/public/images/quality_technical.webp";
-import PaintImage from "@/public/images/paint_coating.webp";
+import AcceleratorsImg from "@/public/images/Rubber Accelerators_ From Granules to Tyres.webp";
+import ProcessingAidsImg from "@/public/images/Rubber Processing Aids_ Smoother Production.webp";
+import ProtectionImg from "@/public/images/Rubber Protection for Longer Life.webp";
 
 const posts: { category: string; title: string; description: string; image: StaticImageData }[] = [
   {
-    category: "Industry Insights",
-    title: "Understanding changing requirements across chemical and material industries.",
+    category: "Rubber Accelerators",
+    title: "From Granules to Tyres - High Performance Accelerators.",
     description: "Explore industry trends, evolving requirements and the chemistry shaping modern material applications.",
-    image: IndustrialImage,
+    image: AcceleratorsImg,
   },
   {
-    category: "Technical Knowledge",
-    title: "Practical information around chemical applications and processes.",
+    category: "Rubber Processing Aids",
+    title: "Smoother Production & Optimized Compound Processing.",
     description: "Discover useful technical insights into chemical selection, processing methods and application performance.",
-    image: QualityImage,
+    image: ProcessingAidsImg,
   },
   {
-    category: "Company Updates",
-    title: "News, developments and milestones from Merchem.",
+    category: "Rubber Protection",
+    title: "Longer Life & Protection for Industrial Rubber Products.",
     description: "Stay updated on Merchem’s latest developments, achievements and progress across our business.",
-    image: PaintImage,
+    image: ProtectionImg,
   },
 ];
 

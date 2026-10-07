@@ -1,13 +1,40 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
-import AboutImg from "@/public/images/About-image-1.webp";
+import AcceleratorsImg from "@/public/images/Rubber Accelerators_ From Granules to Tyres.webp";
+import ProcessingAidsImg from "@/public/images/Rubber Processing Aids_ Smoother Production.webp";
+import ProtectionImg from "@/public/images/Rubber Protection for Longer Life.webp";
+
+const aboutImages = [
+  {
+    src: AcceleratorsImg,
+    alt: "Rubber Accelerators - From Granules to Tyres",
+  },
+  {
+    src: ProcessingAidsImg,
+    alt: "Rubber Processing Aids - Smoother Production",
+  },
+  {
+    src: ProtectionImg,
+    alt: "Rubber Protection - For Longer Life",
+  },
+];
 
 const AboutSection = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % aboutImages.length);
+    }, 4500);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="w-full bg-white py-16 sm:py-20 lg:py-[120px] overflow-hidden">
       <div className="site-container">
@@ -75,7 +102,7 @@ const AboutSection = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: Image with Floating Card */}
+          {/* Right Column: Fading 3-Image Slider with Floating Card */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -83,15 +110,40 @@ const AboutSection = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="relative"
           >
-            <div className="relative overflow-hidden">
-              <Image
-                src={AboutImg}
-                alt="Merchem Laboratory Scientists"
-                width={700}
-                height={480}
-                className="w-full h-auto object-cover"
-                priority
-              />
+            <div className="relative overflow-hidden w-full aspect-[700/480] bg-gray-100 shadow-md">
+              {aboutImages.map((img, index) => (
+                <motion.div
+                  key={img.alt}
+                  initial={false}
+                  animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
+                  transition={{ duration: 1.2, ease: "easeInOut" }}
+                  className="absolute inset-0 w-full h-full"
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    priority={index === 0}
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              ))}
+
+              {/* Slider Dots Overlay */}
+              <div className="absolute bottom-4 right-4 z-20 flex gap-2">
+                {aboutImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                      index === currentImageIndex
+                        ? "w-6 bg-[#980E27]"
+                        : "w-2.5 bg-white/70 hover:bg-white"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
 
             {/* Floating Badge at Bottom Left */}
@@ -100,7 +152,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.45 }}
-              className="absolute -bottom-[30px] left-[35%] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] py-3 px-5 border-l-4 border-[#980E27] z-10 flex flex-col justify-center min-w-[220px]"
+              className="absolute -bottom-[30px] left-[35%] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] py-3 px-5 border-l-4 border-[#980E27] z-20 flex flex-col justify-center min-w-[220px]"
             >
               <span className="font-bold text-[#000000] text-base xl:text-base 2xl:text-lg tracking-wide uppercase">
                 MERCHEM INDIA
