@@ -128,22 +128,6 @@ const AboutSection = () => {
                   />
                 </motion.div>
               ))}
-
-              {/* Slider Dots Overlay */}
-              <div className="absolute bottom-4 right-4 z-20 flex gap-2">
-                {aboutImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    aria-label={`Go to slide ${index + 1}`}
-                    className={`h-2.5 rounded-full transition-all duration-300 ${
-                      index === currentImageIndex
-                        ? "w-6 bg-[#980E27]"
-                        : "w-2.5 bg-white/70 hover:bg-white"
-                    }`}
-                  />
-                ))}
-              </div>
             </div>
 
             {/* Floating Badge at Bottom Left */}
