@@ -7,7 +7,13 @@ import Link from "next/link";
 import { FiArrowRight, FiFileText, FiChevronRight, FiMail, FiPhone, FiGrid, FiDownload } from "react-icons/fi";
 import Breadcrumbs from "@/app/component/common/Breadcrumbs";
 import TdsForm from "@/app/component/common/TdsForm";
-import { getProductCatalogue, getPublicProducts, CatalogueCategory, PublicProduct } from "@/app/utils/ProductService";
+import {
+  getProductCatalogue,
+  getProductCategoryBySlug,
+  getPublicProducts,
+  CatalogueCategory,
+  PublicProduct,
+} from "@/app/utils/ProductService";
 import FallbackImage from "@/public/images/About-image-1.webp";
 
 interface CategoryDetailClientProps {
@@ -49,7 +55,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
   const currentSlug = typeof rawSlug === "string" ? rawSlug : Array.isArray(rawSlug) ? rawSlug[0] : "";
 
   const [catalogue, setCatalogue] = useState<CatalogueCategory[]>([]);
-  const [category, setCategory] = useState<CatalogueCategory | null>(null);
+  const [category, setCategory] = useState<any | null>(null);
   const [productsDetailsMap, setProductsDetailsMap] = useState<Record<string, PublicProduct>>({});
   const [selectedTdsProduct, setSelectedTdsProduct] = useState<{ id: number; name: string } | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -58,14 +64,20 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
     const fetchCategoryData = async () => {
       try {
         setLoading(true);
-        const [catalogueRes, productsRes] = await Promise.allSettled([
+        const [catalogueRes, categoryRes, productsRes] = await Promise.allSettled([
           getProductCatalogue(),
+          currentSlug ? getProductCategoryBySlug(currentSlug) : Promise.reject("No slug"),
           getPublicProducts({ per_page: 100 }),
         ]);
 
         if (catalogueRes.status === "fulfilled" && catalogueRes.value?.success && Array.isArray(catalogueRes.value.data)) {
+          setCatalogue(catalogueRes.value.data);
+        }
+
+        if (categoryRes.status === "fulfilled" && categoryRes.value?.success && categoryRes.value.data) {
+          setCategory(categoryRes.value.data);
+        } else if (catalogueRes.status === "fulfilled" && catalogueRes.value?.success && Array.isArray(catalogueRes.value.data)) {
           const resData = catalogueRes.value.data;
-          setCatalogue(resData);
           if (currentSlug) {
             const found = resData.find(
               (cat) => cat.slug.toLowerCase() === currentSlug.toLowerCase()
@@ -138,7 +150,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
 
   const descriptionParagraphs = (category.description || category.short_description || "")
     .split(/\r?\n/)
-    .filter((line) => line.trim().length > 0);
+    .filter((line: string) => line.trim().length > 0);
 
   return (
     <main className="w-full bg-[#fcfcfd] min-h-screen py-8 sm:py-12 lg:py-16">
@@ -178,7 +190,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                 About {category.name}
               </h2>
               <div className="space-y-4 text-sm sm:text-base text-[#474747] leading-relaxed">
-                {descriptionParagraphs.map((paragraph, idx) => (
+                {descriptionParagraphs.map((paragraph: string, idx: number) => (
                   <p key={idx}>{paragraph}</p>
                 ))}
               </div>
@@ -187,7 +199,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
             {/* Subcategories & Product Listing */}
             <div className="space-y-8">
               {category.subcategories && category.subcategories.length > 0 ? (
-                category.subcategories.map((sub) => (
+                category.subcategories.map((sub: any) => (
                   <div key={sub.id || sub.slug} className="bg-white border border-gray-200 p-6 sm:p-8 space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-3">
                       <div className="flex items-center gap-3 border-l-4 border-[#980E27] pl-3">
@@ -205,7 +217,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
 
                     {sub.products.length > 0 ? (
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                        {sub.products.map((prod) => {
+                        {sub.products.map((prod: any) => {
                           const prodDetail =
                             productsDetailsMap[prod.slug?.toLowerCase() || ""] ||
                             productsDetailsMap[prod.name?.toLowerCase() || ""] ||
@@ -274,7 +286,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                    {category.products.map((prod) => {
+                    {category.products.map((prod: any) => {
                       const prodDetail =
                         productsDetailsMap[prod.slug?.toLowerCase() || ""] ||
                         productsDetailsMap[prod.name?.toLowerCase() || ""] ||

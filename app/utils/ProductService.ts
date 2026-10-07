@@ -99,6 +99,77 @@ export interface ProductsResponse {
   };
 }
 
+export interface DetailedProduct {
+  id: number;
+  product_category_id?: number;
+  product_subcategory_id?: number;
+  name: string;
+  slug: string;
+  short_description?: string | null;
+  description?: string | null;
+  applications?: string | null;
+  image?: string | null;
+  image_url?: string | null;
+  tds_document?: string | null;
+  tds_document_name?: string | null;
+  tds_document_version?: string | null;
+  tds_uploaded_at?: string | null;
+  tds_available: boolean;
+  tds?: {
+    available: boolean;
+    file_url?: string | null;
+  };
+  status?: string;
+  sort_order?: number;
+  seo_title?: string | null;
+  seo_description?: string | null;
+  created_at?: string;
+  updated_at?: string;
+  category?: PublicProductCategory;
+  subcategory?: PublicProductSubcategory;
+}
+
+export interface DetailedSubcategory {
+  id: number;
+  product_category_id?: number;
+  name: string;
+  slug: string;
+  short_description?: string | null;
+  description?: string | null;
+  image?: string | null;
+  image_url?: string | null;
+  status?: string;
+  sort_order?: number;
+  created_at?: string;
+  updated_at?: string;
+  products_count?: number;
+  products: DetailedProduct[];
+}
+
+export interface CategoryDetailData {
+  id: number;
+  name: string;
+  slug: string;
+  short_description?: string | null;
+  description?: string | null;
+  image?: string | null;
+  image_url?: string | null;
+  status?: string;
+  sort_order?: number;
+  created_at?: string;
+  updated_at?: string;
+  subcategories_count?: number;
+  products_count?: number;
+  subcategories: DetailedSubcategory[];
+  direct_products?: DetailedProduct[];
+  products: DetailedProduct[];
+}
+
+export interface CategoryDetailResponse {
+  success: boolean;
+  data: CategoryDetailData;
+}
+
 /**
  * Fetch public product categories
  * @param params - Optional query parameters (e.g. page, per_page)
@@ -106,6 +177,17 @@ export interface ProductsResponse {
  */
 export const getProductCategories = async (params: Record<string, any> = {}): Promise<ProductCategoriesResponse> => {
   const response = await api.get<ProductCategoriesResponse>('/v1/public/product-categories', { params });
+  return response.data;
+};
+
+/**
+ * Fetch single detailed public product category by slug
+ * GET /v1/public/product-categories/{slug}
+ * @param slug - Category slug string
+ * @returns API response containing detailed category data
+ */
+export const getProductCategoryBySlug = async (slug: string): Promise<CategoryDetailResponse> => {
+  const response = await api.get<CategoryDetailResponse>(`/v1/public/product-categories/${slug}`);
   return response.data;
 };
 
@@ -130,6 +212,7 @@ export const getPublicProducts = async (params: Record<string, any> = {}): Promi
 
 const ProductService = {
   getProductCategories,
+  getProductCategoryBySlug,
   getProductCatalogue,
   getPublicProducts,
 };
