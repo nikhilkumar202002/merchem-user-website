@@ -31,6 +31,9 @@ export interface CatalogueProduct {
   id: number;
   name: string;
   slug: string;
+  short_description?: string | null;
+  description?: string | null;
+  image_url?: string | null;
   tds_available: boolean;
 }
 
@@ -57,6 +60,45 @@ export interface ProductCatalogueResponse {
   data: CatalogueCategory[];
 }
 
+export interface PublicProductCategory {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+export interface PublicProductSubcategory {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+export interface PublicProduct {
+  id: number;
+  name: string;
+  slug: string;
+  short_description?: string | null;
+  description?: string | null;
+  image_url?: string | null;
+  category?: PublicProductCategory;
+  subcategory?: PublicProductSubcategory;
+  tds_available?: boolean;
+  tds?: {
+    available?: boolean;
+    file_url?: string | null;
+  };
+}
+
+export interface ProductsResponse {
+  success: boolean;
+  data: PublicProduct[];
+  pagination?: {
+    total: number;
+    per_page: number;
+    current_page: number;
+    last_page: number;
+  };
+}
+
 /**
  * Fetch public product categories
  * @param params - Optional query parameters (e.g. page, per_page)
@@ -76,9 +118,20 @@ export const getProductCatalogue = async (): Promise<ProductCatalogueResponse> =
   return response.data;
 };
 
+/**
+ * Fetch public products list with full details (descriptions, categories, TDS status)
+ * @param params - Optional query parameters (e.g. per_page, page, category_id)
+ * @returns API response containing products list and pagination
+ */
+export const getPublicProducts = async (params: Record<string, any> = {}): Promise<ProductsResponse> => {
+  const response = await api.get<ProductsResponse>('/v1/public/products', { params });
+  return response.data;
+};
+
 const ProductService = {
   getProductCategories,
   getProductCatalogue,
+  getPublicProducts,
 };
 
 export default ProductService;

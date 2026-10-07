@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FiArrowRight, FiFileText, FiGrid, FiDownload } from "react-icons/fi";
 import Breadcrumbs from "@/app/component/common/Breadcrumbs";
 import TdsForm from "@/app/component/common/TdsForm";
-import { getProductCatalogue, CatalogueCategory, CatalogueSubcategory } from "@/app/utils/ProductService";
+import { getProductCatalogue, getPublicProducts, CatalogueCategory, CatalogueSubcategory, PublicProduct } from "@/app/utils/ProductService";
 
 interface SubcategoryDetailClientProps {
   slug?: string;
@@ -28,6 +28,7 @@ export default function SubcategoryDetailClient({
   const [catalogue, setCatalogue] = useState<CatalogueCategory[]>([]);
   const [category, setCategory] = useState<CatalogueCategory | null>(null);
   const [subcategory, setSubcategory] = useState<CatalogueSubcategory | null>(null);
+  const [productsDetailsMap, setProductsDetailsMap] = useState<Record<string, PublicProduct>>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedTdsProduct, setSelectedTdsProduct] = useState<{ id: number; name: string } | null>(null);
 
@@ -35,12 +36,17 @@ export default function SubcategoryDetailClient({
     const fetchSubcategoryData = async () => {
       try {
         setLoading(true);
-        const res = await getProductCatalogue();
-        if (res && res.success && Array.isArray(res.data)) {
-          setCatalogue(res.data);
-          const foundCat = res.data.find(
+        const [catalogueRes, productsRes] = await Promise.allSettled([
+          getProductCatalogue(),
+          getPublicProducts({ per_page: 100 }),
+        ]);
+
+        if (catalogueRes.status === "fulfilled" && catalogueRes.value?.success && Array.isArray(catalogueRes.value.data)) {
+          const resData = catalogueRes.value.data;
+          setCatalogue(resData);
+          const foundCat = resData.find(
             (cat) => cat.slug.toLowerCase() === currentSlug.toLowerCase()
-          ) || res.data[0];
+          ) || resData[0];
 
           setCategory(foundCat || null);
 
@@ -50,6 +56,16 @@ export default function SubcategoryDetailClient({
             );
             setSubcategory(foundSub || foundCat.subcategories[0] || null);
           }
+        }
+
+        if (productsRes.status === "fulfilled" && productsRes.value?.success && Array.isArray(productsRes.value.data)) {
+          const map: Record<string, PublicProduct> = {};
+          productsRes.value.data.forEach((p) => {
+            if (p.slug) map[p.slug.toLowerCase()] = p;
+            if (p.name) map[p.name.toLowerCase()] = p;
+            if (p.id) map[p.id.toString()] = p;
+          });
+          setProductsDetailsMap(map);
         }
       } catch (err) {
         console.error("Error fetching subcategory details:", err);
@@ -109,9 +125,6 @@ export default function SubcategoryDetailClient({
 
         {/* Subcategory Header */}
         <div className="mt-4 mb-10 pb-6 border-b border-gray-200">
-          {/* <span className="block text-xs font-semibold tracking-wider text-[#980E27] uppercase">
-            {category.name} Subcategory
-          </span> */}
           <div className="mt-1 flex flex-wrap items-center justify-between gap-4">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black tracking-tight">
               {subcategory.name}
@@ -133,47 +146,59 @@ export default function SubcategoryDetailClient({
 
           {subcategory.products.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {subcategory.products.map((product) => (
-                <div
-                  key={product.id || product.slug}
-                  className="group flex flex-col justify-between bg-white border border-gray-200 p-6 transition-all duration-300 hover:border-[#980E27] hover:shadow-lg"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="text-xs font-semibold px-2.5 py-0.5 bg-gray-100 text-slate-700">
-                        {subcategory.name}
-                      </span>
-                      <div className="flex items-center gap-1 text-[11px] font-medium text-slate-500">
-                        <FiFileText className="h-3.5 w-3.5 text-[#980E27]" />
-                        <span>{product.tds_available ? "TDS Ready" : "TDS on Request"}</span>
+              {subcategory.products.map((product) => {
+                const prodDetail =
+                  productsDetailsMap[product.slug?.toLowerCase() || ""] ||
+                  productsDetailsMap[product.name?.toLowerCase() || ""] ||
+                  (product.id ? productsDetailsMap[product.id.toString()] : undefined);
+
+                const desc =
+                  prodDetail?.short_description ||
+                  prodDetail?.description ||
+                  product.short_description ||
+                  product.description ||
+                  "";
+
+                return (
+                  <div
+                    key={product.id || product.slug}
+                    className="group flex flex-col justify-between bg-white border border-gray-200 p-6 transition-all duration-300 hover:border-[#980E27] hover:shadow-lg"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="text-xs font-semibold px-2.5 py-0.5 bg-gray-100 text-slate-700">
+                          {subcategory.name}
+                        </span>
+                        <div className="flex items-center gap-1 text-[11px] font-medium text-slate-500">
+                          <FiFileText className="h-3.5 w-3.5 text-[#980E27]" />
+                          <span>{product.tds_available ? "TDS Ready" : "TDS on Request"}</span>
+                        </div>
                       </div>
+
+                      <h3 className="text-xl font-bold text-black group-hover:text-[#980E27] transition-colors leading-snug">
+                        {product.name}
+                      </h3>
+
+                      {desc && (
+                        <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                          {desc}
+                        </p>
+                      )}
                     </div>
 
-                    <h3 className="text-xl font-bold text-black group-hover:text-[#980E27] transition-colors leading-snug">
-                      {product.name}
-                    </h3>
+                    <div className="mt-6 pt-4 border-t border-gray-100 space-y-2">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedTdsProduct({ id: product.id, name: product.name })}
+                        className="flex items-center justify-center gap-2 bg-[#980E27] text-white w-full py-2.5 text-xs sm:text-sm font-semibold hover:bg-[#7d0a1f] transition-colors"
+                      >
+                        <FiDownload className="h-4 w-4" />
+                        <span>Request TDS</span>
+                      </button>
+                    </div>
                   </div>
-
-                  <div className="mt-6 pt-4 border-t border-gray-100 space-y-2">
-                    <button
-                      type="button"
-                      onClick={() => setSelectedTdsProduct({ id: product.id, name: product.name })}
-                      className="flex items-center justify-center gap-2 bg-[#980E27] text-white w-full py-2.5 text-xs sm:text-sm font-semibold hover:bg-[#7d0a1f] transition-colors"
-                    >
-                      <FiDownload className="h-4 w-4" />
-                      <span>Request TDS</span>
-                    </button>
-
-                    {/* <Link
-                      href={`/contact-us?product=${encodeURIComponent(product.name)}`}
-                      className="flex items-center justify-center gap-1.5 text-xs text-slate-600 hover:text-[#980E27] py-1 transition-colors"
-                    >
-                      <span>Request Product Sample</span>
-                      <FiArrowRight className="h-3 w-3" />
-                    </Link> */}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="bg-white border border-gray-200 p-8 text-center text-slate-500">

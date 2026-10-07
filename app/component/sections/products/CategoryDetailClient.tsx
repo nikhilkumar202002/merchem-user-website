@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowRight, FiFileText, FiChevronRight, FiMail, FiPhone, FiGrid } from "react-icons/fi";
+import { FiArrowRight, FiFileText, FiChevronRight, FiMail, FiPhone, FiGrid, FiDownload } from "react-icons/fi";
 import Breadcrumbs from "@/app/component/common/Breadcrumbs";
-import { getProductCatalogue, CatalogueCategory } from "@/app/utils/ProductService";
+import TdsForm from "@/app/component/common/TdsForm";
+import { getProductCatalogue, getPublicProducts, CatalogueCategory, PublicProduct } from "@/app/utils/ProductService";
 import FallbackImage from "@/public/images/About-image-1.webp";
 
 interface CategoryDetailClientProps {
@@ -49,23 +50,40 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
 
   const [catalogue, setCatalogue] = useState<CatalogueCategory[]>([]);
   const [category, setCategory] = useState<CatalogueCategory | null>(null);
+  const [productsDetailsMap, setProductsDetailsMap] = useState<Record<string, PublicProduct>>({});
+  const [selectedTdsProduct, setSelectedTdsProduct] = useState<{ id: number; name: string } | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchCategoryData = async () => {
       try {
         setLoading(true);
-        const res = await getProductCatalogue();
-        if (res && res.success && Array.isArray(res.data)) {
-          setCatalogue(res.data);
+        const [catalogueRes, productsRes] = await Promise.allSettled([
+          getProductCatalogue(),
+          getPublicProducts({ per_page: 100 }),
+        ]);
+
+        if (catalogueRes.status === "fulfilled" && catalogueRes.value?.success && Array.isArray(catalogueRes.value.data)) {
+          const resData = catalogueRes.value.data;
+          setCatalogue(resData);
           if (currentSlug) {
-            const found = res.data.find(
+            const found = resData.find(
               (cat) => cat.slug.toLowerCase() === currentSlug.toLowerCase()
             );
-            setCategory(found || res.data[0] || null);
+            setCategory(found || resData[0] || null);
           } else {
-            setCategory(res.data[0] || null);
+            setCategory(resData[0] || null);
           }
+        }
+
+        if (productsRes.status === "fulfilled" && productsRes.value?.success && Array.isArray(productsRes.value.data)) {
+          const map: Record<string, PublicProduct> = {};
+          productsRes.value.data.forEach((p) => {
+            if (p.slug) map[p.slug.toLowerCase()] = p;
+            if (p.name) map[p.name.toLowerCase()] = p;
+            if (p.id) map[p.id.toString()] = p;
+          });
+          setProductsDetailsMap(map);
         }
       } catch (err) {
         console.error("Error fetching category details:", err);
@@ -187,32 +205,60 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
 
                     {sub.products.length > 0 ? (
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                        {sub.products.map((prod) => (
-                          <div
-                            key={prod.id || prod.slug}
-                            className="group flex flex-col justify-between bg-[#fcfcfd] border border-gray-200 p-5 transition-all duration-300 hover:border-[#980E27] hover:bg-white hover:shadow-md"
-                          >
-                            <div>
-                              <h4 className="text-base font-bold text-black group-hover:text-[#980E27] transition-colors">
-                                {prod.name}
-                              </h4>
-                              <div className="mt-2 flex items-center gap-2 text-xs text-slate-500">
-                                <FiFileText className="h-3.5 w-3.5 text-[#980E27]" />
-                                <span>{prod.tds_available ? "Technical Data Sheet Available" : "TDS Available on Request"}</span>
+                        {sub.products.map((prod) => {
+                          const prodDetail =
+                            productsDetailsMap[prod.slug?.toLowerCase() || ""] ||
+                            productsDetailsMap[prod.name?.toLowerCase() || ""] ||
+                            (prod.id ? productsDetailsMap[prod.id.toString()] : undefined);
+
+                          const desc =
+                            prodDetail?.short_description ||
+                            prodDetail?.description ||
+                            prod.short_description ||
+                            prod.description ||
+                            "";
+
+                          return (
+                            <div
+                              key={prod.id || prod.slug}
+                              className="group flex flex-col justify-between bg-[#fcfcfd] border border-gray-200 p-5 transition-all duration-300 hover:border-[#980E27] hover:bg-white hover:shadow-md"
+                            >
+                              <div>
+                                <h4 className="text-base font-bold text-black group-hover:text-[#980E27] transition-colors">
+                                  {prod.name}
+                                </h4>
+                                <div className="mt-2 flex items-center gap-2 text-xs text-slate-500">
+                                  <FiFileText className="h-3.5 w-3.5 text-[#980E27]" />
+                                  <span>{prod.tds_available ? "Technical Data Sheet Available" : "TDS Available on Request"}</span>
+                                </div>
+
+                                {desc && (
+                                  <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                                    {desc}
+                                  </p>
+                                )}
+                              </div>
+
+                              <div className="mt-5 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold">
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedTdsProduct({ id: prod.id, name: prod.name })}
+                                  className="flex items-center gap-1.5 bg-[#980E27] text-white px-3 py-1.5 hover:bg-[#7d0a1f] transition-colors"
+                                >
+                                  <FiDownload className="h-3.5 w-3.5" />
+                                  <span>Request TDS</span>
+                                </button>
+                                <Link
+                                  href={`/contact-us?product=${encodeURIComponent(prod.name)}`}
+                                  className="hover:underline flex items-center gap-1 text-[#980E27] py-1"
+                                >
+                                  <span>Inquire Product</span>
+                                  <FiArrowRight className="h-3.5 w-3.5" />
+                                </Link>
                               </div>
                             </div>
-
-                            <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-[#980E27]">
-                              <Link
-                                href={`/contact-us?product=${encodeURIComponent(prod.name)}`}
-                                className="hover:underline flex items-center gap-1"
-                              >
-                                <span>Inquire Product</span>
-                                <FiArrowRight className="h-3.5 w-3.5" />
-                              </Link>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     ) : (
                       <p className="text-sm text-slate-500 italic">No products listed under this subcategory yet.</p>
@@ -234,32 +280,60 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                    {category.products.map((prod) => (
-                      <div
-                        key={prod.id || prod.slug}
-                        className="group flex flex-col justify-between bg-[#fcfcfd] border border-gray-200 p-5 transition-all duration-300 hover:border-[#980E27] hover:bg-white hover:shadow-md"
-                      >
-                        <div>
-                          <h4 className="text-base font-bold text-black group-hover:text-[#980E27] transition-colors">
-                            {prod.name}
-                          </h4>
-                          <div className="mt-2 flex items-center gap-2 text-xs text-slate-500">
-                            <FiFileText className="h-3.5 w-3.5 text-[#980E27]" />
-                            <span>{prod.tds_available ? "Technical Data Sheet Available" : "TDS Available on Request"}</span>
+                    {category.products.map((prod) => {
+                      const prodDetail =
+                        productsDetailsMap[prod.slug?.toLowerCase() || ""] ||
+                        productsDetailsMap[prod.name?.toLowerCase() || ""] ||
+                        (prod.id ? productsDetailsMap[prod.id.toString()] : undefined);
+
+                      const desc =
+                        prodDetail?.short_description ||
+                        prodDetail?.description ||
+                        prod.short_description ||
+                        prod.description ||
+                        "";
+
+                      return (
+                        <div
+                          key={prod.id || prod.slug}
+                          className="group flex flex-col justify-between bg-[#fcfcfd] border border-gray-200 p-5 transition-all duration-300 hover:border-[#980E27] hover:bg-white hover:shadow-md"
+                        >
+                          <div>
+                            <h4 className="text-base font-bold text-black group-hover:text-[#980E27] transition-colors">
+                              {prod.name}
+                            </h4>
+                            <div className="mt-2 flex items-center gap-2 text-xs text-slate-500">
+                              <FiFileText className="h-3.5 w-3.5 text-[#980E27]" />
+                              <span>{prod.tds_available ? "Technical Data Sheet Available" : "TDS Available on Request"}</span>
+                            </div>
+
+                            {desc && (
+                              <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                                {desc}
+                              </p>
+                            )}
+                          </div>
+
+                          <div className="mt-5 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold">
+                            <button
+                              type="button"
+                              onClick={() => setSelectedTdsProduct({ id: prod.id, name: prod.name })}
+                              className="flex items-center gap-1.5 bg-[#980E27] text-white px-3 py-1.5 hover:bg-[#7d0a1f] transition-colors"
+                            >
+                              <FiDownload className="h-3.5 w-3.5" />
+                              <span>Request TDS</span>
+                            </button>
+                            <Link
+                              href={`/contact-us?product=${encodeURIComponent(prod.name)}`}
+                              className="hover:underline flex items-center gap-1 text-[#980E27] py-1"
+                            >
+                              <span>Inquire Product</span>
+                              <FiArrowRight className="h-3.5 w-3.5" />
+                            </Link>
                           </div>
                         </div>
-
-                        <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-[#980E27]">
-                          <Link
-                            href={`/contact-us?product=${encodeURIComponent(prod.name)}`}
-                            className="hover:underline flex items-center gap-1"
-                          >
-                            <span>Inquire Product</span>
-                            <FiArrowRight className="h-3.5 w-3.5" />
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               ) : null}
@@ -322,6 +396,19 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
           </aside>
         </div>
       </div>
+
+      {/* TDS Request Modal */}
+      {selectedTdsProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-xl max-h-[90vh] overflow-y-auto">
+            <TdsForm
+              productId={selectedTdsProduct.id}
+              selectedProduct={selectedTdsProduct.name}
+              onClose={() => setSelectedTdsProduct(null)}
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
