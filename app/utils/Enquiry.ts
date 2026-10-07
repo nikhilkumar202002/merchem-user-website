@@ -2,7 +2,10 @@ import api from './axios';
 
 export interface PublicTdsRequestPayload {
   product_id?: number | string;
-  name: string;
+  product_name?: string;
+  product?: string;
+  name?: string;
+  full_name?: string;
   company_name: string;
   email: string;
   phone: string;

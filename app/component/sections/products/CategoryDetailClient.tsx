@@ -212,10 +212,10 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                             (prod.id ? productsDetailsMap[prod.id.toString()] : undefined);
 
                           const desc =
-                            prodDetail?.short_description ||
                             prodDetail?.description ||
-                            prod.short_description ||
+                            prodDetail?.short_description ||
                             prod.description ||
+                            prod.short_description ||
                             "";
 
                           return (
@@ -233,7 +233,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                                 </div>
 
                                 {desc && (
-                                  <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                                  <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">
                                     {desc}
                                   </p>
                                 )}
@@ -248,13 +248,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                                   <FiDownload className="h-3.5 w-3.5" />
                                   <span>Request TDS</span>
                                 </button>
-                                <Link
-                                  href={`/contact-us?product=${encodeURIComponent(prod.name)}`}
-                                  className="hover:underline flex items-center gap-1 text-[#980E27] py-1"
-                                >
-                                  <span>Inquire Product</span>
-                                  <FiArrowRight className="h-3.5 w-3.5" />
-                                </Link>
+                          
                               </div>
                             </div>
                           );
@@ -287,10 +281,10 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                         (prod.id ? productsDetailsMap[prod.id.toString()] : undefined);
 
                       const desc =
-                        prodDetail?.short_description ||
                         prodDetail?.description ||
-                        prod.short_description ||
+                        prodDetail?.short_description ||
                         prod.description ||
+                        prod.short_description ||
                         "";
 
                       return (
@@ -308,7 +302,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                             </div>
 
                             {desc && (
-                              <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                              <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">
                                 {desc}
                               </p>
                             )}
@@ -323,13 +317,6 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                               <FiDownload className="h-3.5 w-3.5" />
                               <span>Request TDS</span>
                             </button>
-                            <Link
-                              href={`/contact-us?product=${encodeURIComponent(prod.name)}`}
-                              className="hover:underline flex items-center gap-1 text-[#980E27] py-1"
-                            >
-                              <span>Inquire Product</span>
-                              <FiArrowRight className="h-3.5 w-3.5" />
-                            </Link>
                           </div>
                         </div>
                       );

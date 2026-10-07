@@ -153,10 +153,10 @@ export default function SubcategoryDetailClient({
                   (product.id ? productsDetailsMap[product.id.toString()] : undefined);
 
                 const desc =
-                  prodDetail?.short_description ||
                   prodDetail?.description ||
-                  product.short_description ||
+                  prodDetail?.short_description ||
                   product.description ||
+                  product.short_description ||
                   "";
 
                 return (
@@ -180,7 +180,7 @@ export default function SubcategoryDetailClient({
                       </h3>
 
                       {desc && (
-                        <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">
                           {desc}
                         </p>
                       )}

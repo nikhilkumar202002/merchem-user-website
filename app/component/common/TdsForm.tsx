@@ -32,7 +32,6 @@ export default function TdsForm({
   onSuccess,
   onClose,
   title = "Request Technical Data Sheet (TDS)",
-  subtitle = "Please complete the details below to receive the technical documentation.",
   className = "",
 }: TdsFormProps) {
   const [formData, setFormData] = useState({
@@ -69,9 +68,14 @@ export default function TdsForm({
     setIsSubmitting(true);
 
     try {
+      const parsedProductId = productId ? (typeof productId === "number" ? productId : parseInt(String(productId), 10)) : undefined;
+
       await submitPublicTdsRequest({
-        product_id: productId,
+        product_id: parsedProductId && !isNaN(parsedProductId) ? parsedProductId : undefined,
+        product_name: formData.product,
+        product: formData.product,
         name: formData.fullName,
+        full_name: formData.fullName,
         company_name: formData.companyName,
         email: formData.email,
         phone: formData.phone,
@@ -82,9 +86,19 @@ export default function TdsForm({
       setIsSuccess(true);
       if (onSuccess) onSuccess();
     } catch (err: any) {
-      setErrorMessage(
-        err?.message || err?.error || "Failed to submit TDS request. Please check your network and try again."
-      );
+      let msg = "Failed to submit TDS request. Please check your network and try again.";
+      if (err?.response?.data) {
+        const data = err.response.data;
+        if (data.errors && typeof data.errors === "object") {
+          const errorList = Object.values(data.errors).flat().join(" ");
+          msg = errorList || data.message || msg;
+        } else if (data.message) {
+          msg = data.message;
+        }
+      } else if (err?.message) {
+        msg = err.message;
+      }
+      setErrorMessage(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -120,14 +134,13 @@ export default function TdsForm({
 
       {/* Header */}
       <div className="mb-6">
-        <div className="flex items-center gap-2 text-[#980E27] font-semibold text-xs uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-[#980E27] font-semibold text-[12px] uppercase tracking-wider">
           <FiFileText className="h-4 w-4" />
           <span>TDS Download Request</span>
         </div>
-        <h3 className="mt-1 font-manrope text-2xl font-bold text-black sm:text-3xl">
+        <h3 className="mt-1 font-manrope text-[20px] font-bold text-black">
           {title}
         </h3>
-        {subtitle && <p className="mt-1 text-sm text-slate-600">{subtitle}</p>}
       </div>
 
       <AnimatePresence mode="wait">
