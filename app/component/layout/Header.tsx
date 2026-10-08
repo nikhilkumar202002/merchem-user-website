@@ -281,85 +281,137 @@ const Header = () => {
 
                         {/* Mobile Menu Toggle Button */}
                         <button
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="lg:hidden p-2 text-gray-700 hover:text-[#980E27] focus:outline-hidden"
-                            aria-label="Toggle navigation menu"
+                            onClick={() => setMobileMenuOpen(true)}
+                            className="lg:hidden p-2 text-gray-700 hover:text-[#980E27] focus:outline-none"
+                            aria-label="Open navigation menu"
                         >
-                            {mobileMenuOpen ? (
-                                <FiX className="w-6 h-6" />
-                            ) : (
-                                <FiMenu className="w-6 h-6" />
-                            )}
+                            <FiMenu className="w-6 h-6 stroke-[2]" />
                         </button>
                     </div>
                 </div>
             </div>
 
-            {/* Mobile Drawer Menu */}
-            {mobileMenuOpen && (
-                <div className="lg:hidden border-t border-gray-100 bg-white py-4 px-6 space-y-3 shadow-md">
-                    <Link
-                        href="/"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={mobileNavClass("/")}
-                    >
-                        Home
-                    </Link>
-                    <Link
-                        href="/about-us"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={mobileNavClass("/about-us")}
-                    >
-                        About
-                    </Link>
-                    <Link
-                        href="/products"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={mobileNavClass("/products")}
-                    >
-                        Products
-                    </Link>
-                    <Link
-                        href="/blog"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={mobileNavClass("/blog")}
-                    >
-                        Blog
-                    </Link>
-                    <Link
-                        href="/careers"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={mobileNavClass("/careers")}
-                    >
-                        Careers
-                    </Link>
+            {/* Fullscreen Premium Mobile Overlay Menu */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <>
+                        {/* Dark Blurred Backdrop */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-xs lg:hidden"
+                        />
 
-                    {/* Contact Details on Mobile */}
-                    <div className="pt-3 border-t border-gray-100 text-xs text-gray-600 space-y-2">
-                        <div className="flex items-center gap-2">
-                            <FiMail className="text-[#980E27]" />
-                            <span>mail@merchem.com</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <FiPhone className="text-[#980E27]" />
-                            <span>0484 3510629</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <FaPhoneAlt className="text-[#980E27]" />
-                            <span>+91-484-3510629</span>
-                        </div>
-                    </div>
+                        {/* Slide-over Drawer Panel */}
+                        <motion.div
+                            initial={{ x: "100%" }}
+                            animate={{ x: 0 }}
+                            exit={{ x: "100%" }}
+                            transition={{ type: "spring", damping: 28, stiffness: 220 }}
+                            className="fixed top-0 right-0 bottom-0 z-[101] w-full max-w-[340px] xs:max-w-[380px] bg-white shadow-2xl flex flex-col justify-between p-6 sm:p-8 lg:hidden overflow-y-auto"
+                        >
+                            {/* Drawer Header */}
+                            <div>
+                                <div className="flex items-center justify-between pb-5 border-b border-gray-100">
+                                    <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block">
+                                        <Image
+                                            src={Logo}
+                                            alt="Merchem Logo"
+                                            width={110}
+                                            height={65}
+                                            className="object-contain h-auto w-auto max-h-[50px]"
+                                        />
+                                    </Link>
+                                    <button
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="p-2 text-gray-500 hover:text-[#980E27] hover:bg-gray-100 rounded-full transition-colors focus:outline-none"
+                                        aria-label="Close menu"
+                                    >
+                                        <FiX className="w-6 h-6 stroke-[2]" />
+                                    </button>
+                                </div>
 
-                    <Link
-                        href="/contact-us"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="inline-flex items-center justify-center gap-2 bg-[#980E27] text-white w-full py-2.5 font-medium text-sm mt-3"
-                    >
-                        <span>Contact Us</span>
-                        <FiArrowRight className="w-4 h-4" />
-                    </Link>
-                </div>
-            )}
+                                {/* Navigation Links */}
+                                <nav className="py-6 space-y-1.5">
+                                    {[
+                                        { label: "Home", href: "/" },
+                                        { label: "About Us", href: "/about-us" },
+                                        { label: "Products", href: "/products" },
+                                        { label: "Blog", href: "/blog" },
+                                        { label: "Careers", href: "/careers" },
+                                    ].map((item, idx) => {
+                                        const active = isActive(item.href);
+                                        return (
+                                            <motion.div
+                                                key={item.href}
+                                                initial={{ opacity: 0, x: 20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.06 * idx + 0.1 }}
+                                            >
+                                                <Link
+                                                    href={item.href}
+                                                    onClick={() => setMobileMenuOpen(false)}
+                                                    className={`group flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold transition-all ${
+                                                        active
+                                                            ? "bg-[#fff1f3] text-[#980E27]"
+                                                            : "text-gray-800 hover:bg-gray-50 hover:text-[#980E27]"
+                                                    }`}
+                                                >
+                                                    <span>{item.label}</span>
+                                                    <FiArrowRight
+                                                        className={`w-4 h-4 transition-all duration-200 ${
+                                                            active
+                                                                ? "opacity-100 translate-x-0"
+                                                                : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+                                                        }`}
+                                                    />
+                                                </Link>
+                                            </motion.div>
+                                        );
+                                    })}
+                                </nav>
+                            </div>
+
+                            {/* Contact Details & Action Footer */}
+                            <div className="pt-5 border-t border-gray-100 space-y-4">
+                                <div className="space-y-2 text-xs text-gray-600">
+                                    <a
+                                        href="mailto:mail@merchem.com"
+                                        className="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-[#fff1f3] text-gray-700 hover:text-[#980E27] transition-colors"
+                                    >
+                                        <div className="w-8 h-8 rounded-full bg-white shadow-xs flex items-center justify-center text-[#980E27] shrink-0">
+                                            <IoMdMail className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-medium text-xs sm:text-sm">mail@merchem.com</span>
+                                    </a>
+
+                                    <a
+                                        href="tel:04843510629"
+                                        className="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-[#fff1f3] text-gray-700 hover:text-[#980E27] transition-colors"
+                                    >
+                                        <div className="w-8 h-8 rounded-full bg-white shadow-xs flex items-center justify-center text-[#980E27] shrink-0">
+                                            <GiRotaryPhone className="w-4.5 h-4.5" />
+                                        </div>
+                                        <span className="font-medium text-xs sm:text-sm">0484 3510629</span>
+                                    </a>
+                                </div>
+
+                                <Link
+                                    href="/contact-us"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="w-full bg-[#980E27] text-white py-3.5 px-5 rounded-lg hover:bg-[#7d0a1f] transition-all flex items-center justify-center gap-2 font-medium text-sm shadow-md"
+                                >
+                                    <span>Contact Us</span>
+                                    <FiArrowRight className="w-4 h-4 stroke-[2]" />
+                                </Link>
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
         </header>
     );
 };
