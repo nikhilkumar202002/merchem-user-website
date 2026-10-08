@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
-import HeroBannerImg from "@/public/banner/hero-banner-1.png";
+import HeroBannerImg from "@/public/banner/hero-banner-1.webp";
 
 const Hero = () => {
   const [startAnimation, setStartAnimation] = useState(false);

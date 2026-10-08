@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight, FiMail } from "react-icons/fi";
-import BannerImg from "@/public/banner/hero-banner-1.webp";
+import BannerImg from "@/public/banner/hero-banner-1.png";
 
 const ProductBanner = () => {
   return (
