@@ -13,7 +13,7 @@ const reasons = [
 
 export default function WhyMerchem() {
   return (
-    <section className="w-full bg-white pt-16 sm:pt-20 lg:pt-[120px] overflow-hidden">
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-[120px] overflow-hidden">
       <div className="site-container">
         <div className="mx-auto max-w-[620px] text-center">
           <motion.span

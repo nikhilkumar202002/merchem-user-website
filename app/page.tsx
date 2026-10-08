@@ -6,7 +6,7 @@ import Legacy from './component/sections/home/Legacy'
 import ProductPortfolio from './component/sections/home/ProductPortfolio'
 import Industry from './component/sections/home/Industry'
 import WhyMerchem from './component/sections/home/WhyMerchem'
-import QualityTechnical from './component/sections/home/QualityTechnical'
+// import QualityTechnical from './component/sections/home/QualityTechnical'
 // import FeaturedBlog from './component/sections/home/FeaturedBlog'
 import Cta from './component/sections/home/Cta'
 
@@ -20,7 +20,7 @@ export default function Home() {
       <ProductPortfolio />
       <Industry />
       <WhyMerchem />
-      <QualityTechnical />
+      {/* <QualityTechnical /> */}
       {/* <FeaturedBlog /> */}
       <Cta />
     </main>

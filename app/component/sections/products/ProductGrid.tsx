@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowRight, FiGrid, FiLayers } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { getProductCategories, Category } from "@/app/utils/ProductService";
 import FallbackImage from "@/public/images/About-image-1.webp";
@@ -125,21 +125,6 @@ export default function ProductGrid() {
 
                 {/* Card Body */}
                 <div className="flex flex-1 flex-col p-6 sm:p-7">
-                  <div className="flex items-center gap-4 text-xs font-medium text-[#980E27] mb-2">
-                    {category.subcategories_count !== undefined && (
-                      <span className="flex items-center gap-1 bg-[#fff1f3] px-2.5 py-1 rounded-full">
-                        <FiLayers className="w-3.5 h-3.5" />
-                        {category.subcategories_count} Sub Products
-                      </span>
-                    )}
-                    {category.products_count !== undefined && (
-                      <span className="flex items-center gap-1 bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full">
-                        <FiGrid className="w-3.5 h-3.5" />
-                        {category.products_count} Products
-                      </span>
-                    )}
-                  </div>
-
                   <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-black group-hover:text-[#980E27] transition-colors leading-snug">
                     {category.name}
                   </h3>

@@ -72,10 +72,7 @@ const AboutSection = () => {
               className="space-y-5 text-base sm:text-[17px] xl:text-[16px] 2xl:text-[18px] text-[#474747] leading-[1.42] font-normal max-w-[680px]"
             >
               <p>
-                Merchem is a speciality chemical company based in
-                Kalamassery, Ernakulam, Kerala, serving industrial requirements
-                through a focused portfolio of chemical products and
-                application-oriented solutions.
+                Merchem is a speciality chemical company delivering high-performance chemical solutions for industrial applications. Our focused portfolio supports the performance, consistency, and process efficiency needs of the Tyre, Rubber, Latex, and other industrial sectors — driven by consistent quality, technical expertise, and strong customer partnerships
               </p>
               <p>
                 Our expertise spans chemical solutions supporting Tyre, Rubber, Latex and Other Industrial Applications, with a focus on
