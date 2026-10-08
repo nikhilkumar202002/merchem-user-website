@@ -30,7 +30,7 @@ export default function WhyMerchem() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-2 text-4xl font-bold leading-[1.12] tracking-[-0.035em] text-black sm:text-5xl lg:text-[46px]"
+            className="mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold leading-[1.12] tracking-[-0.035em] text-black"
           >
             More Than Chemicals. A<br className="hidden sm:block" /> Technical Partnership.
           </motion.h2>

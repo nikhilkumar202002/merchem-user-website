@@ -144,7 +144,7 @@ export default function ProductPortfolio() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-1 max-w-[650px] text-4xl font-bold leading-[1.16] tracking-[-0.035em] text-black sm:text-5xl lg:text-[46px]"
+              className="mt-1 max-w-[650px] text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold leading-[1.16] tracking-[-0.035em] text-black"
             >
               Specialty Chemicals for<br className="hidden sm:block" /> Demanding Applications.
             </motion.h2>

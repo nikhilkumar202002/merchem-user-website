@@ -4,6 +4,7 @@ import Header from "./component/layout/Header";
 import Footer from "./component/layout/Footer";
 import Preloader from "./component/common/Preloader";
 import ScrollTop from "./component/common/ScrollTop";
+import LenisScroll from "./component/common/LenisScroll";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${manrope.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <LenisScroll />
         <Preloader />
         <Header />
         <main className="flex-1">{children}</main>

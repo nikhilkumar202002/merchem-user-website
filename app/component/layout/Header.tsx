@@ -18,8 +18,7 @@ const Header = () => {
     const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
     const [activeSubcategoryIndex, setActiveSubcategoryIndex] = useState(0);
     const [showHeader, setShowHeader] = useState(true);
-    const [isSticky, setIsSticky] = useState(false);
-    const [lastScrollY, setLastScrollY] = useState(0);
+    const [isScrolled, setIsScrolled] = useState(false);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -38,27 +37,31 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
+        let lastY = window.scrollY;
 
-            if (currentScrollY < 100) {
-                setIsSticky(false);
+        const handleScroll = () => {
+            const currentY = window.scrollY;
+
+            // Track if scrolled past top bar
+            setIsScrolled(currentY > 40);
+
+            if (currentY < 60) {
+                // At top of page: always show header
                 setShowHeader(true);
-            } else if (currentScrollY > lastScrollY) {
-                // Scrolling down - hide header
+            } else if (currentY > lastY + 8) {
+                // Scrolling down past threshold: hide header
                 setShowHeader(false);
-            } else {
-                // Scrolling up - show sticky header fading from top
-                setIsSticky(true);
+            } else if (currentY < lastY - 8) {
+                // Scrolling up past threshold: show header
                 setShowHeader(true);
             }
 
-            setLastScrollY(currentScrollY);
+            lastY = currentY;
         };
 
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [lastScrollY]);
+    }, []);
 
     const currentCategory = catalogue[activeCategoryIndex] || catalogue[0];
     const hasSubcategories = currentCategory?.subcategories && currentCategory.subcategories.length > 0;
@@ -81,10 +84,8 @@ const Header = () => {
 
     return (
         <header
-            className={`w-full bg-white transition-all duration-500 ease-out transform-gpu ${
-                isSticky
-                    ? "fixed top-0 left-0 right-0 z-50 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-b border-gray-100"
-                    : "relative z-40"
+            className={`sticky top-0 z-50 w-full bg-white transition-all duration-300 ease-out transform-gpu ${
+                isScrolled ? "shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-b border-gray-100" : ""
             } ${
                 showHeader
                     ? "translate-y-0 opacity-100"

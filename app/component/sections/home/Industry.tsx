@@ -63,7 +63,7 @@ export default function Industry() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="!text-white mx-auto mt-2 max-w-[700px] text-[38px] font-bold leading-[1.05] tracking-[-0.035em] sm:text-5xl"
+              className="!text-white mx-auto mt-2 max-w-[700px] text-3xl font-bold leading-[1.12] tracking-[-0.035em] sm:text-4xl md:text-5xl lg:text-[46px]"
             >
               Solutions Across Materials, Processes &amp; Industries.
             </motion.h2>
