@@ -17,6 +17,9 @@ const Header = () => {
     const [catalogue, setCatalogue] = useState<CatalogueCategory[]>([]);
     const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
     const [activeSubcategoryIndex, setActiveSubcategoryIndex] = useState(0);
+    const [showHeader, setShowHeader] = useState(true);
+    const [isSticky, setIsSticky] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -33,6 +36,29 @@ const Header = () => {
 
         fetchCatalogue();
     }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY < 100) {
+                setIsSticky(false);
+                setShowHeader(true);
+            } else if (currentScrollY > lastScrollY) {
+                // Scrolling down - hide header
+                setShowHeader(false);
+            } else {
+                // Scrolling up - show sticky header fading from top
+                setIsSticky(true);
+                setShowHeader(true);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [lastScrollY]);
 
     const currentCategory = catalogue[activeCategoryIndex] || catalogue[0];
     const hasSubcategories = currentCategory?.subcategories && currentCategory.subcategories.length > 0;
@@ -54,7 +80,17 @@ const Header = () => {
         `block ${isActive(href) ? "text-[#980E27] font-semibold" : "text-gray-800 font-medium"} hover:text-[#980E27] py-1`;
 
     return (
-        <header className="w-full bg-white ">
+        <header
+            className={`w-full bg-white transition-all duration-300 ease-in-out ${
+                isSticky
+                    ? "fixed top-0 left-0 right-0 z-50 shadow-md border-b border-gray-100"
+                    : "relative z-40"
+            } ${
+                showHeader
+                    ? "translate-y-0 opacity-100"
+                    : "-translate-y-full opacity-0 pointer-events-none"
+            }`}
+        >
             <div className="flex">
                 {/* Left: Logo spanning both top and bottom rows */}
                 <div className="flex items-center justify-center py-2 pr-6 shrink-0 pl-[20px] md:pl-[50px] lg:pl-[95px]">
