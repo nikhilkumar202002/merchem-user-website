@@ -8,6 +8,7 @@ import { FiMail, FiPhone, FiChevronDown, FiArrowRight, FiMenu, FiX } from "react
 import { FaPhoneAlt } from "react-icons/fa";
 import { GiRotaryPhone } from "react-icons/gi";
 import { IoMdMail } from "react-icons/io";
+import { motion, AnimatePresence } from "framer-motion";
 import { getProductCatalogue, CatalogueCategory } from "@/app/utils/ProductService";
 import "../styles/Layout.css";
 import Logo from "../../../public/Main_logo.png";
@@ -20,6 +21,17 @@ const Header = () => {
     const [showHeader, setShowHeader] = useState(true);
     const [isScrolled, setIsScrolled] = useState(false);
     const pathname = usePathname();
+
+    useEffect(() => {
+        if (mobileMenuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [mobileMenuOpen]);
 
     useEffect(() => {
         const fetchCatalogue = async () => {
