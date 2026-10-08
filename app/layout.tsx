@@ -3,6 +3,7 @@ import { Manrope, Inter } from "next/font/google";
 import Header from "./component/layout/Header";
 import Footer from "./component/layout/Footer";
 import Preloader from "./component/common/Preloader";
+import ScrollTop from "./component/common/ScrollTop";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <ScrollTop />
       </body>
     </html>
   );
