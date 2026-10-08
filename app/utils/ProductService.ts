@@ -9,6 +9,7 @@ export interface Category {
   image: string;
   image_url: string;
   status: string;
+  is_featured?: boolean;
   sort_order: number;
   subcategories_count?: number;
   products_count?: number;

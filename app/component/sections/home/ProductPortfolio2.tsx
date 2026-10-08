@@ -35,7 +35,7 @@ function CategoryCardImage({
   );
 }
 
-export default function ProductPortfolio() {
+export default function ProductPortfolio2() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
