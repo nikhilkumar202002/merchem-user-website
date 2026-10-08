@@ -81,9 +81,9 @@ const Header = () => {
 
     return (
         <header
-            className={`w-full bg-white transition-all duration-300 ease-in-out ${
+            className={`w-full bg-white transition-all duration-500 ease-out transform-gpu ${
                 isSticky
-                    ? "fixed top-0 left-0 right-0 z-50 shadow-md border-b border-gray-100"
+                    ? "fixed top-0 left-0 right-0 z-50 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-b border-gray-100"
                     : "relative z-40"
             } ${
                 showHeader
