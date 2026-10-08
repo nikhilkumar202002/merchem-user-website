@@ -36,9 +36,9 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-[120px] overflow-hidden">
+    <section className="w-full bg-white py-14 sm:py-16 lg:py-20 xl:py-20 2xl:py-[100px] overflow-hidden">
       <div className="site-container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[80px] items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] xl:gap-[70px] 2xl:gap-[80px] items-center">
           {/* Left Column: Text & Content */}
           <div>
             {/* Category Subhead */}
@@ -47,7 +47,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="font-semibold text-[#980E27] text-sm sm:text-base tracking-wide block"
+              className="font-semibold text-[#980E27] text-sm sm:text-base xl:text-sm 2xl:text-base tracking-wide block"
             >
               About Merchem
             </motion.span>
@@ -58,7 +58,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] 2xl:text-[52px] font-bold text-[#000000] leading-[1.12] tracking-[-0.035em] font-manrope max-w-[680px] pb-[20px]"
+              className="text-3xl sm:text-4xl lg:text-[34px] xl:text-[36px] 2xl:text-[48px] font-bold text-[#000000] leading-[1.14] tracking-[-0.035em] font-manrope max-w-[680px] pb-[16px] xl:pb-[16px] 2xl:pb-[20px]"
             >
               Chemistry Designed Around Real Industrial Needs.
             </motion.h2>
@@ -69,7 +69,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-5 text-base sm:text-[17px] xl:text-[16px] 2xl:text-[18px] text-[#474747] leading-[1.42] font-normal max-w-[680px]"
+              className="space-y-4 xl:space-y-4 2xl:space-y-5 text-sm sm:text-[16px] lg:text-[15px] xl:text-[15px] 2xl:text-[17px] text-[#474747] leading-[1.45] font-normal max-w-[680px]"
             >
               <p>
                 Merchem is a speciality chemical company delivering high-performance chemical solutions for industrial applications. Our focused portfolio supports the performance, consistency, and process efficiency needs of the Tyre, Rubber, Latex, and other industrial sectors — driven by consistent quality, technical expertise, and strong customer partnerships
@@ -87,11 +87,11 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="pt-[40px]"
+              className="pt-[28px] xl:pt-[28px] 2xl:pt-[40px]"
             >
               <Link
                 href="/about-us"
-                className="bg-[#980E27] text-white px-4 py-3 hover:bg-[#7d0a1f] transition-all inline-flex items-center gap-3 font-medium text-sm sm:text-base xl:text-base"
+                className="bg-[#980E27] text-white px-4 py-3 hover:bg-[#7d0a1f] transition-all inline-flex items-center gap-3 font-medium text-sm sm:text-base xl:text-sm 2xl:text-base"
               >
                 <span>Discover Merchem</span>
                 <FiArrowRight className="w-4 h-4 stroke-[1.5]" />
@@ -133,12 +133,12 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.45 }}
-              className="absolute -bottom-[30px] left-[35%] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] py-3 px-5 border-l-4 border-[#980E27] z-20 flex flex-col justify-center min-w-[220px]"
+              className="absolute -bottom-[24px] left-[35%] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] py-2.5 px-4 xl:py-2.5 xl:px-4 2xl:py-3 2xl:px-5 border-l-4 border-[#980E27] z-20 flex flex-col justify-center min-w-[200px]"
             >
-              <span className="font-bold text-[#000000] text-base xl:text-base 2xl:text-lg tracking-wide uppercase">
+              <span className="font-bold text-[#000000] text-sm xl:text-sm 2xl:text-base tracking-wide uppercase">
                 MERCHEM INDIA
               </span>
-              <span className="text-sm xl:text-sm 2xl:text-base text-[#474747] font-normal">
+              <span className="text-xs xl:text-xs 2xl:text-sm text-[#474747] font-normal">
                 Specialty Chemical Solutions
               </span>
             </motion.div>

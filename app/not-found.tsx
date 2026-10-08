@@ -14,13 +14,13 @@ export default function NotFound() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="font-manrope text-7xl font-extrabold text-[#d3132d] sm:text-9xl tracking-tight">
+          <span className="font-manrope text-6xl sm:text-7xl xl:text-7xl 2xl:text-9xl font-extrabold text-[#d3132d] tracking-tight">
             404
           </span>
-          <h1 className="mt-4 font-manrope text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 className="mt-3 font-manrope text-2xl sm:text-3xl xl:text-3xl 2xl:text-4xl font-bold text-gray-900">
             Page Not Found
           </h1>
-          <p className="mt-3 text-base text-gray-600 sm:text-lg">
+          <p className="mt-2 text-sm text-gray-600 sm:text-base xl:text-base 2xl:text-lg">
             The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
           </p>
 

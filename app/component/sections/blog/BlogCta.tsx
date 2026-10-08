@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function BlogCta() {
   return (
-    <section className="relative overflow-hidden bg-[#850817] bg-[url('/banner/cta_banner.webp')] bg-cover bg-center py-[100px]">
+    <section className="relative overflow-hidden bg-[#850817] bg-[url('/banner/cta_banner.webp')] bg-cover bg-center py-14 lg:py-16 xl:py-16 2xl:py-[100px]">
       <div className="absolute inset-0 bg-[#850817]/75" />
       <div className="site-container relative z-10 flex flex-col items-start justify-between gap-7 lg:flex-row lg:items-center">
         <motion.div
@@ -17,11 +17,11 @@ export default function BlogCta() {
           className="max-w-[620px] text-white"
         >
           <p className="text-xs font-semibold uppercase tracking-[0.18em]">Stay Updated</p>
-          <h2 className="!text-white mt-2 text-3xl font-bold leading-[1.05] tracking-[-0.035em] sm:text-6xl">
+          <h2 className="!text-white mt-2 text-2xl font-bold leading-[1.12] tracking-[-0.035em] sm:text-4xl lg:text-[34px] xl:text-[36px] 2xl:text-6xl">
             Get the Latest Insights
             from Merchem
           </h2>
-          <p className="mt-3 text-sm leading-[1.35] text-white/90 sm:text-base">
+          <p className="mt-2 text-xs leading-[1.35] text-white/90 sm:text-sm xl:text-xs 2xl:text-base">
             Subscribe to our newsletter for industry insights, technical
             articles and company updates.
           </p>

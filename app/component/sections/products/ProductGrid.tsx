@@ -62,13 +62,13 @@ export default function ProductGrid() {
     <section className="w-full bg-[#fcfcfd] py-16 sm:py-20 lg:py-24">
       <div className="site-container">
         {/* Section Header */}
-        <div className="mx-auto max-w-3xl text-center mb-12 sm:mb-16">
+        <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="block text-sm font-semibold tracking-wider text-[#980E27] uppercase sm:text-base"
+            className="block text-sm font-semibold tracking-wider text-[#980E27] uppercase sm:text-base xl:text-sm 2xl:text-base"
           >
             Our Main Product Categories
           </motion.span>
@@ -78,23 +78,21 @@ export default function ProductGrid() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-2 text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl"
+            className="mt-2 text-2xl font-bold leading-tight tracking-tight text-black sm:text-3xl lg:text-[34px] xl:text-[36px] 2xl:text-5xl"
           >
             Specialty Chemical Solutions Built for Performance.
           </motion.h2>
-
-    
         </div>
 
         {/* 3-Column Card Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-6 2xl:gap-8">
             {[1, 2, 3, 4, 5, 6].map((idx) => (
               <div
                 key={idx}
                 className="animate-pulse bg-white p-4 shadow-xs border border-gray-100"
               >
-                <div className="h-56 w-full bg-gray-200" />
+                <div className="h-48 w-full bg-gray-200" />
                 <div className="mt-4 h-6 w-3/4 bg-gray-200" />
                 <div className="mt-2 h-4 w-full bg-gray-200" />
                 <div className="mt-1 h-4 w-5/6 bg-gray-200" />
@@ -103,7 +101,7 @@ export default function ProductGrid() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-6 2xl:gap-8">
             {categories.map((category, index) => (
               <motion.article
                 key={category.id || category.slug}
@@ -124,24 +122,24 @@ export default function ProductGrid() {
                 </div>
 
                 {/* Card Body */}
-                <div className="flex flex-1 flex-col p-6 sm:p-7">
-                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-black group-hover:text-[#980E27] transition-colors leading-snug">
+                <div className="flex flex-1 flex-col p-5 sm:p-6 xl:p-5 2xl:p-7">
+                  <h3 className="text-lg sm:text-xl xl:text-lg 2xl:text-2xl font-bold tracking-tight text-black group-hover:text-[#980E27] transition-colors leading-snug">
                     {category.name}
                   </h3>
 
-                  <p className="mt-3 text-sm text-[#474747] leading-relaxed line-clamp-3">
+                  <p className="mt-2 text-xs sm:text-sm xl:text-xs 2xl:text-sm text-[#474747] leading-relaxed line-clamp-3">
                     {category.short_description || category.description}
                   </p>
 
                   {/* Card Action Link */}
-                  <div className="mt-6 pt-4 border-t border-gray-100">
+                  <div className="mt-5 pt-3 border-t border-gray-100">
                     <Link
                       href={`/products/${category.slug}`}
-                      className="inline-flex w-full items-center justify-between font-semibold text-sm text-[#980E27] group-hover:text-[#7d0a1f] transition-colors"
+                      className="inline-flex w-full items-center justify-between font-semibold text-xs sm:text-sm xl:text-xs 2xl:text-sm text-[#980E27] group-hover:text-[#7d0a1f] transition-colors"
                     >
                       <span>Explore Products</span>
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#fff1f3] text-[#980E27] group-hover:bg-[#980E27] group-hover:text-white transition-all duration-300">
-                        <FiArrowRight className="h-4 w-4" />
+                      <div className="flex h-7 w-7 xl:h-7 xl:w-7 2xl:h-8 2xl:w-8 items-center justify-center rounded-full bg-[#fff1f3] text-[#980E27] group-hover:bg-[#980E27] group-hover:text-white transition-all duration-300">
+                        <FiArrowRight className="h-3.5 w-3.5" />
                       </div>
                     </Link>
                   </div>

@@ -7,9 +7,9 @@ import TechnicalFoundationImg from "@/public/images/quality_technical.webp";
 
 const TechnicalFoundation = () => {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px] overflow-hidden">
+    <section className="w-full bg-white py-14 sm:py-16 lg:py-16 xl:py-16 2xl:py-[100px] overflow-hidden">
       <div className="site-container">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-[80px]">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-[60px] xl:gap-[70px] 2xl:gap-[80px]">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -32,7 +32,7 @@ const TechnicalFoundation = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-sm font-semibold uppercase tracking-wide text-[#980E27] sm:text-base"
+              className="text-sm font-semibold uppercase tracking-wide text-[#980E27] sm:text-base xl:text-sm 2xl:text-base"
             >
               Our Technical Foundation
             </motion.p>
@@ -42,7 +42,7 @@ const TechnicalFoundation = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="pb-5 font-manrope text-3xl font-bold leading-[1.12] tracking-[-0.035em] text-[#000000] sm:text-4xl lg:text-[42px] xl:text-[46px]"
+              className="pb-4 2xl:pb-5 font-manrope text-3xl font-bold leading-[1.14] tracking-[-0.035em] text-[#000000] sm:text-4xl lg:text-[34px] xl:text-[36px] 2xl:text-[46px]"
             >
               R&amp;D and Quality Control — The Key to Our Success
             </motion.h2>
@@ -52,7 +52,7 @@ const TechnicalFoundation = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-5 text-base font-normal leading-[1.5] text-[#474747] sm:text-[17px]"
+              className="space-y-4 xl:space-y-4 2xl:space-y-5 text-sm font-normal leading-[1.45] text-[#474747] sm:text-[16px] lg:text-[15px] xl:text-[15px] 2xl:text-[17px]"
             >
               <p>
                 At Merchem, Research &amp; Development and Quality Control are

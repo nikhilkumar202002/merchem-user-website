@@ -30,11 +30,11 @@ const TimeLine = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="flex flex-col items-center text-center sm:border-r sm:border-gray-200 sm:px-5 first:sm:pl-0 last:sm:border-r-0 last:sm:pr-0"
                 >
-                  <IconComponent className="mb-3 h-9 w-9 text-[#980E27] stroke-[1.4]" />
-                  <p className="font-manrope text-2xl font-bold leading-none text-[#000000] sm:text-[27px]">
+                  <IconComponent className="mb-2 h-7 w-7 xl:h-7 xl:w-7 2xl:h-9 2xl:w-9 text-[#980E27] stroke-[1.4]" />
+                  <p className="font-manrope text-xl sm:text-2xl xl:text-xl 2xl:text-[27px] font-bold leading-none text-[#000000]">
                     {item.value}
                   </p>
-                  <p className="mt-2 max-w-[130px] text-sm leading-tight text-[#9b9b9b] sm:text-[15px]">
+                  <p className="mt-1.5 max-w-[130px] text-xs leading-tight text-[#9b9b9b] sm:text-[14px] xl:text-xs 2xl:text-[15px]">
                     {item.label}
                   </p>
                 </motion.div>

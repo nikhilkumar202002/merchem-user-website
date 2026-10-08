@@ -112,12 +112,12 @@ const GridBlog = () => {
                     alt={article.title}
                     width={600}
                     height={380}
-                    className="h-80 w-full object-cover"
+                    className="h-64 sm:h-72 xl:h-64 2xl:h-80 w-full object-cover"
                   />
-                  <div className="flex flex-1 flex-col p-5">
-                    <h2 className="font-manrope text-[22px] font-bold leading-tight text-[#000000]">{article.title}</h2>
-                    <p className="mt-2 text-[17px] leading-[1.4] text-[#777777]">{article.excerpt}</p>
-                    <div className="mt-auto flex items-center justify-between pt-5 text-xs text-gray-400">
+                  <div className="flex flex-1 flex-col p-4 xl:p-4 2xl:p-5">
+                    <h2 className="font-manrope text-base sm:text-lg xl:text-[17px] 2xl:text-[22px] font-bold leading-tight text-[#000000]">{article.title}</h2>
+                    <p className="mt-2 text-xs xl:text-[13px] 2xl:text-[17px] leading-[1.4] text-[#777777] line-clamp-3">{article.excerpt}</p>
+                    <div className="mt-auto flex items-center justify-between pt-4 text-xs text-gray-400">
                       <span className="inline-flex items-center gap-1">
                         <FiCalendar className="h-3.5 w-3.5" />
                         {formatDate(article.published_at || article.created_at)}

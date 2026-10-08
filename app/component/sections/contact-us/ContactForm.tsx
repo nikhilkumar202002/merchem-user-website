@@ -112,18 +112,18 @@ const ContactForm = () => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <p className="text-[20px] font-semibold text-[#980E27] sm:text-base">
+            <p className="text-base xl:text-base 2xl:text-[20px] font-semibold text-[#980E27]">
               Get In Touch
             </p>
-            <h2 className="max-w-md font-manrope text-3xl font-bold leading-[1.08] text-[#000000] sm:text-4xl lg:text-[46px]">
+            <h2 className="max-w-md font-manrope text-3xl font-bold leading-[1.1] text-[#000000] sm:text-4xl lg:text-[34px] xl:text-[36px] 2xl:text-[46px]">
               We&apos;re Here to Help.
             </h2>
-            <p className="mt-5 max-w-md text-base leading-[1.5] text-[#474747]">
+            <p className="mt-4 max-w-md text-sm leading-[1.45] text-[#474747] xl:text-[15px] 2xl:text-base">
               Whether you have a product enquiry, need additional information or
               want to discuss your application requirements, our team is ready to
               assist.
             </p>
-            <div className="mt-9 space-y-7">
+            <div className="mt-7 space-y-5 xl:space-y-5 2xl:space-y-7">
               <ContactItem icon={FiMapPin} title="Our Office">
                 <strong className="block text-[#202020]">
                   MERCHEM INDIA (P) LIMITED
@@ -149,12 +149,12 @@ const ContactForm = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-            className="rounded-xl border border-gray-100 bg-white p-6 shadow-[0_5px_24px_rgba(0,0,0,0.07)] sm:p-8"
+            className="rounded-xl border border-gray-100 bg-white p-5 sm:p-6 xl:p-6 2xl:p-8 shadow-[0_5px_24px_rgba(0,0,0,0.07)]"
           >
-            <p className="text-[20px] font-semibold text-[#980E27]">
+            <p className="text-base xl:text-base 2xl:text-[20px] font-semibold text-[#980E27]">
               Enquiry Form
             </p>
-            <h2 className="font-manrope text-3xl font-bold leading-tight text-[#000000] sm:text-4xl">
+            <h2 className="font-manrope text-2xl font-bold leading-tight text-[#000000] sm:text-3xl xl:text-[28px] 2xl:text-4xl">
               How Can We Assist You?
             </h2>
 

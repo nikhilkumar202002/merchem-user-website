@@ -32,7 +32,7 @@ const AboutBanner = () => {
   }, []);
 
   return (
-    <section className="relative flex min-h-[65vh] w-full items-center overflow-hidden bg-white lg:min-h-[70vh]">
+    <section className="relative flex min-h-[50vh] lg:min-h-[55vh] 2xl:min-h-[70vh] w-full items-center overflow-hidden bg-white">
       <div className="absolute inset-0 z-0">
         <Image
           src={AboutBannerImg}
@@ -44,13 +44,13 @@ const AboutBanner = () => {
         <div className="absolute inset-0 w-full bg-gradient-to-r from-white via-white/95 to-transparent sm:via-white/90 md:w-[75%] lg:w-[62%]" />
       </div>
 
-      <div className="site-container relative z-10 w-full py-12 sm:py-16 lg:py-20">
+      <div className="site-container relative z-10 w-full py-10 sm:py-12 lg:py-14 xl:py-14 2xl:py-20">
         <div className="max-w-2xl lg:max-w-3xl">
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
             transition={{ duration: 0.5 }}
-            className="text-[20px] font-semibold text-[#980E27]"
+            className="text-base xl:text-base 2xl:text-[20px] font-semibold text-[#980E27]"
           >
             About Merchem India
           </motion.p>
@@ -59,7 +59,7 @@ const AboutBanner = () => {
             initial={{ opacity: 0, y: 25 }}
             animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            className="font-manrope text-4xl font-bold leading-[1.12] tracking-tight text-[#000000] sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[64px] pb-[20px]"
+            className="font-manrope text-3xl font-bold leading-[1.12] tracking-tight text-[#000000] sm:text-4xl md:text-5xl lg:text-[38px] xl:text-[42px] 2xl:text-[56px] pb-[16px] 2xl:pb-[20px]"
           >
             Chemistry. Innovation. <span className="text-[#980E27]">Quality. Since 1981.</span>
           </motion.h1>
@@ -68,7 +68,7 @@ const AboutBanner = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-            className="max-w-2xl text-sm font-normal leading-relaxed text-[#474747] sm:text-base md:text-base lg:text-lg pb-[40px]"
+            className="max-w-2xl text-sm font-normal leading-relaxed text-[#474747] sm:text-base md:text-base lg:text-sm xl:text-[15px] 2xl:text-lg pb-[24px] 2xl:pb-[40px]"
           >
             Merchem has been serving rubber goods manufacturers and allied
             industries since 1981, offering quality rubber processing chemicals
@@ -79,11 +79,11 @@ const AboutBanner = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="pt-3"
+            className="pt-2"
           >
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 bg-[#980E27] px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-[#7d0a1f] sm:text-base"
+              className="inline-flex items-center gap-2 bg-[#980E27] px-5 py-3 text-sm font-medium text-white transition-all hover:bg-[#7d0a1f] sm:text-base xl:text-sm 2xl:text-base"
             >
               <span>Explore Our Products</span>
               <FiArrowRight className="h-4 w-4 stroke-[2]" />

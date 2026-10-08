@@ -14,18 +14,18 @@ const ContactMap = () => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#980E27] sm:text-base">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#980E27] sm:text-base xl:text-sm 2xl:text-base">
               Our Location
             </p>
-            <h2 className="mt-2 font-manrope text-3xl font-bold leading-[1.1] text-[#000000] sm:text-4xl lg:text-[46px]">
+            <h2 className="mt-2 font-manrope text-3xl font-bold leading-[1.1] text-[#000000] sm:text-4xl lg:text-[34px] xl:text-[36px] 2xl:text-[46px]">
               Visit Merchem India.
             </h2>
-            <p className="mt-5 max-w-md text-base leading-[1.55] text-[#474747]">
+            <p className="mt-4 max-w-md text-sm leading-[1.5] text-[#474747] xl:text-[15px] 2xl:text-base">
               Our office is located at Development Plot, Kalamassery,
               Ernakulam, Kerala.
             </p>
 
-            <div className="mt-8 border-l-2 border-[#980E27] pl-5 text-base leading-[1.6] text-[#474747]">
+            <div className="mt-6 border-l-2 border-[#980E27] pl-5 text-sm leading-[1.5] text-[#474747] xl:text-[14px] 2xl:text-base">
               <p className="font-bold text-[#202020]">Merchem India (P) Limited</p>
               <p className="mt-1">
                 45A Development Plot, Kalamassery, Ernakulam – 683104, Kerala
@@ -38,7 +38,7 @@ const ContactMap = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-            className="h-[320px] overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm sm:h-[400px]"
+            className="h-[280px] overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm sm:h-[340px] xl:h-[320px] 2xl:h-[400px]"
           >
             <iframe
               title="Merchem India office location"

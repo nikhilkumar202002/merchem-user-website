@@ -30,7 +30,7 @@ const BlogBanner = () => {
   }, []);
 
   return (
-    <section className="relative flex min-h-[55vh] w-full items-center overflow-hidden bg-white lg:min-h-[60vh]">
+    <section className="relative flex min-h-[45vh] lg:min-h-[50vh] 2xl:min-h-[60vh] w-full items-center overflow-hidden bg-white">
       <div className="absolute inset-0 z-0">
         <Image
           src={BlogBannerImg}
@@ -42,13 +42,13 @@ const BlogBanner = () => {
         <div className="absolute inset-0 w-full bg-gradient-to-r from-white via-white/95 to-transparent sm:via-white/90 md:w-[75%] lg:w-[62%]" />
       </div>
 
-      <div className="site-container relative z-10 w-full py-14 sm:py-18 lg:py-24">
+      <div className="site-container relative z-10 w-full py-10 sm:py-14 lg:py-16 xl:py-16 2xl:py-24">
         <div className="max-w-3xl">
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
             transition={{ duration: 0.5 }}
-            className="text-[20px] font-semibold uppercase tracking-wide text-[#980E27]"
+            className="text-base xl:text-base 2xl:text-[20px] font-semibold uppercase tracking-wide text-[#980E27]"
           >
             Insights &amp; Updates
           </motion.p>
@@ -57,7 +57,7 @@ const BlogBanner = () => {
             initial={{ opacity: 0, y: 25 }}
             animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            className="mt-3 max-w-2xl font-manrope text-4xl font-bold leading-[1.12] tracking-tight text-[#000000] sm:text-5xl md:text-6xl lg:text-[56px]"
+            className="mt-2 max-w-2xl font-manrope text-3xl font-bold leading-[1.12] tracking-tight text-[#000000] sm:text-4xl md:text-5xl lg:text-[38px] xl:text-[42px] 2xl:text-[56px]"
           >
             Insights &amp; Updates From Merchem
           </motion.h1>
@@ -66,7 +66,7 @@ const BlogBanner = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-            className="mt-6 max-w-2xl text-sm font-normal leading-relaxed text-[#474747] sm:text-base lg:text-lg"
+            className="mt-4 max-w-2xl text-sm font-normal leading-relaxed text-[#474747] sm:text-base lg:text-sm xl:text-[15px] 2xl:text-lg"
           >
             Explore industry insights, technical knowledge, product information
             and company updates from Merchem India. Discover perspectives on

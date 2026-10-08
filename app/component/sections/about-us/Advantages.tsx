@@ -52,16 +52,16 @@ const advantages = [
 
 const Advantages = () => {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-[100px] overflow-hidden">
+    <section className="w-full bg-white py-14 sm:py-16 lg:py-16 xl:py-16 2xl:py-[100px] overflow-hidden">
       <div className="site-container">
-        <div className="mb-10 flex flex-col gap-4 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mb-8 xl:mb-8 2xl:mb-12 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-[20px] font-semibold text-[#980E27] sm:text-base"
+              className="text-base xl:text-base 2xl:text-[20px] font-semibold text-[#980E27]"
             >
               The Merchem Advantage
             </motion.p>
@@ -70,7 +70,7 @@ const Advantages = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-manrope text-3xl font-bold leading-tight tracking-[-0.035em] text-[#000000] sm:text-4xl lg:text-[46px]"
+              className="font-manrope text-3xl font-bold leading-tight tracking-[-0.035em] text-[#000000] sm:text-4xl lg:text-[34px] xl:text-[36px] 2xl:text-[46px]"
             >
               Our Strengths
             </motion.h2>
@@ -88,13 +88,13 @@ const Advantages = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="min-h-[245px] border border-gray-100 bg-white p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_8px_24px_rgba(152,14,39,0.1)] sm:p-7"
+                className="min-h-[200px] xl:min-h-[210px] 2xl:min-h-[245px] border border-gray-100 bg-white p-5 xl:p-5 2xl:p-7 shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_8px_24px_rgba(152,14,39,0.1)]"
               >
-                <IconComponent className="mb-5 h-9 w-9 text-[#980E27] stroke-[1.4]" />
-                <h3 className="font-manrope text-[22px] font-bold text-[#000000]">
+                <IconComponent className="mb-3.5 h-7 w-7 xl:h-7 xl:w-7 2xl:h-9 2xl:w-9 text-[#980E27] stroke-[1.4]" />
+                <h3 className="font-manrope text-base xl:text-[17px] 2xl:text-[22px] font-bold text-[#000000]">
                   {advantage.title}
                 </h3>
-                <p className="mt-3 text-sm leading-[1.45] text-[#777777]">
+                <p className="mt-2 text-xs xl:text-xs 2xl:text-sm leading-[1.4] text-[#777777]">
                   {advantage.description}
                 </p>
               </motion.article>

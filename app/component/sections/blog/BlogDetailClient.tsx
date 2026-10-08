@@ -76,10 +76,10 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
             </div>
           ) : (
             <div>
-              <h1 className="font-manrope text-3xl font-extrabold text-gray-900 md:text-4xl lg:text-5xl leading-tight">
+              <h1 className="font-manrope text-2xl sm:text-3xl md:text-4xl lg:text-[34px] xl:text-[36px] 2xl:text-5xl font-extrabold text-gray-900 leading-tight">
                 {blog.title}
               </h1>
-              <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-600">
+              <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-gray-600">
                 {blog.author && (
                   <span className="inline-flex items-center gap-1.5 font-medium">
                     <FiUser className="h-4 w-4 text-[#d3132d]" />
@@ -105,28 +105,28 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
       </section>
 
       {!loading && blog && (
-        <section className="py-12 lg:py-16">
+        <section className="py-10 lg:py-14">
           <div className="site-container max-w-4xl">
             {blog.featured_image && (
-              <div className="mb-8 overflow-hidden rounded-lg shadow-md">
+              <div className="mb-6 overflow-hidden rounded-lg shadow-md">
                 <Image
                   src={blog.featured_image || RubberImg}
                   alt={blog.title}
                   width={1200}
                   height={600}
-                  className="w-full max-h-[480px] object-cover"
+                  className="w-full max-h-[380px] xl:max-h-[380px] 2xl:max-h-[480px] object-cover"
                 />
               </div>
             )}
 
             {blog.excerpt && (
-              <p className="mb-8 text-xl font-medium leading-relaxed text-gray-700 italic border-l-4 border-[#d3132d] pl-4 bg-gray-50 py-3">
+              <p className="mb-6 text-base sm:text-lg xl:text-base 2xl:text-xl font-medium leading-relaxed text-gray-700 italic border-l-4 border-[#d3132d] pl-4 bg-gray-50 py-3">
                 {blog.excerpt}
               </p>
             )}
 
             <article
-              className="prose prose-lg max-w-none prose-headings:font-manrope prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-[#d3132d]"
+              className="prose prose-base sm:prose-lg xl:prose-base 2xl:prose-lg max-w-none prose-headings:font-manrope prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-[#d3132d]"
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
           </div>

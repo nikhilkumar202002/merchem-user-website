@@ -159,22 +159,22 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
         <Breadcrumbs items={breadcrumbItems} />
 
         {/* Category Header */}
-        <div className="mt-4 mb-8">
+        <div className="mt-4 mb-6">
     
-          <h1 className="mt-1 text-3xl sm:text-4xl lg:text-5xl font-bold text-black tracking-tight">
+          <h1 className="mt-1 text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] 2xl:text-5xl font-bold text-black tracking-tight">
             {category.name}
           </h1>
           {category.short_description && (
-            <p className="mt-3 max-w-3xl text-base sm:text-lg text-[#474747] leading-relaxed">
+            <p className="mt-2 max-w-3xl text-sm sm:text-base xl:text-[15px] 2xl:text-lg text-[#474747] leading-relaxed">
               {category.short_description}
             </p>
           )}
         </div>
 
         {/* 2-Column Main Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Main Content Area (8 Cols) */}
-          <div className="lg:col-span-8 space-y-10">
+          <div className="lg:col-span-8 space-y-8">
             {/* Category Banner Image */}
             <div className="relative w-full overflow-hidden bg-gray-100 border border-gray-200">
               <CategoryBannerImage
@@ -185,11 +185,11 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
             </div>
 
             {/* Category Description */}
-            <div className="bg-white border border-gray-200 p-6 sm:p-8 space-y-4">
-              <h2 className="text-xl sm:text-2xl font-bold text-black border-l-4 border-[#980E27] pl-3">
+            <div className="bg-white border border-gray-200 p-5 sm:p-7 space-y-4">
+              <h2 className="text-lg sm:text-xl xl:text-lg 2xl:text-2xl font-bold text-black border-l-4 border-[#980E27] pl-3">
                 About {category.name}
               </h2>
-              <div className="space-y-4 text-sm sm:text-base text-[#474747] leading-relaxed">
+              <div className="space-y-3 text-xs sm:text-sm xl:text-[14px] 2xl:text-base text-[#474747] leading-relaxed">
                 {descriptionParagraphs.map((paragraph: string, idx: number) => (
                   <p key={idx}>{paragraph}</p>
                 ))}
@@ -197,14 +197,14 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
             </div>
 
             {/* Subcategories & Product Listing */}
-            <div className="space-y-8">
+            <div className="space-y-6">
               {category.subcategories && category.subcategories.length > 0 ? (
                 category.subcategories.map((sub: any) => (
-                  <div key={sub.id || sub.slug} className="bg-white border border-gray-200 p-6 sm:p-8 space-y-4">
+                  <div key={sub.id || sub.slug} className="bg-white border border-gray-200 p-5 sm:p-7 space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-3">
                       <div className="flex items-center gap-3 border-l-4 border-[#980E27] pl-3">
                         <Link href={`/products/${category.slug}/${sub.slug}`} className="hover:text-[#980E27] transition-colors">
-                          <h3 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-wide hover:text-[#980E27]">
+                          <h3 className="text-lg sm:text-xl xl:text-lg 2xl:text-2xl font-bold text-black uppercase tracking-wide hover:text-[#980E27]">
                             {sub.name}
                           </h3>
                         </Link>

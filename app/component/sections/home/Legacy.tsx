@@ -9,9 +9,9 @@ import LegacyImg from "@/public/images/company-quote.webp";
 
 const Legacy = () => {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-[120px] overflow-hidden">
+    <section className="w-full bg-white py-14 sm:py-16 lg:py-20 xl:py-20 2xl:py-[100px] overflow-hidden">
       <div className="site-container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[80px] items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] xl:gap-[70px] 2xl:gap-[80px] items-center">
           {/* Left Column: Image */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -37,7 +37,7 @@ const Legacy = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="block text-sm font-semibold tracking-wide text-[#980E27] sm:text-base xl:text-lg"
+            className="block text-sm font-semibold tracking-wide text-[#980E27] sm:text-base xl:text-sm 2xl:text-base"
           >
             Our Legacy
           </motion.span>
@@ -47,7 +47,7 @@ const Legacy = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-1 max-w-[680px] text-3xl font-bold leading-[1.12] tracking-[-0.035em] text-black font-manrope sm:text-4xl lg:text-[42px] xl:text-[46px] 2xl:text-[52px]"
+            className="mt-1 max-w-[680px] text-3xl font-bold leading-[1.14] tracking-[-0.035em] text-black font-manrope sm:text-4xl lg:text-[34px] xl:text-[36px] 2xl:text-[48px]"
           >
             Adding Value to <span className="text-[#980E27]">Rubber...</span>
             <br />
@@ -59,7 +59,7 @@ const Legacy = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-4 max-w-[680px] text-lg leading-[1.35] text-[#474747] sm:text-xl xl:text-xl 2xl:text-[22px]"
+            className="mt-3 xl:mt-3 2xl:mt-4 max-w-[680px] text-base leading-[1.35] text-[#474747] sm:text-lg lg:text-base xl:text-[16px] 2xl:text-[20px]"
           >
             When people create wonders with Rubber, our applause for them is LOUD.
           </motion.p>
@@ -69,12 +69,12 @@ const Legacy = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-6 space-y-1"
+            className="mt-5 xl:mt-5 2xl:mt-6 space-y-1"
           >
-            <p className="text-lg font-semibold leading-tight text-black sm:text-xl xl:text-xl">
+            <p className="text-base font-semibold leading-tight text-black sm:text-lg lg:text-base xl:text-base 2xl:text-lg">
               NURTURING NATURE FOR FUTURE GENERATIONS
             </p>
-            <p className="text-sm font-medium text-[#980E27] sm:text-base xl:text-base">
+            <p className="text-xs font-medium text-[#980E27] sm:text-sm lg:text-xs xl:text-xs 2xl:text-sm">
               ACCELERATORS · ANTIOXIDANT · PROCESSING AIDS
             </p>
           </motion.div>
@@ -84,11 +84,11 @@ const Legacy = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-12"
+            className="mt-8 xl:mt-8 2xl:mt-12"
           >
             <Link
               href="/products"
-              className="inline-flex items-center gap-3 bg-[#980E27] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#7d0a1f] sm:text-base xl:text-base"
+              className="inline-flex items-center gap-3 bg-[#980E27] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#7d0a1f] sm:text-base xl:text-sm 2xl:text-base"
             >
               <span>Explore Our Products</span>
               <FiArrowRight className="h-4 w-4 stroke-[1.5]" />

@@ -124,9 +124,9 @@ export default function SubcategoryDetailClient({
         <Breadcrumbs items={breadcrumbItems} />
 
         {/* Subcategory Header */}
-        <div className="mt-4 mb-10 pb-6 border-b border-gray-200">
+        <div className="mt-4 mb-8 pb-5 border-b border-gray-200">
           <div className="mt-1 flex flex-wrap items-center justify-between gap-4">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black tracking-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] 2xl:text-5xl font-bold text-black tracking-tight">
               {subcategory.name}
             </h1>
             <span className="text-xs font-semibold px-3 py-1.5 bg-[#fff1f3] text-[#980E27] flex items-center gap-1.5 border border-[#980E27]/20">
@@ -139,13 +139,13 @@ export default function SubcategoryDetailClient({
         {/* Main Product Grid (Full Width, 3-4 Cols) */}
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-black border-l-4 border-[#980E27] pl-3">
+            <h2 className="text-lg sm:text-xl xl:text-lg 2xl:text-xl font-bold text-black border-l-4 border-[#980E27] pl-3">
               Product Range ({subcategory.products.length})
             </h2>
           </div>
 
           {subcategory.products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 xl:gap-5 2xl:gap-6">
               {subcategory.products.map((product) => {
                 const prodDetail =
                   productsDetailsMap[product.slug?.toLowerCase() || ""] ||
@@ -162,11 +162,11 @@ export default function SubcategoryDetailClient({
                 return (
                   <div
                     key={product.id || product.slug}
-                    className="group flex flex-col justify-between bg-white border border-gray-200 p-6 transition-all duration-300 hover:border-[#980E27] hover:shadow-lg"
+                    className="group flex flex-col justify-between bg-white border border-gray-200 p-5 transition-all duration-300 hover:border-[#980E27] hover:shadow-lg"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className="text-xs font-semibold px-2.5 py-0.5 bg-gray-100 text-slate-700">
+                        <span className="text-xs font-semibold px-2 py-0.5 bg-gray-100 text-slate-700">
                           {subcategory.name}
                         </span>
                         <div className="flex items-center gap-1 text-[11px] font-medium text-slate-500">
@@ -175,24 +175,24 @@ export default function SubcategoryDetailClient({
                         </div>
                       </div>
 
-                      <h3 className="text-xl font-bold text-black group-hover:text-[#980E27] transition-colors leading-snug">
+                      <h3 className="text-base sm:text-lg xl:text-[16px] 2xl:text-xl font-bold text-black group-hover:text-[#980E27] transition-colors leading-snug">
                         {product.name}
                       </h3>
 
                       {desc && (
-                        <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">
+                        <p className="mt-2 text-xs sm:text-sm xl:text-xs 2xl:text-sm text-slate-600 leading-relaxed whitespace-pre-line">
                           {desc}
                         </p>
                       )}
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-gray-100 space-y-2">
+                    <div className="mt-5 pt-3 border-t border-gray-100 space-y-2">
                       <button
                         type="button"
                         onClick={() => setSelectedTdsProduct({ id: product.id, name: product.name })}
-                        className="flex items-center justify-center gap-2 bg-[#980E27] text-white w-full py-2.5 text-xs sm:text-sm font-semibold hover:bg-[#7d0a1f] transition-colors"
+                        className="flex items-center justify-center gap-2 bg-[#980E27] text-white w-full py-2 text-xs sm:text-sm font-semibold hover:bg-[#7d0a1f] transition-colors"
                       >
-                        <FiDownload className="h-4 w-4" />
+                        <FiDownload className="h-3.5 w-3.5" />
                         <span>Request TDS</span>
                       </button>
                     </div>

@@ -43,18 +43,18 @@ const industries: IndustryCard[] = [
 
 export default function Industry() {
   return (
-    <section className="relative overflow-hidden bg-[#980E27] py-16 sm:py-20 lg:py-[120px]">
+    <section className="relative overflow-hidden bg-[#980E27] py-14 sm:py-16 lg:py-20 xl:py-20 2xl:py-[100px]">
       <div className="absolute inset-0 bg-[url('/banner/industry-banner.webp')] bg-cover bg-center bg-fixed" />
       <div className="absolute inset-0 bg-[#980E27]/75" />
       <div className="site-container relative z-10">
-        <div className="flex flex-col gap-10 lg:gap-12">
+        <div className="flex flex-col gap-8 lg:gap-10 xl:gap-10 2xl:gap-12">
           <div className="text-center text-white">
             <motion.span
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="block text-sm font-medium sm:text-base"
+              className="block text-sm font-medium sm:text-base xl:text-sm 2xl:text-base"
             >
               Where our Chemistry Works
             </motion.span>
@@ -63,7 +63,7 @@ export default function Industry() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="!text-white mx-auto mt-2 max-w-[700px] text-3xl font-bold leading-[1.12] tracking-[-0.035em] sm:text-4xl md:text-5xl lg:text-[46px]"
+              className="!text-white mx-auto mt-2 max-w-[700px] text-3xl font-bold leading-[1.14] tracking-[-0.035em] sm:text-4xl md:text-5xl lg:text-[34px] xl:text-[36px] 2xl:text-[44px]"
             >
               Solutions Across Materials, Processes &amp; Industries.
             </motion.h2>
@@ -76,18 +76,18 @@ export default function Industry() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.12 }}
-                className="flex min-h-[317px] flex-col bg-white"
+                className="flex min-h-[250px] xl:min-h-[260px] 2xl:min-h-[317px] flex-col bg-white"
               >
                 <Image
                   src={industry.image}
                   alt={industry.title}
-                  className="h-[220px] w-full object-cover"
+                  className="h-[170px] xl:h-[180px] 2xl:h-[220px] w-full object-cover"
                 />
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="text-[20px] font-bold leading-[1.05] text-black">
+                <div className="flex flex-1 flex-col p-4 xl:p-4 2xl:p-5">
+                  <h3 className="text-base xl:text-[17px] 2xl:text-[20px] font-bold leading-[1.1] text-black font-manrope">
                     {industry.title}
                   </h3>
-                  <p className="mt-2 text-[17px] leading-[1.28] text-[#474747]">
+                  <p className="mt-1.5 xl:mt-1.5 2xl:mt-2 text-xs xl:text-[13px] 2xl:text-[15px] leading-[1.3] text-[#474747]">
                     {industry.description}
                   </p>
                 </div>

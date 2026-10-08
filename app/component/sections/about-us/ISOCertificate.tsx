@@ -26,10 +26,10 @@ const ISOCertificate = () => {
             />
 
             <div>
-              <h2 className="font-manrope text-xl font-bold leading-tight text-[#111827] sm:text-2xl">
+              <h2 className="font-manrope text-lg font-bold leading-tight text-[#111827] sm:text-xl xl:text-xl 2xl:text-2xl">
                 ISO 9001:2015 Certified
               </h2>
-              <p className="mt-1 text-sm leading-tight text-[#606060] sm:text-base">
+              <p className="mt-1 text-xs leading-tight text-[#606060] sm:text-sm xl:text-xs 2xl:text-base">
                 Certified Quality Management System
               </p>
             </div>
@@ -38,7 +38,7 @@ const ISOCertificate = () => {
           <div className="hidden h-16 bg-[#e9d9db] lg:block" />
 
           <div className="max-w-2xl">
-            <p className="text-sm leading-[1.55] text-[#474747] sm:text-base lg:text-[17px]">
+            <p className="text-xs leading-[1.5] text-[#474747] sm:text-sm lg:text-[14px] xl:text-[14px] 2xl:text-[17px]">
               Merchem&apos;s Quality Management System is certified to ISO
               9001:2015, reflecting its commitment to effective quality
               management, customer satisfaction and continual improvement.

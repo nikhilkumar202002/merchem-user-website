@@ -15,7 +15,7 @@ const AboutCta = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-[20px] font-semibold text-[#980E27] sm:text-base"
+            className="text-base xl:text-base 2xl:text-[20px] font-semibold text-[#980E27]"
           >
             Connect with Merchem
           </motion.p>
@@ -25,7 +25,7 @@ const AboutCta = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="max-w-4xl font-manrope text-3xl font-bold leading-[1.12] text-[#000000] sm:text-4xl lg:text-[38px]"
+            className="max-w-4xl font-manrope text-2xl font-bold leading-[1.14] text-[#000000] sm:text-3xl lg:text-[32px] xl:text-[34px] 2xl:text-[38px]"
           >
             Let&apos;s Explore the Right Chemical Solutions
             <br className="hidden sm:block" /> For Your Needs.
@@ -36,7 +36,7 @@ const AboutCta = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-4 text-sm leading-relaxed text-[#474747] sm:text-base"
+            className="mt-3 text-xs leading-relaxed text-[#474747] sm:text-sm xl:text-[15px] 2xl:text-base"
           >
             Connect with our team to discuss your product requirements and
             industrial applications.
@@ -51,7 +51,7 @@ const AboutCta = () => {
           >
             <Link
               href="/contact-us"
-              className="inline-flex items-center gap-3 bg-[#980E27] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#7d0a1f] sm:text-base"
+              className="inline-flex items-center gap-3 bg-[#980E27] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#7d0a1f] sm:text-base xl:text-sm 2xl:text-base"
             >
               <span>Contact Our Team</span>
               <FiArrowRight className="h-4 w-4" />

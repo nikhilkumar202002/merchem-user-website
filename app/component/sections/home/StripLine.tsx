@@ -48,12 +48,12 @@ const StripLine = () => {
                   index !== 0 ? "lg:pl-7" : ""
                 } ${index !== features.length - 1 ? "lg:pr-6" : ""}`}
               >
-                <IconComponent className="w-9 h-9 text-[#980E27] shrink-0 stroke-[1.4]" />
+                <IconComponent className="w-8 h-8 xl:w-8 xl:h-8 2xl:w-9 2xl:h-9 text-[#980E27] shrink-0 stroke-[1.4]" />
                 <div className="space-y-1">
-                  <h3 className="font-bold text-[#000000] text-base lg:text-[17px] leading-tight font-manrope">
+                  <h3 className="font-bold text-[#000000] text-sm lg:text-[15px] xl:text-[15px] 2xl:text-[17px] leading-tight font-manrope">
                     {item.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#474747] leading-[1.3] font-normal">
+                  <p className="text-xs text-[#474747] leading-[1.3] font-normal xl:text-xs 2xl:text-sm">
                     {item.description}
                   </p>
                 </div>

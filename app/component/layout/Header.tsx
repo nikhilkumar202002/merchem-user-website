@@ -157,7 +157,7 @@ const Header = () => {
                     {/* Bottom Bar - Main Navigation Links */}
                     <div className="py-5 flex items-center justify-end pr-[20px] md:pr-[50px] lg:pr-[95px]">
                         {/* Desktop Navigation */}
-                        <nav className="hidden lg:flex items-center gap-7 xl:gap-9 text-[17px] font-medium text-[#000000]">
+                        <nav className="hidden lg:flex items-center gap-5 xl:gap-6 2xl:gap-9 text-[15px] xl:text-[15px] 2xl:text-[17px] font-medium text-[#000000]">
                             <Link href="/" className={navClass("/")}>
                                 Home
                             </Link>

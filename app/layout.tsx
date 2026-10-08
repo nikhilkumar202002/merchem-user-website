@@ -21,7 +21,9 @@ export const metadata: Metadata = {
   title: "Merchem India | Rubber Chemicals & Specialty Chemicals",
   description: "Merchem India provides specialty chemical solutions for rubber, latex, tyres, paints and industrial applications, including accelerators, antidegradants and processing aids.",
   icons: {
-    icon: "/Main_logo.png",
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 

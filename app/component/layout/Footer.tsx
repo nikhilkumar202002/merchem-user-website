@@ -33,26 +33,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {/* Column 1: Company Links */}
           <div className="space-y-3">
-            <h4 className="font-bold text-[18px] text-[#000000]">Company</h4>
-            <ul className="space-y-2 text-[17px] text-[#474747]">
+            <h4 className="font-bold text-base xl:text-[16px] 2xl:text-[18px] text-[#000000]">Company</h4>
+            <ul className="space-y-2 text-sm xl:text-[14px] 2xl:text-[16px] text-[#474747]">
               <li>
-                <Link href="/about" className="hover:text-[#980E27] transition-colors">
+                <Link href="/about-us" className="hover:text-[#980E27] transition-colors">
                   About Merchem
                 </Link>
               </li>
               <li>
-                <Link href="/expertise" className="hover:text-[#980E27] transition-colors">
-                  Our Expertise
-                </Link>
-              </li>
-              <li>
-                <Link href="/quality" className="hover:text-[#980E27] transition-colors">
-                  Quality
-                </Link>
-              </li>
-              <li>
-                <Link href="/careers" className="hover:text-[#980E27] transition-colors">
-                  Careers
+                <Link href="/products" className="hover:text-[#980E27] transition-colors">
+                  Our Products
                 </Link>
               </li>
               <li>
@@ -70,8 +60,8 @@ const Footer = () => {
 
           {/* Column 2: Products Links & View All Button */}
           <div className="space-y-3">
-            <h4 className="font-bold text-[18px] text-[#000000]">Products</h4>
-            <ul className="space-y-2 text-[17px] text-[#474747]">
+            <h4 className="font-bold text-base xl:text-[16px] 2xl:text-[18px] text-[#000000]">Products</h4>
+            <ul className="space-y-2 text-sm xl:text-[14px] 2xl:text-[16px] text-[#474747]">
               {categories.length > 0 ? (
                 categories.map((cat) => (
                   <li key={cat.id || cat.slug}>
@@ -97,16 +87,6 @@ const Footer = () => {
                       Processing Aids
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/products/agrochemicals" className="hover:text-[#980E27] transition-colors">
-                      Agrochemical Intermediates
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/products/water-treatment-chemicals" className="hover:text-[#980E27] transition-colors">
-                      Water Treatment Chemicals
-                    </Link>
-                  </li>
                 </>
               )}
             </ul>
@@ -124,7 +104,7 @@ const Footer = () => {
 
           {/* Column 3: Contact Details */}
           <div className="space-y-4 text-xs sm:text-sm text-[#474747]">
-            <h4 className="font-bold text-[18px] text-[#000000]">Contact</h4>
+            <h4 className="font-bold text-base xl:text-[16px] 2xl:text-[18px] text-[#000000]">Contact</h4>
 
             {/* Address */}
             <div className="flex items-start gap-2.5">
@@ -136,7 +116,7 @@ const Footer = () => {
                 className="space-y-0.5 hover:text-[#980E27] transition-colors"
                 aria-label="View Merchem India Private Limited on Google Maps"
               >
-                <p className="font-bold text-[#000000] uppercase text-[17px]">
+                <p className="font-bold text-[#000000] uppercase text-sm xl:text-[14px] 2xl:text-[16px]">
                   MERCHEM INDIA PRIVATE LIMITED
                 </p>
                 <p>45A Development Plot, Kalamassery</p>
