@@ -215,7 +215,7 @@ export default function SubcategoryDetailClient({
             <TdsForm
               productId={selectedTdsProduct.id}
               selectedProduct={selectedTdsProduct.name}
-              productList={subcategory.products.map((p) => p.name)}
+              productList={subcategory.products.map((p) => ({ id: p.id, name: p.name }))}
               onClose={() => setSelectedTdsProduct(null)}
             />
           </div>

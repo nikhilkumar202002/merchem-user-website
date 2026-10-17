@@ -42,26 +42,16 @@ const WhoWeAre = () => {
               className="space-y-4 xl:space-y-4 2xl:space-y-5 text-sm sm:text-[16px] lg:text-[15px] xl:text-[15px] 2xl:text-[18px] text-[#474747] leading-[1.45] font-normal max-w-[680px]"
             >
               <p>
-                Over more than four decades, Merchem has established a strong
-                reputation for quality, innovation, technical expertise and
-                customer-focused service.
+                Over more than four decades, Merchem has established a strong reputation for quality, innovation, technical expertise and customer-focused service.
               </p>
               <p>
-                Our product portfolio includes rubber accelerators,
-                antioxidants, processing aids, water treatment chemicals and
-                agrochemicals, catering to diverse industrial requirements
-                across India and international markets.
+                Our product portfolio includes rubber accelerators, antioxidants, processing aids, water treatment chemicals and agrochemicals, catering to diverse industrial requirements across India and international markets.
               </p>
               <p>
-                Backed by a wide distribution network and a team of experienced
-                technocrats, professionals, researchers and chemists, Merchem
-                combines technical expertise, industry experience and a
-                customer-oriented approach.
+               Backed by a wide distribution network and a team of experienced technocrats, professionals, researchers and chemists, Merchem combines technical expertise, industry experience and a customer-oriented approach.
               </p>
               <p>
-                Our continuous focus on research, product development and
-                technological advancement enables us to respond effectively to
-                evolving market and application requirements.
+               Our continuous focus on research, product development and technological advancement enables us to respond effectively to evolving market and application requirements.
               </p>
             </motion.div>
 

@@ -3,38 +3,63 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiImage } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { getProductCategories, Category } from "@/app/utils/ProductService";
-import FallbackImage from "@/public/images/About-image-1.webp";
+import { getProductCategories, Category, resolveProductImageUrl } from "@/app/utils/ProductService";
 
 function CategoryCardImage({
   src,
+  imagePath,
   alt,
-  fallback,
 }: {
   src?: string | null;
+  imagePath?: string | null;
   alt: string;
-  fallback: any;
 }) {
-  const [imgSrc, setImgSrc] = useState<any>(src || fallback);
+  const [loadedUrl, setLoadedUrl] = useState<string | null>(null);
+  const [errorUrl, setErrorUrl] = useState<string | null>(null);
 
-  useEffect(() => {
-    setImgSrc(src || fallback);
-  }, [src, fallback]);
+  const cleanUrl = resolveProductImageUrl(src, imagePath);
+
+  const isLoaded = Boolean(cleanUrl && loadedUrl === cleanUrl);
+  const hasError = Boolean(!cleanUrl || errorUrl === cleanUrl);
 
   return (
-    <Image
-      src={imgSrc}
-      alt={alt}
-      width={600}
-      height={400}
-      unoptimized
-      onError={() => setImgSrc(fallback)}
-      className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-    />
+    <div className="relative h-[240px] md:h-[260px] w-full overflow-hidden bg-gray-100">
+      {/* Lazyload Shimmer Placeholder - Shown before and during image fetch */}
+      {!isLoaded && !hasError && (
+        <div className="absolute inset-0 z-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse flex items-center justify-center">
+          <div className="h-6 w-6 rounded-full border-2 border-gray-300 border-t-[#980E27] animate-spin opacity-40" />
+        </div>
+      )}
+
+      {/* Fallback if image fails or is missing - No dummy image */}
+      {hasError ? (
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-100 p-4 text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#fff1f3] text-[#980E27] mb-2 shadow-xs">
+            <FiImage className="h-6 w-6" />
+          </div>
+          <span className="text-xs font-medium text-gray-500 max-w-[200px] truncate">{alt}</span>
+        </div>
+      ) : (
+        <Image
+          src={cleanUrl!}
+          alt={alt}
+          fill
+          unoptimized
+          loading="lazy"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          onLoad={() => setLoadedUrl(cleanUrl)}
+          onError={() => setErrorUrl(cleanUrl)}
+          className={`object-cover object-center transition-all duration-500 group-hover:scale-105 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      )}
+    </div>
   );
 }
+
 
 export default function ProductGrid() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -90,9 +115,9 @@ export default function ProductGrid() {
             {[1, 2, 3, 4, 5, 6].map((idx) => (
               <div
                 key={idx}
-                className="animate-pulse bg-white p-4 shadow-xs border border-gray-100"
+                className="animate-pulse bg-white p-4 shadow-xs border border-gray-100 flex flex-col"
               >
-                <div className="h-48 w-full bg-gray-200" />
+                <div className="h-[240px] md:h-[260px] w-full bg-gray-200" />
                 <div className="mt-4 h-6 w-3/4 bg-gray-200" />
                 <div className="mt-2 h-4 w-full bg-gray-200" />
                 <div className="mt-1 h-4 w-5/6 bg-gray-200" />
@@ -112,13 +137,13 @@ export default function ProductGrid() {
                 className="group flex flex-col bg-white border border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden transition-all duration-300 hover:shadow-[0_12px_32px_rgba(152,14,39,0.12)] hover:-translate-y-1"
               >
                 {/* Card Image Header */}
-                <div className="relative w-full overflow-hidden bg-gray-100">
+                <div className="relative w-full overflow-hidden">
                   <CategoryCardImage
                     src={category.image_url}
+                    imagePath={category.image}
                     alt={category.name}
-                    fallback={FallbackImage}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
 
                 {/* Card Body */}

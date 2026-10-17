@@ -119,7 +119,8 @@ const Hero = () => {
             transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             className="hidden md:block text-sm sm:text-base md:text-base lg:text-sm xl:text-[15px] 2xl:text-lg text-[#474747] leading-relaxed max-w-2xl font-normal mx-auto md:mx-0"
           >
-            Merchem provides specialty chemical solutions engineered for performance, consistency, and process efficiency across Tyre, Rubber, Latex, and industrial applications.
+            Born in the State of Kerala, God’s Own Country — the heartland of natural rubber in southern India — Merchem has been a trusted name in rubber processing chemicals since 1981.
+Powered by state-of-the-art technology and driven by a commitment to innovation and quality, Merchem delivers vital chemical solutions engineered to enhance performance, ensure consistency, and improve process efficiency across tyre and non-tyre rubber applications.
           </motion.p>
 
           {/* Call-to-Action Buttons */}

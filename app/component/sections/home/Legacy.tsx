@@ -68,8 +68,29 @@ const Legacy = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-5 xl:mt-5 2xl:mt-6 space-y-1"
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="mt-4 xl:mt-4 2xl:mt-5 space-y-3 xl:space-y-3 2xl:space-y-4 max-w-[680px] text-sm sm:text-base lg:text-[15px] xl:text-[15px] 2xl:text-[18px] text-[#474747] leading-relaxed font-normal"
+          >
+            {/* <p>
+              Born in the State of Kerala, God’s Own Country — the heartland of
+              natural rubber in southern India — Merchem has been a trusted name
+              in rubber processing chemicals since 1981.
+            </p>
+            <p>
+              Powered by state-of-the-art technology and driven by a commitment
+              to innovation and quality, Merchem delivers vital chemical
+              solutions engineered to enhance performance, ensure consistency,
+              and improve process efficiency across tyre and non-tyre rubber
+              applications.
+            </p> */}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-6 xl:mt-6 2xl:mt-7 space-y-1"
           >
             <p className="text-base font-semibold leading-tight text-black sm:text-lg lg:text-base xl:text-base 2xl:text-lg">
               NURTURING NATURE FOR FUTURE GENERATIONS

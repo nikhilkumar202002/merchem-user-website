@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowRight, FiFileText, FiChevronRight, FiMail, FiPhone, FiGrid, FiDownload } from "react-icons/fi";
+import { FiArrowRight, FiChevronRight, FiMail, FiPhone, FiGrid, FiDownload, FiImage } from "react-icons/fi";
 import Breadcrumbs from "@/app/component/common/Breadcrumbs";
 import TdsForm from "@/app/component/common/TdsForm";
 import {
@@ -13,8 +13,8 @@ import {
   getPublicProducts,
   CatalogueCategory,
   PublicProduct,
+  resolveProductImageUrl,
 } from "@/app/utils/ProductService";
-import FallbackImage from "@/public/images/About-image-1.webp";
 
 interface CategoryDetailClientProps {
   slug?: string;
@@ -22,32 +22,58 @@ interface CategoryDetailClientProps {
 
 function CategoryBannerImage({
   src,
+  imagePath,
   alt,
-  fallback,
 }: {
   src?: string | null;
+  imagePath?: string | null;
   alt: string;
-  fallback: any;
 }) {
-  const [imgSrc, setImgSrc] = useState<any>(src || fallback);
+  const [loadedUrl, setLoadedUrl] = useState<string | null>(null);
+  const [errorUrl, setErrorUrl] = useState<string | null>(null);
 
-  useEffect(() => {
-    setImgSrc(src || fallback);
-  }, [src, fallback]);
+  const cleanUrl = resolveProductImageUrl(src, imagePath);
+
+  const isLoaded = Boolean(cleanUrl && loadedUrl === cleanUrl);
+  const hasError = Boolean(!cleanUrl || errorUrl === cleanUrl);
 
   return (
-    <Image
-      src={imgSrc}
-      alt={alt}
-      width={900}
-      height={500}
-      unoptimized
-      priority
-      onError={() => setImgSrc(fallback)}
-      className="w-full h-auto object-cover"
-    />
+    <div className="relative h-[260px] sm:h-[320px] md:h-[380px] w-full overflow-hidden bg-gray-100">
+      {/* Lazyload Shimmer Placeholder - Shown before and during image fetch */}
+      {!isLoaded && !hasError && (
+        <div className="absolute inset-0 z-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse flex items-center justify-center">
+          <div className="h-8 w-8 rounded-full border-2 border-gray-300 border-t-[#980E27] animate-spin opacity-40" />
+        </div>
+      )}
+
+      {/* Fallback if image fails or is missing - No dummy image */}
+      {hasError ? (
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-100 p-6 text-center">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#fff1f3] text-[#980E27] mb-3 shadow-xs">
+            <FiImage className="h-7 w-7" />
+          </div>
+          <span className="text-sm font-semibold text-gray-700">{alt}</span>
+        </div>
+      ) : (
+        <Image
+          src={cleanUrl!}
+          alt={alt}
+          fill
+          unoptimized
+          loading="lazy"
+          priority={false}
+          sizes="(max-width: 1024px) 100vw, 66vw"
+          onLoad={() => setLoadedUrl(cleanUrl)}
+          onError={() => setErrorUrl(cleanUrl)}
+          className={`object-cover object-center transition-all duration-500 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      )}
+    </div>
   );
 }
+
 
 export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailClientProps) {
   const routeParams = useParams();
@@ -176,11 +202,11 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
           {/* Main Content Area (8 Cols) */}
           <div className="lg:col-span-8 space-y-8">
             {/* Category Banner Image */}
-            <div className="relative w-full overflow-hidden bg-gray-100 border border-gray-200">
+            <div className="relative w-full overflow-hidden border border-gray-200">
               <CategoryBannerImage
                 src={category.image_url}
+                imagePath={category.image}
                 alt={category.name}
-                fallback={FallbackImage}
               />
             </div>
 
@@ -239,10 +265,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                                 <h4 className="text-base font-bold text-black group-hover:text-[#980E27] transition-colors">
                                   {prod.name}
                                 </h4>
-                                <div className="mt-2 flex items-center gap-2 text-xs text-slate-500">
-                                  <FiFileText className="h-3.5 w-3.5 text-[#980E27]" />
-                                  <span>{prod.tds_available ? "Technical Data Sheet Available" : "TDS Available on Request"}</span>
-                                </div>
+                             
 
                                 {desc && (
                                   <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">
@@ -308,10 +331,7 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
                             <h4 className="text-base font-bold text-black group-hover:text-[#980E27] transition-colors">
                               {prod.name}
                             </h4>
-                            <div className="mt-2 flex items-center gap-2 text-xs text-slate-500">
-                              <FiFileText className="h-3.5 w-3.5 text-[#980E27]" />
-                              <span>{prod.tds_available ? "Technical Data Sheet Available" : "TDS Available on Request"}</span>
-                            </div>
+                          
 
                             {desc && (
                               <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">

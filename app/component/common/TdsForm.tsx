@@ -6,13 +6,15 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { submitPublicTdsRequest } from "@/app/utils/Enquiry";
 
+export type TdsProductItem = string | { id: number | string; name: string };
+
 export interface TdsFormProps {
   /** ID of the product for TDS request */
   productId?: number | string;
   /** Name of the automatically selected product */
   selectedProduct?: string;
   /** Optional list of products if selectable */
-  productList?: string[];
+  productList?: TdsProductItem[];
   /** Callback fired after successful form submission */
   onSuccess?: () => void;
   /** Callback for modal close button if rendered inside a modal */
@@ -34,6 +36,7 @@ export default function TdsForm({
   title = "Request Technical Data Sheet (TDS)",
   className = "",
 }: TdsFormProps) {
+  const [currentProductId, setCurrentProductId] = useState<number | string | undefined>(productId);
   const [formData, setFormData] = useState({
     product: selectedProduct,
     fullName: "",
@@ -55,9 +58,30 @@ export default function TdsForm({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleProductSelect = (selectedName: string) => {
+    setFormData((prev) => ({ ...prev, product: selectedName }));
+    const found = productList.find((p) =>
+      typeof p === "string" ? p === selectedName : p.name === selectedName
+    );
+    if (found && typeof found !== "string" && found.id) {
+      setCurrentProductId(found.id);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
+
+    const parsedProductId = currentProductId
+      ? typeof currentProductId === "number"
+        ? currentProductId
+        : parseInt(String(currentProductId), 10)
+      : undefined;
+
+    if (!parsedProductId || isNaN(parsedProductId)) {
+      setErrorMessage("A valid product is required to submit a TDS request.");
+      return;
+    }
 
     // Required fields verification (Full Name, Company, Email, Phone)
     if (!formData.fullName.trim() || !formData.companyName.trim() || !formData.email.trim() || !formData.phone.trim()) {
@@ -68,20 +92,23 @@ export default function TdsForm({
     setIsSubmitting(true);
 
     try {
-      const parsedProductId = productId ? (typeof productId === "number" ? productId : parseInt(String(productId), 10)) : undefined;
-
-      await submitPublicTdsRequest({
-        product_id: parsedProductId && !isNaN(parsedProductId) ? parsedProductId : undefined,
-        product_name: formData.product,
-        product: formData.product,
-        name: formData.fullName,
-        full_name: formData.fullName,
-        company_name: formData.companyName,
-        email: formData.email,
-        phone: formData.phone,
-        location: formData.location || undefined,
-        message: formData.message || undefined,
+      const res = await submitPublicTdsRequest({
+        product_id: parsedProductId,
+        name: formData.fullName.trim(),
+        company_name: formData.companyName.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        location: formData.location.trim() || undefined,
+        message: formData.message.trim() || undefined,
       });
+
+      if (res && res.success === false) {
+        const errorList =
+          res.errors && typeof res.errors === "object"
+            ? Object.values(res.errors).flat().join(" ")
+            : "";
+        throw new Error(errorList || res.message || "Failed to submit TDS request.");
+      }
 
       setIsSuccess(true);
       if (onSuccess) onSuccess();
@@ -209,14 +236,18 @@ export default function TdsForm({
                 <select
                   name="product"
                   value={formData.product}
-                  onChange={handleChange}
+                  onChange={(e) => handleProductSelect(e.target.value)}
                   className="w-full rounded-md border border-gray-300 bg-gray-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 outline-none focus:border-[#980E27]"
                 >
-                  {productList.map((prod) => (
-                    <option key={prod} value={prod}>
-                      {prod}
-                    </option>
-                  ))}
+                  {productList.map((prod) => {
+                    const name = typeof prod === "string" ? prod : prod.name;
+                    const key = typeof prod === "string" ? prod : prod.id;
+                    return (
+                      <option key={key} value={name}>
+                        {name}
+                      </option>
+                    );
+                  })}
                 </select>
               ) : (
                 <div className="relative">

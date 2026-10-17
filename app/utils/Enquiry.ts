@@ -1,16 +1,16 @@
 import api from './axios';
 
 export interface PublicTdsRequestPayload {
-  product_id?: number | string;
-  product_name?: string;
-  product?: string;
-  name?: string;
-  full_name?: string;
+  product_id: number | string;
+  name: string;
   company_name: string;
   email: string;
   phone: string;
   location?: string;
   message?: string;
+  product_name?: string;
+  product?: string;
+  full_name?: string;
 }
 
 export interface PublicEnquiryPayload {
@@ -24,10 +24,11 @@ export interface PublicEnquiryPayload {
   message: string;
 }
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   message?: string;
   data?: T;
+  errors?: Record<string, string[]>;
 }
 
 /**

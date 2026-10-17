@@ -54,35 +54,65 @@ const ContactForm = () => {
     e.preventDefault();
     setErrorMessage("");
 
-    if (!formData.fullName.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setErrorMessage("Please fill in all required fields (Full Name, Email, Message).");
+    if (
+      !formData.fullName.trim() ||
+      !formData.companyName.trim() ||
+      !formData.email.trim() ||
+      !formData.phone.trim() ||
+      !formData.enquiryType.trim() ||
+      !formData.subject.trim() ||
+      !formData.message.trim()
+    ) {
+      setErrorMessage("Please fill in all required fields (Full Name, Company Name, Email, Phone, Enquiry Type, Subject, Message).");
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const selectedCategoryObj = categories.find(
-        (c) => c.name === formData.productCategory || String(c.id) === formData.productCategory
-      );
+      let productCategoryId: number | undefined = undefined;
+      if (formData.productCategory) {
+        const found = categories.find(
+          (c) => String(c.id) === formData.productCategory || c.name === formData.productCategory
+        );
+        if (found) {
+          productCategoryId = Number(found.id);
+        } else if (!isNaN(Number(formData.productCategory))) {
+          productCategoryId = Number(formData.productCategory);
+        }
+      }
 
-      await submitPublicEnquiry({
-        full_name: formData.fullName,
-        company_name: formData.companyName || undefined,
-        email: formData.email,
-        phone: formData.phone || undefined,
-        enquiry_type: formData.enquiryType || undefined,
-        product_category_id: selectedCategoryObj?.id || undefined,
-        subject: formData.subject || undefined,
-        message: formData.message,
+      const res = await submitPublicEnquiry({
+        full_name: formData.fullName.trim(),
+        company_name: formData.companyName.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        enquiry_type: formData.enquiryType,
+        product_category_id: productCategoryId,
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
       });
+
+      if (res && res.success === false) {
+        throw new Error(res.message || "Failed to submit enquiry.");
+      }
 
       setIsSuccess(true);
     } catch (err: any) {
       console.error("Enquiry submission error:", err);
-      setErrorMessage(
-        err?.message || err?.error || "Failed to submit enquiry. Please check your details and try again."
-      );
+      let msg = "Failed to submit enquiry. Please check your details and try again.";
+      if (err?.response?.data) {
+        const data = err.response.data;
+        if (data.errors && typeof data.errors === "object") {
+          const errorList = Object.values(data.errors).flat().join(" ");
+          msg = errorList || data.message || msg;
+        } else if (data.message) {
+          msg = data.message;
+        }
+      } else if (err?.message) {
+        msg = err.message;
+      }
+      setErrorMessage(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -229,6 +259,7 @@ const ContactForm = () => {
                   required
                   options={[
                     "Product Enquiry",
+                    "TDS Request",
                     "Technical Information",
                     "Business Partnership",
                     "Career Enquiry",
@@ -244,7 +275,7 @@ const ContactForm = () => {
                   options={categories.map((c) => ({
                     id: c.id,
                     label: c.name,
-                    value: c.name,
+                    value: String(c.id),
                   }))}
                   placeholder={
                     loadingCategories ? "Loading categories..." : "Select a category"

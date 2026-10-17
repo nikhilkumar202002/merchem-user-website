@@ -1,11 +1,10 @@
 import React from "react";
 import BlogDetailClient from "@/app/component/sections/blog/BlogDetailClient";
+import BlogService from "@/app/utils/BlogService";
 
 export async function generateStaticParams() {
   try {
-    const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.merchem.com/api";
-    const res = await fetch(`${apiBase}/v1/public/blogs`, { next: { revalidate: 60 } });
-    const result = await res.json();
+    const result = await BlogService.getBlogs();
     if (result && result.success && Array.isArray(result.data) && result.data.length > 0) {
       return result.data.map((blog: { slug: string }) => ({
         slug: blog.slug,
@@ -15,11 +14,9 @@ export async function generateStaticParams() {
     console.error("Error generating static params for blogs:", error);
   }
 
-  // Default fallback slug if API is unreachable at build time
-  return [
-    { slug: "understanding-rubber-accelerators-in-modern-manufacturing" },
-  ];
+  return [];
 }
+
 
 interface PageProps {
   params: Promise<{

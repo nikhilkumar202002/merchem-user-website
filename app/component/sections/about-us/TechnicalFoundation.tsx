@@ -44,7 +44,7 @@ const TechnicalFoundation = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="pb-4 2xl:pb-5 font-manrope text-3xl font-bold leading-[1.14] tracking-[-0.035em] text-[#000000] sm:text-4xl lg:text-[34px] xl:text-[36px] 2xl:text-[46px]"
             >
-              R&amp;D and Quality Control — The Key to Our Success
+              Research & Development and Quality Control — The Cornerstones of Our Success
             </motion.h2>
 
             <motion.div
@@ -55,28 +55,17 @@ const TechnicalFoundation = () => {
               className="space-y-4 xl:space-y-4 2xl:space-y-5 text-sm font-normal leading-[1.45] text-[#474747] sm:text-[16px] lg:text-[15px] xl:text-[15px] 2xl:text-[17px]"
             >
               <p>
-                At Merchem, Research &amp; Development and Quality Control are
-                integral to our operations. We continuously invest in advanced
-                technology, modern testing equipment and innovative approaches
-                to develop and improve products that meet the changing
-                requirements of the industry.
+                At Merchem, Research & Development (R&D) and Quality Control (QC) are at the heart of our commitment to innovation, quality and customer satisfaction. We continually invest in advanced technologies, modern analytical and testing equipment, and innovative methodologies to develop, enhance and deliver high-performance chemical solutions that meet the evolving needs of the industry.
               </p>
               <p>
-                Our experienced R&amp;D and technical teams are involved in new
-                product development, product improvement, process optimization
-                and application-oriented technical solutions.
+                Our experienced R&D and technical teams drive new product development, continuous product improvement, process optimization and application-focused technical solutions. By combining scientific expertise with practical industry knowledge, we strive to improve product performance, manufacturing efficiency and process reliability.
+Through the adoption of advanced analytical techniques and modern testing facilities, we ensure stringent quality standards, consistent product characteristics and dependable performance.
               </p>
               <p>
-                The adoption of modern equipment and analytical technologies
-                helps us maintain high standards of product consistency,
-                reliability and performance.
+               Quality is embedded at every stage of our operations — from raw material selection and manufacturing to laboratory testing and final product dispatch. Well-defined quality parameters, systematic inspection procedures and rigorous testing protocols enable us to maintain consistency, reliability and confidence in every product we deliver.
               </p>
               <p>
-                Quality is controlled through well-defined quality parameters
-                and systematic procedures at every stage, from raw material
-                selection and manufacturing through testing and final product
-                dispatch. This disciplined approach enables us to deliver
-                consistent and dependable products to our customers.
+               At Merchem, scientific expertise, continuous innovation and uncompromising quality form the foundation of lasting customer trust and long-term partnerships.
               </p>
             </motion.div>
           </div>

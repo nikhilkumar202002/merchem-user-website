@@ -211,11 +211,48 @@ export const getPublicProducts = async (params: Record<string, any> = {}): Promi
   return response.data;
 };
 
+/**
+ * Safely resolves and normalizes product/category image URLs.
+ * Handles HTTPS upgrades (preventing live Mixed Content errors),
+ * relative storage paths, and fallback from image_url to image path.
+ */
+export const resolveProductImageUrl = (
+  imageUrl?: string | null,
+  imagePath?: string | null
+): string | null => {
+  let url = imageUrl ? imageUrl.trim() : '';
+
+  if (!url && imagePath) {
+    const cleanPath = imagePath.trim().replace(/^\//, '');
+    url = cleanPath.startsWith('http')
+      ? cleanPath
+      : `https://api.merchem.com/storage/${cleanPath}`;
+  }
+
+  if (!url) return null;
+
+  // Upgrade http to https for api.merchem.com to avoid Mixed Content blocking on HTTPS live sites
+  if (url.startsWith('http://api.merchem.com')) {
+    url = url.replace('http://api.merchem.com', 'https://api.merchem.com');
+  }
+
+  // Handle relative storage paths
+  if (url.startsWith('/storage/')) {
+    url = `https://api.merchem.com${url}`;
+  } else if (url.startsWith('storage/')) {
+    url = `https://api.merchem.com/${url}`;
+  }
+
+  return url;
+};
+
 const ProductService = {
   getProductCategories,
   getProductCategoryBySlug,
   getProductCatalogue,
   getPublicProducts,
+  resolveProductImageUrl,
 };
 
 export default ProductService;
+
