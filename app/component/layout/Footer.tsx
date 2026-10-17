@@ -110,7 +110,7 @@ const Footer = () => {
             <div className="flex items-start gap-2.5">
               <FiMapPin className="w-4 h-4 text-[#980E27] shrink-0 mt-0.5" />
               <a
-                href="https://maps.app.goo.gl/XL3iRPWm8YS6ufQY6"
+                href="https://maps.app.goo.gl/z3TJ8JxPZ38Bmuoa6"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="space-y-0.5 hover:text-[#980E27] transition-colors"
@@ -128,10 +128,10 @@ const Footer = () => {
             <div className="flex items-center gap-2.5">
               <GiRotaryPhone className="w-4 h-4 text-[#980E27] shrink-0" />
               <a
-                href="tel:04843510629"
+                href="tel:+914843510629"
                 className="font-bold text-[#000000] hover:text-[#980E27] transition-colors"
               >
-                0484 3510629
+                +91 4843510629
               </a>
             </div>
 

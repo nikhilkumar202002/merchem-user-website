@@ -155,20 +155,37 @@ const ContactForm = () => {
             </p>
             <div className="mt-7 space-y-5 xl:space-y-5 2xl:space-y-7">
               <ContactItem icon={FiMapPin} title="Our Office">
-                <strong className="block text-[#202020]">
-                  MERCHEM INDIA (P) LIMITED
-                </strong>
-                <span>
-                  45A Development Plot, Kalamassery, Ernakulam – 683104, Kerala,
-                  India.
-                </span>
+                <a
+                  href="https://maps.app.goo.gl/z3TJ8JxPZ38Bmuoa6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group"
+                >
+                  <strong className="block text-[#202020] transition-colors group-hover:text-[#980E27]">
+                    MERCHEM INDIA PRIVATE LIMITED
+                  </strong>
+                  <span className="transition-colors group-hover:text-[#980E27]">
+                    45A Development Plot, Kalamassery, Ernakulam – 683104, Kerala,
+                    India.
+                  </span>
+                </a>
               </ContactItem>
               <ContactItem icon={FiPhone} title="Call Us">
-                <strong className="block text-[#202020]">0484 3510629</strong>
+                <a
+                  href="tel:+914843510629"
+                  className="block font-bold text-[#202020] transition-colors hover:text-[#980E27]"
+                >
+                  +91 4843510629
+                </a>
                 <span>For general and product enquiries.</span>
               </ContactItem>
               <ContactItem icon={FiMail} title="Email Us">
-                <strong className="block text-[#202020]">mail@merchem.com</strong>
+                <a
+                  href="mailto:mail@merchem.com"
+                  className="block font-bold text-[#202020] transition-colors hover:text-[#980E27]"
+                >
+                  mail@merchem.com
+                </a>
                 <span>Send us your questions and product requirements.</span>
               </ContactItem>
             </div>

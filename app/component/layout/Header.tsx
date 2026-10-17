@@ -135,11 +135,11 @@ const Header = () => {
                             <div className="h-3.5 w-[1px] bg-white/30 shrink-0" />
 
                             <a
-                                href="tel:04843510629"
+                                href="tel:+914843510629"
                                 className="flex items-center gap-2 hover:opacity-90 transition-opacity shrink-0"
                             >
                                 <GiRotaryPhone className="w-5 h-5" />
-                                <span>0484 3510629</span>
+                                <span>+91 4843510629</span>
                             </a>
 
                             {/* <div className="h-3.5 w-[1px] bg-white/30 shrink-0" /> */}
@@ -395,7 +395,7 @@ const Header = () => {
                                         <div className="w-8 h-8 rounded-full bg-white shadow-xs flex items-center justify-center text-[#980E27] shrink-0">
                                             <GiRotaryPhone className="w-4.5 h-4.5" />
                                         </div>
-                                        <span className="font-medium text-xs sm:text-sm">0484 3510629</span>
+                                        <span className="font-medium text-xs sm:text-sm">+914843510629</span>
                                     </a>
                                 </div>
 

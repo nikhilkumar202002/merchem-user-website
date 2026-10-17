@@ -26,10 +26,22 @@ const ContactMap = () => {
             </p>
 
             <div className="mt-6 border-l-2 border-[#980E27] pl-5 text-sm leading-[1.5] text-[#474747] xl:text-[14px] 2xl:text-base">
-              <p className="font-bold text-[#202020]">Merchem India (P) Limited</p>
-              <p className="mt-1">
-                45A Development Plot, Kalamassery, Ernakulam – 683104, Kerala
-              </p>
+              <a
+                href="https://maps.app.goo.gl/z3TJ8JxPZ38Bmuoa6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block hover:text-[#980E27] transition-colors"
+              >
+                <p className="font-bold text-[#202020] transition-colors group-hover:text-[#980E27]">
+                  Merchem India (P) Limited
+                </p>
+                <p className="mt-1 transition-colors group-hover:text-[#980E27]">
+                  45A Development Plot, Kalamassery, Ernakulam – 683104, Kerala
+                </p>
+                <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-[#980E27] group-hover:underline">
+                  Open in Google Maps →
+                </span>
+              </a>
             </div>
           </motion.div>
 
@@ -42,7 +54,7 @@ const ContactMap = () => {
           >
             <iframe
               title="Merchem India office location"
-              src="https://www.google.com/maps?q=45A+Development+Plot,+Kalamassery,+Ernakulam,+Kerala+683104&output=embed"
+              src="https://maps.google.com/maps?q=10.0480556,76.3095833&hl=en&z=17&output=embed"
               className="h-full w-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

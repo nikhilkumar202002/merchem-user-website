@@ -18,6 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.merchem.com'),
   title: "Merchem India | Rubber Chemicals & Specialty Chemicals",
   description: "Merchem India provides specialty chemical solutions for rubber, latex, tyres, paints and industrial applications, including accelerators, antidegradants and processing aids.",
   icons: {
