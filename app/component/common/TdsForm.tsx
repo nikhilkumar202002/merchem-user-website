@@ -35,6 +35,7 @@ export default function TdsForm({
   onSuccess,
   onClose,
   title = "Request Technical Data Sheet (TDS)",
+  subtitle,
   className = "",
 }: TdsFormProps) {
   const [currentProductId, setCurrentProductId] = useState<number | string | undefined>(productId);
@@ -174,7 +175,7 @@ export default function TdsForm({
       )}
 
       {/* Header */}
-      <div className="mb-3.5 pr-8">
+      <div className="mb-3 pr-8">
         <div className="flex items-center gap-1.5 text-[#980E27] font-semibold text-[11px] uppercase tracking-wider">
           <FiFileText className="h-3.5 w-3.5" />
           <span>TDS Download Request</span>
@@ -182,6 +183,9 @@ export default function TdsForm({
         <h3 className="mt-0.5 font-manrope text-lg sm:text-xl font-bold text-black leading-tight">
           {title}
         </h3>
+        {subtitle && (
+          <p className="mt-0.5 text-xs text-slate-500 leading-snug">{subtitle}</p>
+        )}
       </div>
 
       <AnimatePresence mode="wait">
@@ -235,43 +239,59 @@ export default function TdsForm({
               </div>
             )}
 
-            {/* Field: Product (Auto-selected or selectable) */}
-            <div>
-              <div className="mb-1 flex items-center justify-between text-xs sm:text-sm font-semibold text-[#202020]">
-                <span>
-                  Product <em className="not-italic text-[11px] font-normal text-slate-500">(Automatically selected)</em>
-                </span>
-                <span className="flex items-center gap-1 text-[10px] sm:text-[11px] font-normal text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                  <FiLock className="h-2.5 w-2.5" /> Auto-Selected
-                </span>
+            {/* Field: Product & Location */}
+            <div className="grid gap-2.5 sm:grid-cols-2">
+              <div>
+                <div className="mb-1 flex items-center justify-between text-xs sm:text-sm font-semibold text-[#202020]">
+                  <span>
+                    Product <em className="not-italic text-[11px] font-normal text-slate-500">(Auto-selected)</em>
+                  </span>
+                  <span className="flex items-center gap-1 text-[10px] sm:text-[11px] font-normal text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                    <FiLock className="h-2.5 w-2.5" /> Auto-Selected
+                  </span>
+                </div>
+
+                {productList && productList.length > 0 ? (
+                  <select
+                    name="product"
+                    value={formData.product}
+                    onChange={(e) => handleProductSelect(e.target.value)}
+                    className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-900 outline-none focus:border-[#980E27]"
+                  >
+                    {productList.map((prod) => {
+                      const name = typeof prod === "string" ? prod : prod.name;
+                      const key = typeof prod === "string" ? prod : prod.id;
+                      return (
+                        <option key={key} value={name}>
+                          {name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    name="product"
+                    value={formData.product}
+                    readOnly
+                    className="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[#980E27] cursor-not-allowed outline-none select-none"
+                  />
+                )}
               </div>
 
-              {productList && productList.length > 0 ? (
-                <select
-                  name="product"
-                  value={formData.product}
-                  onChange={(e) => handleProductSelect(e.target.value)}
-                  className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-900 outline-none focus:border-[#980E27]"
-                >
-                  {productList.map((prod) => {
-                    const name = typeof prod === "string" ? prod : prod.name;
-                    const key = typeof prod === "string" ? prod : prod.id;
-                    return (
-                      <option key={key} value={name}>
-                        {name}
-                      </option>
-                    );
-                  })}
-                </select>
-              ) : (
+              <div>
+                <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
+                  Location <span className="text-[11px] font-normal text-slate-500">(Optional)</span>
+                </label>
                 <input
                   type="text"
-                  name="product"
-                  value={formData.product}
-                  readOnly
-                  className="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[#980E27] cursor-not-allowed outline-none select-none"
+                  name="location"
+                  placeholder="City, Country or Region"
+                  value={formData.location}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
                 />
-              )}
+              </div>
             </div>
 
             {/* Field: Full Name & Company Name */}
@@ -340,35 +360,19 @@ export default function TdsForm({
               </div>
             </div>
 
-            {/* Field: Location & Message */}
-            <div className="grid gap-2.5 sm:grid-cols-2">
-              <div>
-                <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
-                  Location <span className="text-[11px] font-normal text-slate-500">(Optional)</span>
-                </label>
-                <input
-                  type="text"
-                  name="location"
-                  placeholder="City, Country"
-                  value={formData.location}
-                  onChange={handleChange}
-                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
-                />
-              </div>
-
-              <div>
-                <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
-                  Message / Requirement <span className="text-[11px] font-normal text-slate-500">(Optional)</span>
-                </label>
-                <input
-                  type="text"
-                  name="message"
-                  placeholder="Quantity, requirements..."
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
-                />
-              </div>
+            {/* Field: Message / Requirement Description (on next row) */}
+            <div>
+              <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
+                Message / Description <span className="text-[11px] font-normal text-slate-500">(Optional)</span>
+              </label>
+              <textarea
+                name="message"
+                rows={2}
+                placeholder="Specify any details, application parameters or quantity requirements..."
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full resize-y rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
+              />
             </div>
 
             {/* Bottom Row: reCAPTCHA & Submit Button side-by-side on sm: */}
