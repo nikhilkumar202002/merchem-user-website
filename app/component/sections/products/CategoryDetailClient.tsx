@@ -418,8 +418,14 @@ export default function CategoryDetailClient({ slug: propSlug }: CategoryDetailC
 
       {/* TDS Request Modal */}
       {selectedTdsProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-xl max-h-[90vh] overflow-y-auto">
+        <div
+          onClick={() => setSelectedTdsProduct(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-2xl max-h-[96vh] overflow-y-auto"
+          >
             <TdsForm
               productId={selectedTdsProduct.id}
               selectedProduct={selectedTdsProduct.name}

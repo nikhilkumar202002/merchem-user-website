@@ -11,6 +11,8 @@ export interface PublicTdsRequestPayload {
   product_name?: string;
   product?: string;
   full_name?: string;
+  recaptcha_token?: string;
+  'g-recaptcha-response'?: string;
 }
 
 export interface PublicEnquiryPayload {
@@ -22,6 +24,8 @@ export interface PublicEnquiryPayload {
   product_category_id?: number | string;
   subject?: string;
   message: string;
+  recaptcha_token?: string;
+  'g-recaptcha-response'?: string;
 }
 
 export interface ApiResponse<T = unknown> {

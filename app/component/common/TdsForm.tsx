@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FiCheckCircle, FiFileText, FiLock, FiSend, FiX } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { submitPublicTdsRequest } from "@/app/utils/Enquiry";
+import GoogleRecaptcha, { GoogleRecaptchaRef } from "@/app/component/common/GoogleRecaptcha";
 
 export type TdsProductItem = string | { id: number | string; name: string };
 
@@ -50,6 +51,8 @@ export default function TdsForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<GoogleRecaptchaRef>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -89,6 +92,11 @@ export default function TdsForm({
       return;
     }
 
+    if (!captchaToken) {
+      setErrorMessage("Please complete the reCAPTCHA verification to proceed.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -100,6 +108,8 @@ export default function TdsForm({
         phone: formData.phone.trim(),
         location: formData.location.trim() || undefined,
         message: formData.message.trim() || undefined,
+        recaptcha_token: captchaToken,
+        "g-recaptcha-response": captchaToken,
       });
 
       if (res && res.success === false) {
@@ -126,6 +136,8 @@ export default function TdsForm({
         msg = err.message;
       }
       setErrorMessage(msg);
+      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
     } finally {
       setIsSubmitting(false);
     }
@@ -133,6 +145,8 @@ export default function TdsForm({
 
   const handleReset = () => {
     setIsSuccess(false);
+    setCaptchaToken(null);
+    recaptchaRef.current?.reset();
     setFormData({
       product: selectedProduct,
       fullName: "",
@@ -146,26 +160,26 @@ export default function TdsForm({
 
   return (
     <div
-      className={`relative w-full rounded-xl border border-gray-200 bg-white p-6 shadow-lg sm:p-8 ${className}`}
+      className={`relative w-full rounded-2xl border border-gray-200 bg-white p-5 sm:p-7 shadow-2xl ${className}`}
     >
       {onClose && (
         <button
           onClick={onClose}
           type="button"
           aria-label="Close form"
-          className="absolute right-4 top-4 rounded-full p-2 text-slate-400 hover:bg-gray-100 hover:text-slate-700 transition-colors"
+          className="absolute right-3.5 top-3.5 rounded-full p-1.5 text-slate-400 hover:bg-gray-100 hover:text-slate-700 transition-colors cursor-pointer"
         >
           <FiX className="h-5 w-5" />
         </button>
       )}
 
       {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 text-[#980E27] font-semibold text-[12px] uppercase tracking-wider">
-          <FiFileText className="h-4 w-4" />
+      <div className="mb-3.5 pr-8">
+        <div className="flex items-center gap-1.5 text-[#980E27] font-semibold text-[11px] uppercase tracking-wider">
+          <FiFileText className="h-3.5 w-3.5" />
           <span>TDS Download Request</span>
         </div>
-        <h3 className="mt-1 font-manrope text-[20px] font-bold text-black">
+        <h3 className="mt-0.5 font-manrope text-lg sm:text-xl font-bold text-black leading-tight">
           {title}
         </h3>
       </div>
@@ -177,21 +191,21 @@ export default function TdsForm({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="flex flex-col items-center justify-center py-8 text-center"
+            className="flex flex-col items-center justify-center py-6 text-center"
           >
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#fff1f3] text-[#980E27]">
-              <FiCheckCircle className="h-10 w-10" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#fff1f3] text-[#980E27]">
+              <FiCheckCircle className="h-8 w-8" />
             </div>
-            <h4 className="mt-4 text-xl font-bold text-black">Request Submitted!</h4>
-            <p className="mt-2 max-w-md text-sm text-slate-600">
+            <h4 className="mt-3 text-lg sm:text-xl font-bold text-black">Request Submitted!</h4>
+            <p className="mt-1.5 max-w-md text-xs sm:text-sm text-slate-600">
               Thank you, <strong className="text-slate-900">{formData.fullName}</strong>. Your request for the{" "}
               <strong className="text-[#980E27]">{formData.product}</strong> Technical Data Sheet (TDS) has been received. Our technical team will share the document with <span className="underline font-medium text-slate-800">{formData.email}</span> shortly.
             </p>
-            <div className="mt-6 flex gap-3">
+            <div className="mt-5 flex gap-3">
               <button
                 type="button"
                 onClick={handleReset}
-                className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-gray-50 transition-colors"
+                className="rounded-md border border-gray-300 px-4 py-2 text-xs sm:text-sm font-medium text-slate-700 hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 Submit Another Request
               </button>
@@ -199,7 +213,7 @@ export default function TdsForm({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="rounded-md bg-[#980E27] px-4 py-2 text-sm font-medium text-white hover:bg-[#7d0a1f] transition-colors"
+                  className="rounded-md bg-[#980E27] px-4 py-2 text-xs sm:text-sm font-medium text-white hover:bg-[#7d0a1f] transition-colors cursor-pointer"
                 >
                   Close
                 </button>
@@ -213,31 +227,31 @@ export default function TdsForm({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onSubmit={handleSubmit}
-            className="space-y-4"
+            className="space-y-2.5 sm:space-y-3"
           >
             {errorMessage && (
-              <div className="rounded-md bg-red-50 p-3 text-xs font-medium text-red-700 border border-red-200">
+              <div className="rounded-md bg-red-50 p-2.5 text-xs font-medium text-red-700 border border-red-200">
                 {errorMessage}
               </div>
             )}
 
-            {/* Field: Product (Automatically Selected) */}
+            {/* Field: Product (Auto-selected or selectable) */}
             <div>
-              <label className="mb-1.5 flex items-center justify-between text-sm font-semibold text-[#202020]">
+              <div className="mb-1 flex items-center justify-between text-xs sm:text-sm font-semibold text-[#202020]">
                 <span>
-                  Product <em className="not-italic text-xs font-normal text-slate-500">(Automatically selected)</em>
+                  Product <em className="not-italic text-[11px] font-normal text-slate-500">(Automatically selected)</em>
                 </span>
-                <span className="flex items-center gap-1 text-[11px] font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  <FiLock className="h-3 w-3" /> Auto-Selected
+                <span className="flex items-center gap-1 text-[10px] sm:text-[11px] font-normal text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                  <FiLock className="h-2.5 w-2.5" /> Auto-Selected
                 </span>
-              </label>
+              </div>
 
               {productList && productList.length > 0 ? (
                 <select
                   name="product"
                   value={formData.product}
                   onChange={(e) => handleProductSelect(e.target.value)}
-                  className="w-full rounded-md border border-gray-300 bg-gray-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 outline-none focus:border-[#980E27]"
+                  className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-900 outline-none focus:border-[#980E27]"
                 >
                   {productList.map((prod) => {
                     const name = typeof prod === "string" ? prod : prod.name;
@@ -250,22 +264,20 @@ export default function TdsForm({
                   })}
                 </select>
               ) : (
-                <div className="relative">
-                  <input
-                    type="text"
-                    name="product"
-                    value={formData.product}
-                    readOnly
-                    className="w-full rounded-md border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm font-semibold text-[#980E27] cursor-not-allowed outline-none select-none"
-                  />
-                </div>
+                <input
+                  type="text"
+                  name="product"
+                  value={formData.product}
+                  readOnly
+                  className="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[#980E27] cursor-not-allowed outline-none select-none"
+                />
               )}
             </div>
 
-            {/* Field: Full Name (Required) & Company Name (Required) */}
-            <div className="grid gap-4 sm:grid-cols-2">
+            {/* Field: Full Name & Company Name */}
+            <div className="grid gap-2.5 sm:grid-cols-2">
               <div>
-                <label className="mb-1.5 block text-sm font-semibold text-[#202020]">
+                <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
                   Full Name <em className="not-italic text-[#d3132d]">*</em>
                 </label>
                 <input
@@ -275,12 +287,12 @@ export default function TdsForm({
                   placeholder="Enter your full name"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="w-full rounded-md border border-gray-200 px-3.5 py-2.5 text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
+                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
                 />
               </div>
 
               <div>
-                <label className="mb-1.5 block text-sm font-semibold text-[#202020]">
+                <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
                   Company Name <em className="not-italic text-[#d3132d]">*</em>
                 </label>
                 <input
@@ -290,15 +302,15 @@ export default function TdsForm({
                   placeholder="Enter your company name"
                   value={formData.companyName}
                   onChange={handleChange}
-                  className="w-full rounded-md border border-gray-200 px-3.5 py-2.5 text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
+                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
                 />
               </div>
             </div>
 
-            {/* Field: Email (Required) & Phone (Required) */}
-            <div className="grid gap-4 sm:grid-cols-2">
+            {/* Field: Email & Phone */}
+            <div className="grid gap-2.5 sm:grid-cols-2">
               <div>
-                <label className="mb-1.5 block text-sm font-semibold text-[#202020]">
+                <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
                   Email <em className="not-italic text-[#d3132d]">*</em>
                 </label>
                 <input
@@ -308,12 +320,12 @@ export default function TdsForm({
                   placeholder="name@company.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full rounded-md border border-gray-200 px-3.5 py-2.5 text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
+                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
                 />
               </div>
 
               <div>
-                <label className="mb-1.5 block text-sm font-semibold text-[#202020]">
+                <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
                   Phone <em className="not-italic text-[#d3132d]">*</em>
                 </label>
                 <input
@@ -323,56 +335,75 @@ export default function TdsForm({
                   placeholder="+91-XXXXXXXXXX"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full rounded-md border border-gray-200 px-3.5 py-2.5 text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
+                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
                 />
               </div>
             </div>
 
-            {/* Field: Location (Optional) */}
-            <div>
-              <label className="mb-1.5 block text-sm font-semibold text-[#202020]">
-                Location <span className="text-xs font-normal text-slate-500">(Optional)</span>
-              </label>
-              <input
-                type="text"
-                name="location"
-                placeholder="City, Country or Region"
-                value={formData.location}
-                onChange={handleChange}
-                className="w-full rounded-md border border-gray-200 px-3.5 py-2.5 text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
-              />
+            {/* Field: Location & Message */}
+            <div className="grid gap-2.5 sm:grid-cols-2">
+              <div>
+                <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
+                  Location <span className="text-[11px] font-normal text-slate-500">(Optional)</span>
+                </label>
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="City, Country"
+                  value={formData.location}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs sm:text-sm font-semibold text-[#202020]">
+                  Message / Requirement <span className="text-[11px] font-normal text-slate-500">(Optional)</span>
+                </label>
+                <input
+                  type="text"
+                  name="message"
+                  placeholder="Quantity, requirements..."
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
+                />
+              </div>
             </div>
 
-            {/* Field: Message / Requirement (Optional) */}
-            <div>
-              <label className="mb-1.5 block text-sm font-semibold text-[#202020]">
-                Message / Requirement <span className="text-xs font-normal text-slate-500">(Optional)</span>
-              </label>
-              <textarea
-                name="message"
-                rows={3}
-                placeholder="Specify any details, application parameters or quantity requirements..."
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full resize-y rounded-md border border-gray-200 px-3.5 py-2.5 text-sm outline-none placeholder:text-gray-400 focus:border-[#980E27] focus:ring-1 focus:ring-[#980E27]"
-              />
-            </div>
+            {/* Bottom Row: reCAPTCHA & Submit Button side-by-side on sm: */}
+            <div className="pt-1.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="shrink-0 flex justify-center sm:justify-start">
+                <GoogleRecaptcha
+                  ref={recaptchaRef}
+                  onVerify={(token) => {
+                    setCaptchaToken(token);
+                    setErrorMessage((prev) =>
+                      prev.includes("reCAPTCHA") ? "" : prev
+                    );
+                  }}
+                  onExpire={() => setCaptchaToken(null)}
+                  onError={() => {
+                    setCaptchaToken(null);
+                    setErrorMessage("reCAPTCHA encountered an issue. Please try again.");
+                  }}
+                />
+              </div>
 
-            <div className="pt-2">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex w-full items-center justify-center gap-2 bg-[#980E27] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#7d0a1f] disabled:opacity-75"
+                className="w-full sm:flex-1 h-[48px] sm:h-[78px] flex items-center justify-center gap-2 bg-[#980E27] py-2.5 px-4 text-sm font-semibold text-white transition-colors hover:bg-[#7d0a1f] disabled:opacity-75 rounded-md cursor-pointer shadow-sm"
               >
                 {isSubmitting ? (
                   <>
                     <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                    <span>Submitting Request...</span>
+                    <span>Submitting...</span>
                   </>
                 ) : (
                   <>
-                    <FiSend className="h-4 w-4" />
-                    <span>Request TDS Document</span>
+                    <FiSend className="h-4 w-4 shrink-0" />
+                    <span className="text-center font-bold">Request TDS Document</span>
                   </>
                 )}
               </button>

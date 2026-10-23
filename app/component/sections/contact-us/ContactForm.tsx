@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FiCheckCircle, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { getProductCategories, Category } from "@/app/utils/ProductService";
 import { submitPublicEnquiry } from "@/app/utils/Enquiry";
+import GoogleRecaptcha, { GoogleRecaptchaRef } from "@/app/component/common/GoogleRecaptcha";
 
 const ContactForm = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -24,6 +25,8 @@ const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<GoogleRecaptchaRef>(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -67,6 +70,11 @@ const ContactForm = () => {
       return;
     }
 
+    if (!captchaToken) {
+      setErrorMessage("Please complete the reCAPTCHA verification to proceed.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -91,6 +99,8 @@ const ContactForm = () => {
         product_category_id: productCategoryId,
         subject: formData.subject.trim(),
         message: formData.message.trim(),
+        recaptcha_token: captchaToken,
+        "g-recaptcha-response": captchaToken,
       });
 
       if (res && res.success === false) {
@@ -113,6 +123,8 @@ const ContactForm = () => {
         msg = err.message;
       }
       setErrorMessage(msg);
+      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
     } finally {
       setIsSubmitting(false);
     }
@@ -120,6 +132,8 @@ const ContactForm = () => {
 
   const handleReset = () => {
     setIsSuccess(false);
+    setCaptchaToken(null);
+    recaptchaRef.current?.reset();
     setFormData({
       fullName: "",
       companyName: "",
@@ -325,6 +339,25 @@ const ContactForm = () => {
                   By submitting this form, you agree that Merchem may use your
                   information to respond to your enquiry.
                 </p>
+
+                {/* Google reCAPTCHA */}
+                <div className="sm:col-span-2">
+                  <GoogleRecaptcha
+                    ref={recaptchaRef}
+                    onVerify={(token) => {
+                      setCaptchaToken(token);
+                      setErrorMessage((prev) =>
+                        prev.includes("reCAPTCHA") ? "" : prev
+                      );
+                    }}
+                    onExpire={() => setCaptchaToken(null)}
+                    onError={() => {
+                      setCaptchaToken(null);
+                      setErrorMessage("reCAPTCHA encountered an issue. Please try again.");
+                    }}
+                  />
+                </div>
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
